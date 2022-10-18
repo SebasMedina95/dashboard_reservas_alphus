@@ -1,3 +1,20 @@
+<?php
+  /**Iniciamos las variables de sesión */
+  session_start();
+  // $ruta = ControladorRuta::ctrRuta();
+  $rutaBackend = ControladorRuta::ctrRutaBackend();
+
+  /**Vamos a traernos la información de plantilla */
+  $idPlanilla = 1;
+  $plantillaHotel = ControladorPlantilla::ctrMostrarPlantilla($idPlanilla);
+
+  if(!isset($_SESSION["idEmpleadoLogeado"])){
+    include "views/pages/login.php";
+    return;
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -97,7 +114,6 @@
         // include "vistas/paginas/modulos/modals/modals_contratosAdmins.php";
         // include "vistas/paginas/modulos/modals/modals_conceptos.php";
         // include "vistas/paginas/modulos/modals/modals_fichas.php";
-
         /***************************************** */
         /******** NAVEGACIÓN DE LAS PÁGINAS ****** */
         /***************************************** */
@@ -109,12 +125,12 @@
           /******************************************** */
           /**Si existe, quiere decir que existe como un archivo de proyecto */
           if($_GET["pagina"] == "inicio" || 
-             $_GET["pagina"] == "administradores" ||
-             /**---------- SUB CONTENIDOS DE ADMINISTRADORES ----------*/
-                $_GET["pagina"] == "administradores-contratos" ||
-                $_GET["pagina"] == "administradores-fichas" ||
-                $_GET["pagina"] == "administradores-planillas" ||
-                $_GET["pagina"] == "administradores-generarNomina" ||
+             $_GET["pagina"] == "empleados" ||
+             /**---------- SUB CONTENIDOS DE EMPLEADOS ----------*/
+                $_GET["pagina"] == "empleados-contratos" ||
+                $_GET["pagina"] == "empleados-fichas" ||
+                $_GET["pagina"] == "empleados-planillas" ||
+                $_GET["pagina"] == "empleados-generarNomina" ||
                 $_GET["pagina"] == "configuracion-global" ||
                 $_GET["pagina"] == "configuracion-cargos" ||
                 $_GET["pagina"] == "conceptos" ||
@@ -137,6 +153,17 @@
              $_GET["pagina"] == "salir"){
 
               include "views/pages/".$_GET["pagina"].".php";
+
+              /**Vamos a validar parar cargar los modales ... */
+              /**1. Empleados: 
+               *    Cargamos los modales asociados: */
+              if($_GET["pagina"] == "empleados"){
+                include "views/pages/modals/empleados/modals_admins.php";
+                // include "views/pages/modals/modals/empleados/modals_cargos.php";
+                // include "views/pages/modals/modals/empleados/modals_contratosAdmins.php";
+                // include "views/pages/modals/modals/empleados/modals_conceptos.php";
+                // include "views/pages/modals/modals/empleados/modals_fichas.php";  
+              }
 
           }else{
 
@@ -165,6 +192,7 @@
 <!-- JavaScript personalizados de la plantilla -->
 <!-- <script src="vistas/js/plantilla.js"></script> -->
 <script src="views/resources/js/plantilla.js"></script>
+<script src="views/resources/js/empleados.js"></script>
 
 </html>
 

@@ -1,4 +1,25 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<?php 
+
+$item = "id";
+$valor = $_SESSION["idEmpleadoLogeado"];
+$administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
+
+/**Vamos a traernos la información de plantilla */
+$idPlanilla = 1;
+$plantillaHotel = ControladorPlantilla::ctrMostrarPlantilla($idPlanilla);
+
+?>
+
+<!-- Navbar -->
+<?php if($plantillaHotel["modoOscuroDashboard"] == "2"): ?>
+  <!-- Aplicamos el modo claro -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+<?php else: ?>
+  <!-- Aplicamos el modo oscuro -->
+  <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
+
+<?php endif; ?>
 
   <!-- ********** INFORMACIÓN BIENVENIDA ********** -->
   <ul class="navbar-nav">
@@ -11,7 +32,7 @@
 
     <li class="nav-item d-none d-sm-inline-block">
 
-      <a href="#" class="nav-link"><b>Bienvenido</b>, Empleados del Sistema. </a>
+    <a href="#" class="nav-link"><b>Bienvenido</b>, <?php echo $administrador["primer_nombre"] .' '. $administrador["primer_apellido"] . '. (' . $administrador["perfil"] .')' ?> </a>
 
     </li>
 
@@ -29,7 +50,7 @@
 
           <!-- <div class="image"> -->
 
-            <img src="views/img/plantilla/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="<?php echo $administrador["foto"] ?>" title="<?php echo $administrador["primer_nombre"] .' '. $administrador["segundo_nombre"] .' '. $administrador["primer_apellido"] .' '. $administrador["segundo_apellido"] ?>" class="img-circle" alt="User Image">
 
           <!-- </div> -->
           
@@ -49,7 +70,15 @@
 
           <div class="image">
 
-            <img src="views/img/plantilla/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <?php if(!$administrador["foto"] == ""): ?>
+
+              <img src="<?php echo $administrador["foto"]; ?>" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
+
+            <?php else: ?>
+
+              <img src="../../../vistas/img/admins/default/default.png" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
+
+            <?php endif; ?>
 
           </div>
           
@@ -57,7 +86,7 @@
 
         <div class="dropdown-divider"></div>
         
-        <span class="spanMailLog text-muted text-sm"> JSebastian19952011@hotmail.com </span>
+        <span class="spanMailLog text-muted text-sm"> <?php echo $administrador["email"]; ?> </span>
 
         <div class="dropdown-divider"></div>
 
@@ -65,7 +94,7 @@
 
             <i class="fa-solid fa-book"></i>  Documento:
 
-            <span class="float-right text-muted text-sm"> CC - 1216717949 </span>
+            <span class="float-right text-muted text-sm"> <?php echo $administrador["tipo_documento"] .' - '.$administrador["documento"]; ?> </span>
 
           </a>
 
@@ -75,7 +104,7 @@
 
             <i class="fa-solid fa-user"></i></i> Nombre:
 
-            <span class="float-right text-muted text-sm"> Juan Sebastian </span>
+            <span class="float-right text-muted text-sm"><?php echo $administrador["primer_nombre"] .' '. $administrador["segundo_nombre"]; ?> </span>
 
           </a>
 
@@ -85,7 +114,7 @@
 
             <i class="fa-solid fa-user"></i>  Apellido:
 
-            <span class="float-right text-muted text-sm"> Medina Toro </span>
+            <span class="float-right text-muted text-sm"> <?php echo $administrador["primer_apellido"] .' '. $administrador["segundo_apellido"] ?> </span>
 
           </a>
 
@@ -95,7 +124,7 @@
 
             <i class="fa-solid fa-user-tie"></i>  Rol:
 
-            <span class="float-right text-muted text-sm"> Administrador General </span>
+            <span class="float-right text-muted text-sm"> <?php echo $administrador["perfil"]; ?> </span>
 
           </a>
 
@@ -105,7 +134,7 @@
 
             <i class="fa-solid fa-barcode"></i></i>  Cod. Usuario:
 
-            <span class="float-right text-muted text-sm"> COD123456 </span>
+            <span class="float-right text-muted text-sm"> <?php echo $administrador["usuario"]; ?> </span>
 
           </a>
 
@@ -115,7 +144,7 @@
 
             <i class="fa-solid fa-gear"></i>  Estado
 
-            <span class="float-right text-muted text-sm badge badge-secondary text-white"> Activo </span>
+            <span class="float-right text-muted text-sm badge badge-secondary text-white"> <?php echo $administrador["estado"] == 1 ? 'Activo' : 'Inactivo'; ?> </span>
 
           </a>
 
@@ -194,7 +223,16 @@
       <!-- <a class="nav-link cambiarModoLuz" modo="2" data-widget="control-sidebar" data-slide="true" href="#" role="button"> -->
       <a class="nav-link cambiarModoLuzPlantilla" data-widget="control-sidebar" data-slide="true" href="#" role="button">
 
-        <i title="Modo Oscuro" class="fa-solid fa-moon"></i>
+        <?php if($plantillaHotel["modoOscuroDashboard"] == "2"): ?>
+
+          <i title="Modo Oscuro" class="fa-solid fa-moon"></i>
+
+        <?php else: ?>
+
+          <i title='Modo Claro' class='fa-solid fa-sun'></i>
+
+        <?php endif; ?>
+
 
       </a>
 

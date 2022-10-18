@@ -1,3 +1,11 @@
+<?php 
+
+$item = "id";
+$valor = $_SESSION["idEmpleadoLogeado"];
+$administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
+
+?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
@@ -16,7 +24,15 @@
 
       <div class="image">
 
-          <img src="views/img/plantilla/user2-160x160.jpg" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
+        <?php if(!$administrador["foto"] == ""): ?>
+
+          <img src="<?php echo $administrador["foto"]; ?>" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
+
+        <?php else: ?>
+
+          <img src="../../../vistas/img/admins/default/default.png" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
+
+        <?php endif; ?>
 
       </div>
 
@@ -24,9 +40,9 @@
 
         <a href="#" class="d-block">
 
-          <span class="d-block nombreMenuUserLog1"> Juan Sebastian </span>
+          <span class="d-block nombreMenuUserLog1"> <?php echo $administrador["primer_nombre"] .' '.$administrador["segundo_nombre"] ?> </span>
 
-          <span class="d-block nombreMenuUserLog2"> Medina Toro </span>
+          <span class="d-block nombreMenuUserLog2"> <?php echo $administrador["primer_apellido"] .' '.$administrador["segundo_apellido"] ?> </span>
         
         </a>
 
@@ -87,11 +103,11 @@
 
         <li class="nav-item">
 
-          <a href="administradores" class="nav-link">
+          <a href="empleados" class="nav-link">
 
             <i class="fa-solid fa-user-tie"></i>
 
-            <p>  Administradores</p>
+            <p>  Empleados</p>
 
           </a>
 
