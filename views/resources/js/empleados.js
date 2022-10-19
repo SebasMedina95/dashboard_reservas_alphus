@@ -18,6 +18,7 @@ $.ajax({
 document.addEventListener('DOMContentLoaded' , (e) => {
     let tabla = new DataTable('#tablaEmpleados' , {
         "ajax":"jobs/json/tablaEmpleados.ajax.php",
+        "autoWidth":false,
         "scrollX": true,
         "deferRender": true,
         "retrieve": true,
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded' , (e) => {
         ], 
         "aLengthMenu": [[7, 10, 20, 40, 60, 100 , -1], [7, 10, 20, 40, 60, 100, "Todos"]], 
         "iDisplayLength" : 7,
-        "responsive": true, "lengthChange": true,
+        "responsive": true, "lengthChange": true, "autoWidth": true,
         "dom": '<"top"fp<"clear">>rt<"clear"><"bottom"ilrBfpr<"clear">>',   /**lftirtBpr */
         "buttons": [  
             {  

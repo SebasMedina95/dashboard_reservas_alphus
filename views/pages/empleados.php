@@ -125,7 +125,7 @@
               <!-- ******************************* -->
               <!-- A partir de la tabla tablaEmpleados lo obtendré desde JS para hacer el proceso
               de asignación y trabajar trayendo la data con una petición AJAX. -->
-              <table class="table table-hover table-striped dt-responsive display nowrap" id="tablaEmpleados">
+              <table style="width: 100%;" class="table table-hover table-striped dt-responsive display nowrap" id="tablaEmpleados">
 
                 <thead class="estiloTablasGeneral">
                   
