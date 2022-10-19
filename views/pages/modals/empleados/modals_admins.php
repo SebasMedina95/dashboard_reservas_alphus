@@ -18,7 +18,7 @@
 
                 <div class="modal-header bg-dark">
 
-                    <h5 class="modal-title text-white">Agregar Administrador</h5>
+                    <h5 class="modal-title text-white"> Agregar Empleado</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -520,7 +520,7 @@
 
                 <div class="modal-footer">
 
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar Admin</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar Empleado</button>
 
                     <button type="button" onclick="cancelarAdmins()" class="cancelarAdmins btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Cancelar</button>
 
@@ -549,13 +549,26 @@
 --------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------- -->
+<!-- /***************************************************************/
+     /***** SPINNER DE CARGA PARA EDITAR EMPLEADO/ADMINISTRADOR *****/
+     /***************************************************************/ -->
+<div class="modal fade" tabindex="-1" role="dialog" id="spinnerCargaEditarEmpleado" aria-labelledby="spinnerCargaEditarEmpleado" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="d-flex align-items-center">
+            <h3 class="font-weight-bold text-white">Cargando Información ...</h3>
+            <div class="spinner-border text-warning m-5 ml-auto" style="width: 8rem; height: 8rem;" role="status">
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- ************************************************ -->
 <!-- ***** EDICIÓN DE UN ADMINISTRADOR DEL HOTEL **** -->
 <!-- ************************************************ -->
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminsModalLabel" aria-hidden="true" id="editarAdministrador">
 
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
 
         <form onsubmit="return validarFormularioAdmins('editar');" id="formAdministradores" method="POST" enctype="multipart/form-data">
 
@@ -563,7 +576,7 @@
 
                 <div class="modal-header bg-dark">
 
-                    <h5 class="modal-title text-white">Actualizar Administrador</h5>
+                    <h5 class="modal-title text-white">Actualizar Empleado</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -722,7 +735,7 @@
                             <!-- ************************************************ -->
                             <!-- ********** CORREO ELECTRÓNICO / EMAIL ********** -->
                             <!-- ************************************************ -->
-                            <div class="col-12">
+                            <div class="col-6">
 
                                 <div class="input-group mb-3">
 
@@ -741,7 +754,7 @@
                             <!-- *************************************** -->
                             <!-- ********** PERFIL DE USUARIO ********** -->
                             <!-- *************************************** -->
-                            <div class="col-12">
+                            <div class="col-6">
 
                                 <div class="input-group mb-3">
 
@@ -1000,7 +1013,7 @@
                             <!-- ******************************************* -->
                             <!-- ********** FOTOGRAFÍA PARA ADMIN ********** -->
                             <!-- ******************************************* -->
-                            <div class="col-8">
+                            <div class="col-9">
 
                                 <div class="input-group mb-3">
 
@@ -1018,7 +1031,7 @@
 
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-3">
 
                                 <div class="input-group mb-3">
 
@@ -1086,8 +1099,8 @@
 
                     <?php 
                     
-                        // $actualizarAdministrador = new ControladorAdministradores();
-                        // $actualizarAdministrador -> ctrActualizarAdministrador();
+                        $actualizarEmpleado = new ControladorEmpleados();
+                        $actualizarEmpleado -> ctrActualizarEmpleado();
                     
                     ?>
 
@@ -1095,7 +1108,7 @@
 
                 <div class="modal-footer">
 
-                    <button type="submit" class="text-white btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Actualizar Admin</button>
+                    <button type="submit" class="text-white btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Actualizar Empleados</button>
 
                     <button type="button" class="cancelarAdmins btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Cancelar</button>
 

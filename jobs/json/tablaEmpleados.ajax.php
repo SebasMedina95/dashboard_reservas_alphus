@@ -1,7 +1,7 @@
 <?php 
 
-require_once "../controllers/empleados.controller.php";
-require_once "../models/empleados.model.php";
+require_once "../../controllers/empleados.controller.php";
+require_once "../../models/empleados.model.php";
 
 class TablaEmpleados{
 
@@ -71,11 +71,11 @@ class TablaEmpleados{
             if(!$value["foto"] == ""){
                 $foto = "<img src='".$value["foto"]."' class='img-fluid' style='border-radius: 10px;'>";
             }else{
-                $foto = "<img src='vistas/img/admins/default/default.png' class='img-fluid' style='border-radius: 10px;'>";
+                $foto = "<img src='views/img/admins/default/default.png' class='img-fluid' style='border-radius: 10px;'>";
             }
 
 
-			$acciones = "<div title='Ver Ficha' class='btn-group'><button class='btn btn-success btn-sm fichaAdministrador' data-toggle='modal' data-target='#fichaAdministrador' idAdministrador='".$value["id"]."'><i class='fa-solid fa-file-contract'></i></button><button title='Actualizar Admin' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' data-toggle='modal' data-target='#editarAdministrador' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Admin' class='btn btn-danger btn-sm eliminarAdministrador' onclick='eliminarAdministrador(".$value["id"].")' id='botonElimAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
+			$acciones = "<div title='Ver Ficha' class='btn-group'><button class='btn btn-success btn-sm fichaAdministrador' idAdministrador='".$value["id"]."'><i class='fa-solid fa-file-contract'></i></button><button title='Actualizar Admin' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Admin' class='btn btn-danger btn-sm eliminarAdministrador' onclick='eliminarAdministrador(".$value["id"].")' id='botonElimAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
 		
 		$datosJson .='[
 					  "'."".'",

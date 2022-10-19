@@ -3,7 +3,7 @@
 **********************************************/
 $.ajax({
 
-	"url":"jobs/tablaEmpleados.ajax.php",
+	"url":"jobs/json/tablaEmpleados.ajax.php",
 	success: function(respuesta){
 		
 		//console.log("respuesta", respuesta);
@@ -17,7 +17,7 @@ $.ajax({
 **********************************************************************/
 document.addEventListener('DOMContentLoaded' , (e) => {
     let tabla = new DataTable('#tablaEmpleados' , {
-        "ajax":"jobs/tablaEmpleados.ajax.php",
+        "ajax":"jobs/json/tablaEmpleados.ajax.php",
         "scrollX": true,
         "deferRender": true,
         "retrieve": true,
@@ -243,163 +243,164 @@ document.querySelector("#editarFotoUsuario").addEventListener('change' , (e) =>{
 /*************************************************************
 /************** ACTUALIZACIÓN DE ADMINISTRADORES *************
 /*************************************************************/
-const editarAdministrador = (id) => {
-    /**Capturamos los parámetros que vienen del botón de archivo tablaCargos.ajax.php */
-    let idAdministrador = id;
-    let btnComplet = document.querySelector('#botonEditAdmins'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
-    let imgDefault = "vistas/img/admins/default/default.png";
+async function editarAdministrador(id){
+    try {
+        console.log("Entrando a función editarAdministrador asíncrona ... Cargando Empleado: ");
+        /**Capturamos los parámetros que vienen del botón de archivo tablaCargos.ajax.php */
+        let idAdministrador = id;
+        let btnComplet = document.querySelector('#botonEditAdmins'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+        let imgDefault = "views/img/admins/default/default.png";
 
-    console.log('idAdministrador' , idAdministrador);
-    console.log('btnComplet' , btnComplet);
+        console.log('idAdministrador ==> ' , idAdministrador);
+        console.log('btnComplet ==> ' , btnComplet);
+        console.log('imgDefault ==> ' , imgDefault);
 
-    /**Defino los datos que enviaré a Ajax */
-    let datos = new FormData();
-  	datos.append("idAdministrador", idAdministrador);
+        $('#spinnerCargaEditarEmpleado').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarEmpleado").classList.add("show");
 
-    $.ajax({
-        url:"ajax/administradores.ajax.php",  /******************************************////// AQUI VAMOS, A MODIFICAR LA CARGA ... */
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success:function(respuesta){
+        let respuesta = await fetch("jobs/empleados.ajax.php?"+"idAdministrador="+idAdministrador);
+        json = await respuesta.json();
+        await waitforme(1200);
 
-            console.log(respuesta);
+        $('#spinnerCargaEditarEmpleado').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarEmpleado').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
 
-            let tipoDocuName;
-            if(respuesta["tipo_documento"] == "CC"){
-                tipoDocuName = "Cédula Ciudadania";
-            }else if(respuesta["tipo_documento"] == "TE"){
-                tipoDocuName = "Tarjeta Extranjería"; 
-            }else if(respuesta["tipo_documento"] == "CE"){
-                tipoDocuName = "Cédula Extranjería"; 
-            }else if(respuesta["tipo_documento"] == "LM"){
-                tipoDocuName = "Libreta Militar";
-            }else if(respuesta["tipo_documento"] == "PC"){
-                tipoDocuName = "Pase Conducción";
-            }else if(respuesta["tipo_documento"] == "NIT"){
-                tipoDocuName = "Nit Empresa";
-            }else if(respuesta["tipo_documento"] == "PSP"){
-                tipoDocuName = "Pasaporte";
-            }
-
-            /************************************************************** */
-
-            let tipoPerfilName;
-            if(respuesta["perfil"] == "Administrador"){
-                tipoPerfilName = "Administrador - Acceso Total";
-            }else if(respuesta["perfil"] == "Super Editor"){
-                tipoPerfilName = "Super Editor - Gestión General Reservas"; 
-            }else if(respuesta["perfil"] == "Menor Editor"){
-                tipoPerfilName = "Menor Editor - Gestión General Habitaciones"; 
-            }else if(respuesta["perfil"] == "Contabilidad"){
-                tipoPerfilName = "Contabilidad - Nómina y Cuentas";
-            }else if(respuesta["perfil"] == "Atracciones"){
-                tipoPerfilName = "Atracciones - Servicio y Bodega";
-            }else if(respuesta["perfil"] == "Restaurante"){
-                tipoPerfilName = "Restaurante - Servicio y Bodega";
-            }else if(respuesta["perfil"] == "Marketing"){
-                tipoPerfilName = "Marketing";
-            }
-
-            /************************************************************** */
-
-            let estadoCivil;
-            if(respuesta["estado_civil"] == "1"){
-                estadoCivil = "Soltero(a)";
-            }else if(respuesta["estado_civil"] == "2"){
-                estadoCivil = "Casado(a)"; 
-            }else if(respuesta["estado_civil"] == "3"){
-                estadoCivil = "Viudo(a)"; 
-            }else if(respuesta["estado_civil"] == "4"){
-                estadoCivil = "Divorciado(a)";
-            }else if(respuesta["estado_civil"] == "5"){
-                estadoCivil = "Unión Libre";
-            }
-
-            /************************************************************** */
-
-            let tipoRegimen;
-            if(respuesta["tipo_regimen"] == "1"){
-                tipoRegimen = "Estado";
-            }else if(respuesta["tipo_regimen"] == "2"){
-                tipoRegimen = "Gran Contribuyente"; 
-            }else if(respuesta["tipo_regimen"] == "3"){
-                tipoRegimen = "Común"; 
-            }else if(respuesta["tipo_regimen"] == "4"){
-                tipoRegimen = "Simple";
-            }else if(respuesta["tipo_regimen"] == "5"){
-                tipoRegimen = "No Responsable";
-            }else if(respuesta["tipo_regimen"] == "6"){
-                tipoRegimen = "Pendiente";
-            }
-
-            /************************************************************** */
-
-            let tipoPersona;
-            if(respuesta["tipo_persona"] == "1"){
-                tipoPersona = "Natural";
-            }else if(respuesta["tipo_persona"] == "2"){
-                tipoPersona = "Jurídica"; 
-            }
-
-            /************************************************************** */
-
-            document.querySelector('input[name="editarId"]').value = respuesta["id"];
-
-            document.querySelector('.editarTipoDocumentoOption').value = respuesta["tipo_documento"];
-            document.querySelector('.editarTipoDocumentoOption').innerHTML = tipoDocuName;
-
-            document.querySelector('input[name="editarDocumento"]').value = respuesta["documento"];
-            document.querySelector('input[name="editarPrimerNombre"]').value = respuesta["primer_nombre"];
-            document.querySelector('input[name="editarSegundoNombre"]').value = respuesta["segundo_nombre"];
-            document.querySelector('input[name="editarPrimerApellido"]').value = respuesta["primer_apellido"];
-            document.querySelector('input[name="editarSegundoApellido"]').value = respuesta["segundo_apellido"];
-            document.querySelector('input[name="editarCorreoElectronico"]').value = respuesta["email"];
-
-            document.querySelector('.editarPerfilOption').value = respuesta["perfil"];
-            document.querySelector('.editarPerfilOption').innerHTML = tipoPerfilName;
-
-            document.querySelector('input[name="editarTelefonoCelular"]').value = respuesta["telefono_movil"];
-            document.querySelector('input[name="editarTelefonoFijo"]').value = respuesta["telefono_fijo"];
-            document.querySelector('input[name="editarDireccion"]').value = respuesta["direccion"];
-            document.querySelector('input[name="editarFecha_nacimiento"]').value = respuesta["fecha_nacimiento"];
-
-            document.querySelector('.editarEstado_civilOption').value = respuesta["estado_civil"];
-            document.querySelector('.editarEstado_civilOption').innerHTML = estadoCivil;
-
-            document.querySelector('.editarTipo_regimenOption').value = respuesta["tipo_regimen"];
-            document.querySelector('.editarTipo_regimenOption').innerHTML = tipoRegimen;
-
-            document.querySelector('.editarTipo_personaOption').value = respuesta["tipo_persona"];
-            document.querySelector('.editarTipo_personaOption').innerHTML = tipoPersona;
-
-            document.querySelector('input[name="editarNombreUsuario"]').value = respuesta["usuario"];
-            document.querySelector('input[name="passwordActual"]').value = respuesta["password"];
-
-            if(respuesta["foto"] == ""){
-                document.querySelector('input[name="imgFotoUserActual"]').value = imgDefault; /**Input oculto con img temporal */
-                document.querySelector('img[id="img-foto-edit"]').setAttribute("src" , imgDefault); /**Input donde se carga previsualización */
-                document.querySelector('input[name="editarFotoUsuario"]').setAttribute("value" , imgDefault); /**Input en que se carga img */
-            }else{
-                document.querySelector('input[name="imgFotoUserActual"]').value = respuesta["foto"]; /**Input oculto con img temporal */
-                document.querySelector('img[id="img-foto-edit"]').setAttribute("src" , respuesta["foto"]); /**Input donde se carga previsualización */
-                document.querySelector('input[name="editarFotoUsuario"]').setAttribute("value" , respuesta["foto"]); /**Input en que se carga img */
-            }
-
-            document.querySelector('span[id="editarnNombreImagenAdmins"]').innerHTML = "Desde BD/Default";
-            document.querySelector('span[id="editarTamanoImagenAdmins"]').innerHTML = "Desde BD/Default";
-            document.querySelector('span[id="editarExtensImagenAdmins"]').innerHTML = "Desde BD/Default";
-            document.querySelector(".nombreImagenCargadaEdi").innerHTML = "Imágen viene desde la Base de Datos";
-
-            document.querySelector('textarea[name="editarAnotaciones_usuario"]').innerHTML = respuesta["anotaciones"];
-
+        let tipoDocuName;
+        if(json["tipo_documento"] == "CC"){
+            tipoDocuName = "Cédula Ciudadania";
+        }else if(json["tipo_documento"] == "TE"){
+            tipoDocuName = "Tarjeta Extranjería"; 
+        }else if(json["tipo_documento"] == "CE"){
+            tipoDocuName = "Cédula Extranjería"; 
+        }else if(json["tipo_documento"] == "LM"){
+            tipoDocuName = "Libreta Militar";
+        }else if(json["tipo_documento"] == "PC"){
+            tipoDocuName = "Pase Conducción";
+        }else if(json["tipo_documento"] == "NIT"){
+            tipoDocuName = "Nit Empresa";
+        }else if(json["tipo_documento"] == "PSP"){
+            tipoDocuName = "Pasaporte";
         }
 
-    })
+        /************************************************************** */
 
+        let tipoPerfilName;
+        if(json["perfil"] == "Administrador"){
+            tipoPerfilName = "Administrador - Acceso Total";
+        }else if(json["perfil"] == "Super Editor"){
+            tipoPerfilName = "Super Editor - Gestión General Reservas"; 
+        }else if(json["perfil"] == "Menor Editor"){
+            tipoPerfilName = "Menor Editor - Gestión General Habitaciones"; 
+        }else if(json["perfil"] == "Contabilidad"){
+            tipoPerfilName = "Contabilidad - Nómina y Cuentas";
+        }else if(json["perfil"] == "Atracciones"){
+            tipoPerfilName = "Atracciones - Servicio y Bodega";
+        }else if(json["perfil"] == "Restaurante"){
+            tipoPerfilName = "Restaurante - Servicio y Bodega";
+        }else if(json["perfil"] == "Marketing"){
+            tipoPerfilName = "Marketing";
+        }
+
+        /************************************************************** */
+
+        let estadoCivil;
+        if(json["estado_civil"] == "1"){
+            estadoCivil = "Soltero(a)";
+        }else if(json["estado_civil"] == "2"){
+            estadoCivil = "Casado(a)"; 
+        }else if(json["estado_civil"] == "3"){
+            estadoCivil = "Viudo(a)"; 
+        }else if(json["estado_civil"] == "4"){
+            estadoCivil = "Divorciado(a)";
+        }else if(json["estado_civil"] == "5"){
+            estadoCivil = "Unión Libre";
+        }
+
+        /************************************************************** */
+
+        let tipoRegimen;
+        if(json["tipo_regimen"] == "1"){
+            tipoRegimen = "Estado";
+        }else if(json["tipo_regimen"] == "2"){
+            tipoRegimen = "Gran Contribuyente"; 
+        }else if(json["tipo_regimen"] == "3"){
+            tipoRegimen = "Común"; 
+        }else if(json["tipo_regimen"] == "4"){
+            tipoRegimen = "Simple";
+        }else if(json["tipo_regimen"] == "5"){
+            tipoRegimen = "No Responsable";
+        }else if(json["tipo_regimen"] == "6"){
+            tipoRegimen = "Pendiente";
+        }
+
+        /************************************************************** */
+
+        let tipoPersona;
+        if(json["tipo_persona"] == "1"){
+            tipoPersona = "Natural";
+        }else if(json["tipo_persona"] == "2"){
+            tipoPersona = "Jurídica"; 
+        }
+
+        /************************************************************** */
+
+        document.querySelector('input[name="editarId"]').value = json["id"];
+
+        document.querySelector('.editarTipoDocumentoOption').value = json["tipo_documento"];
+        document.querySelector('.editarTipoDocumentoOption').innerHTML = tipoDocuName;
+
+        document.querySelector('input[name="editarDocumento"]').value = json["documento"];
+        document.querySelector('input[name="editarPrimerNombre"]').value = json["primer_nombre"];
+        document.querySelector('input[name="editarSegundoNombre"]').value = json["segundo_nombre"];
+        document.querySelector('input[name="editarPrimerApellido"]').value = json["primer_apellido"];
+        document.querySelector('input[name="editarSegundoApellido"]').value = json["segundo_apellido"];
+        document.querySelector('input[name="editarCorreoElectronico"]').value = json["email"];
+
+        document.querySelector('.editarPerfilOption').value = json["perfil"];
+        document.querySelector('.editarPerfilOption').innerHTML = tipoPerfilName;
+
+        document.querySelector('input[name="editarTelefonoCelular"]').value = json["telefono_movil"];
+        document.querySelector('input[name="editarTelefonoFijo"]').value = json["telefono_fijo"];
+        document.querySelector('input[name="editarDireccion"]').value = json["direccion"];
+        document.querySelector('input[name="editarFecha_nacimiento"]').value = json["fecha_nacimiento"];
+
+        document.querySelector('.editarEstado_civilOption').value = json["estado_civil"];
+        document.querySelector('.editarEstado_civilOption').innerHTML = estadoCivil;
+
+        document.querySelector('.editarTipo_regimenOption').value = json["tipo_regimen"];
+        document.querySelector('.editarTipo_regimenOption').innerHTML = tipoRegimen;
+
+        document.querySelector('.editarTipo_personaOption').value = json["tipo_persona"];
+        document.querySelector('.editarTipo_personaOption').innerHTML = tipoPersona;
+
+        document.querySelector('input[name="editarNombreUsuario"]').value = json["usuario"];
+        document.querySelector('input[name="passwordActual"]').value = json["password"];
+
+        if(json["foto"] == ""){
+            document.querySelector('input[name="imgFotoUserActual"]').value = imgDefault; /**Input oculto con img temporal */
+            document.querySelector('img[id="img-foto-edit"]').setAttribute("src" , imgDefault); /**Input donde se carga previsualización */
+            document.querySelector('input[name="editarFotoUsuario"]').setAttribute("value" , imgDefault); /**Input en que se carga img */
+        }else{
+            document.querySelector('input[name="imgFotoUserActual"]').value = json["foto"]; /**Input oculto con img temporal */
+            document.querySelector('img[id="img-foto-edit"]').setAttribute("src" , json["foto"]); /**Input donde se carga previsualización */
+            document.querySelector('input[name="editarFotoUsuario"]').setAttribute("value" , json["foto"]); /**Input en que se carga img */
+        }
+
+        document.querySelector('span[id="editarnNombreImagenAdmins"]').innerHTML = "Desde BD/Default";
+        document.querySelector('span[id="editarTamanoImagenAdmins"]').innerHTML = "Desde BD/Default";
+        document.querySelector('span[id="editarExtensImagenAdmins"]').innerHTML = "Desde BD/Default";
+        document.querySelector(".nombreImagenCargadaEdi").innerHTML = "Imágen viene desde la Base de Datos";
+
+        document.querySelector('textarea[name="editarAnotaciones_usuario"]').innerHTML = json["anotaciones"];
+
+        console.log('json ==> ' , json);
+
+        /**Así no lo recomienda Bootstrap, pequeña excepción cono JQuery para abrir Modal Programáticamente. */
+        $('#editarAdministrador').modal('show'); // Abrir Modal por que todo está cargado ...
+        
+    } catch (error) {
+        console.log("Error! -> " , error);
+    }
 }
 
 /******************************************************
@@ -462,36 +463,142 @@ const cancelarImgAdminsEdit = (e) => {
 /**Los validadores del 1 al 5 están definidos para trabajar el evento Keypress independientes,
  * al trabajar JS Puro, tomar varios elementos al tiempo del DOM es mucho mas complejo, y como la idea
  * es no usar JQuery en la medida de lo posible, podemos hacerlo dividiendo los casos de la siguiente manera: */
- document.querySelector("#primerNombre").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#segundoNombre").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#primerApellido").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#segundoApellido").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#editarPrimerNombre").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#editarSegundoNombre").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#editarPrimerApellido").addEventListener('keypress' , (e) => { validador1(e); });
- document.querySelector("#editarSegundoApellido").addEventListener('keypress' , (e) => { validador1(e); });
- 
- document.querySelector("#anotaciones_usuario").addEventListener('keypress' , (e) => { validador2(e); });
- document.querySelector("#editarAnotaciones_usuario").addEventListener('keypress' , (e) => { validador2(e); });
- 
- document.querySelector("#nombreUsuario").addEventListener('keypress' , (e) => { validador3(e); });
- document.querySelector("#editarNombreUsuario").addEventListener('keypress' , (e) => { validador3(e); });
- document.querySelector("#passwordUsuario").addEventListener('keypress' , (e) => { validador3(e); });
- document.querySelector("#editarPasswordUsuario").addEventListener('keypress' , (e) => { validador3(e); });
- 
- document.querySelector("#correoElectronico").addEventListener('keypress' , (e) => { validador4(e); });
- document.querySelector("#editarCorreoElectronico").addEventListener('keypress' , (e) => { validador4(e); });
- 
- document.querySelector("#telefonoCelular").addEventListener('keypress' , (e) => { validador5(e); });
- document.querySelector("#telefonoFijo").addEventListener('keypress' , (e) => { validador5(e); });
- document.querySelector("#documento").addEventListener('keypress' , (e) => { validador5(e); });
- document.querySelector("#editarTelefonoCelular").addEventListener('keypress' , (e) => { validador5(e); });
- document.querySelector("#editarDocumento").addEventListener('keypress' , (e) => { validador5(e); });
- 
- document.querySelector("#direccion , #editarDireccion").addEventListener('keypress' , (e) => { validador6(e); });
- document.querySelector("#direccion").addEventListener('keypress' , (e) => { validador6(e); });
+document.querySelector("#primerNombre").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#segundoNombre").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#primerApellido").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#segundoApellido").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#editarPrimerNombre").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#editarSegundoNombre").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#editarPrimerApellido").addEventListener('keypress' , (e) => { validador1(e); });
+document.querySelector("#editarSegundoApellido").addEventListener('keypress' , (e) => { validador1(e); });
 
+document.querySelector("#anotaciones_usuario").addEventListener('keypress' , (e) => { validador2(e); });
+document.querySelector("#editarAnotaciones_usuario").addEventListener('keypress' , (e) => { validador2(e); });
 
+document.querySelector("#nombreUsuario").addEventListener('keypress' , (e) => { validador3(e); });
+document.querySelector("#editarNombreUsuario").addEventListener('keypress' , (e) => { validador3(e); });
+document.querySelector("#passwordUsuario").addEventListener('keypress' , (e) => { validador3(e); });
+document.querySelector("#editarPasswordUsuario").addEventListener('keypress' , (e) => { validador3(e); });
+
+document.querySelector("#correoElectronico").addEventListener('keypress' , (e) => { validador4(e); });
+document.querySelector("#editarCorreoElectronico").addEventListener('keypress' , (e) => { validador4(e); });
+
+document.querySelector("#telefonoCelular").addEventListener('keypress' , (e) => { validador5(e); });
+document.querySelector("#telefonoFijo").addEventListener('keypress' , (e) => { validador5(e); });
+document.querySelector("#editarTelefonoCelular").addEventListener('keypress' , (e) => { validador5(e); });
+document.querySelector("#editarTelefonoFijo").addEventListener('keypress' , (e) => { validador5(e); });
+document.querySelector("#documento").addEventListener('keypress' , (e) => { validador5(e); });
+document.querySelector("#editarTelefonoCelular").addEventListener('keypress' , (e) => { validador5(e); });
+document.querySelector("#editarDocumento").addEventListener('keypress' , (e) => { validador5(e); });
+
+document.querySelector("#direccion").addEventListener('keypress' , (e) => { validador6(e); });
+document.querySelector("#editarDireccion").addEventListener('keypress' , (e) => { validador6(e); });
+
+/*************************************************************************
+/************** ACTIVAR/DESACTIVAR UN ADMINISTRADOR/EMPLEADO *************
+/*************************************************************************/
+async function gestionarEstAdmins(id){
+
+    try {
+        /**Capturamos los parámetros que vienen del botón de archivo tablaCargos.ajax.php */
+        let idAdmin = id;
+        let btnComplet = document.querySelector('#botonCamEstAdmins'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+        let estadoAdmin = btnComplet.getAttribute('estadoAdmin');
+
+        console.log("idAdmin" , idAdmin);
+        console.log('btnComplet' , btnComplet);
+        console.log("estadoAdmin" , estadoAdmin);
+
+        $('#spinnerCargaEditarEmpleado').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarEmpleado").classList.add("show");
+
+        let respuesta = await fetch("jobs/empleados.ajax.php?"+"idAdministrador="+idAdmin);
+        json1 = await respuesta.json();
+        await waitforme(1000);
+
+        $('#spinnerCargaEditarEmpleado').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarEmpleado').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        let documentoCap = json1["tipo_documento"] + " - " + json1["documento"];
+        let nombreCap = json1["primer_nombre"] + " " + json1["segundo_nombre"] + " " + json1["primer_apellido"] + " " + json1["segundo_apellido"];
+        let mensaje;
+
+        if(estadoAdmin == "1"){
+            mensaje = "¿Estás seguro de activar al empleado/administrador: " + documentoCap + " - " + nombreCap +" ?"
+        }else{
+            mensaje = "¿Estás seguro de desactivar al empleado/administrador: " + documentoCap + " - " + nombreCap +" ?"
+        }
+
+        /**Preguntamos primero */
+        Swal.fire({
+            title: 'Gestión de Empleado',
+            text: mensaje,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, cambiar de estado!',
+            cancelButtonText: 'Cancelar'
+        }).then(function(result){
+
+            /**Si es verdadero, presionó la tecla aceptar */
+            if(result.value){
+
+                /**Habilitamos/Inhabilitamos:
+                 * Debemos independizar la operación para manejar mejor la promesa que será resuelta.*/
+                habilitar_inhabilitar(idAdmin , estadoAdmin).then();
+
+            } /**La persona selecciona que si desea eliminar */
+
+        }) /**Estructura then del Sweet Alert */  
+
+    } catch (error) {
+        console.log("Error ==> " , error)
+    }
+
+}
+
+async function habilitar_inhabilitar(idAdmin , estadoAdmin){
+
+    let respuesta = await fetch("jobs/empleados.ajax.php?"+"idAdmin="+idAdmin+"&"+"estadoAdmin="+estadoAdmin);
+    json = await respuesta.json();
+    console.log("json " , json);
+
+    if(json == "ok"){
+
+        if(estadoAdmin == 0){
+
+            const boton = document.querySelector('#botonCamEstAdmins'+idAdmin);
+            boton.classList.remove('btn-info');
+            boton.classList.add('btn-dark');
+            boton.innerHTML = "Desactivado";
+            boton.setAttribute('estadoAdmin' , 1);
+
+            Swal.fire({
+                icon: 'info',
+                title: 'Gestión de Estado',
+                text: 'El Empleado fue Desactivado ...'
+            });
+
+        }else{
+
+            const boton = document.querySelector('#botonCamEstAdmins'+idAdmin);
+            boton.classList.remove('btn-dark');
+            boton.classList.add('btn-info');
+            boton.innerHTML = "Activado";
+            boton.setAttribute('estadoAdmin' , 0);
+
+            Swal.fire({
+                icon: 'info',
+                title: 'Gestión de Estado',
+                text: 'El Empleado fue Activado ...'
+            });
+
+        } /**Estado */
+
+    } /**Si la respuesta que retornamos es Ok */
+
+}
 
 
 
@@ -667,4 +774,11 @@ let validador6 = (e) => {
     return false;
 
     } 
+}
+
+/**Función de espera para Async Await - Para ayudar los Time */
+function waitforme(milisec) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, milisec);
+    })
 }

@@ -35,9 +35,9 @@ class ModeloEmpleados{
 
 	}
 
-	/****************************************
-	********** INSERTAR EMPLEADOS ***********
-	*****************************************/
+	/********************************************************
+	********** INSERTAR EMPLEADOS/ADMINISTRADORES ***********
+	*********************************************************/
 	static public function mdlRegistroEmpleados($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(perfil, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, tipo_documento, documento, email, telefono_fijo, telefono_movil, direccion, fecha_nacimiento, estado_civil, tipo_regimen, tipo_persona, usuario, password, foto, estado, anotaciones) VALUES (:perfil, :primer_nombre, :segundo_nombre,  :primer_apellido, :segundo_apellido, :tipo_documento, :documento, :email, :telefono_fijo, :telefono_movil, :direccion, :fecha_nacimiento, :estado_civil, :tipo_regimen, :tipo_persona, :usuario, :password, :foto, :estado, :anotaciones)");
@@ -77,6 +77,76 @@ class ModeloEmpleados{
 		$stmt = null;
 
 	}
+
+	/********************************************************
+	*********** EDICIÓN EMPLEADOS/ADMINISTRADORES ***********
+	*********************************************************/
+	static public function mdlEditarEmpleados($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET perfil = :perfil, primer_nombre = :primer_nombre, segundo_nombre = :segundo_nombre,  primer_apellido = :primer_apellido,  segundo_apellido = :segundo_apellido,  tipo_documento = :tipo_documento,  documento = :documento,  email = :email,  telefono_fijo = :telefono_fijo,  telefono_movil = :telefono_movil,  direccion = :direccion, fecha_nacimiento = :fecha_nacimiento, estado_civil = :estado_civil, tipo_regimen = :tipo_regimen, tipo_persona = :tipo_persona,   usuario = :usuario,  password = :password,  foto = :foto, anotaciones = :anotaciones WHERE id = :id");
+
+		$stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
+		$stmt->bindParam(":primer_nombre", $datos["primer_nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":segundo_nombre", $datos["segundo_nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":primer_apellido", $datos["primer_apellido"], PDO::PARAM_STR);
+		$stmt->bindParam(":segundo_apellido", $datos["segundo_apellido"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo_documento", $datos["tipo_documento"], PDO::PARAM_STR);
+		$stmt->bindParam(":documento", $datos["documento"], PDO::PARAM_STR);
+		$stmt->bindParam(":email", $datos["email"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono_fijo", $datos["telefono_fijo"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono_movil", $datos["telefono_movil"], PDO::PARAM_STR);
+		$stmt->bindParam(":direccion", $datos["direccion"], PDO::PARAM_STR);
+		$stmt->bindParam(":fecha_nacimiento", $datos["fecha_nacimiento"], PDO::PARAM_STR);
+		$stmt->bindParam(":estado_civil", $datos["estado_civil"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo_regimen", $datos["tipo_regimen"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo_persona", $datos["tipo_persona"], PDO::PARAM_STR);
+		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
+		$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
+		$stmt->bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
+		$stmt->bindParam(":anotaciones", $datos["anotaciones_usuario"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
+
+	/**********************************************************
+	****** ACTIVAR - DESACTIVAR - EMPLEADO/ADMINISTRADOR ******
+	***********************************************************/
+
+	static public function mdlHabilitarEmpleado($tabla, $item1, $valor1, $item2, $valor2){
+
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item2 = :$item2 WHERE $item1 = :$item1");
+
+		$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+		$stmt -> bindParam(":".$item1, $valor1, PDO::PARAM_STR);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
+
 
 }
 
