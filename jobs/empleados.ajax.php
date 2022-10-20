@@ -18,7 +18,7 @@ class AjaxEmpleados{
 
 		$respuesta = ControladorEmpleados::ctrMostrarEmpleados($item, $valor);
 
-		echo json_encode($respuesta);
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
 
 	}
 
@@ -41,39 +41,23 @@ class AjaxEmpleados{
 
 		$respuesta = ModeloEmpleados::mdlHabilitarEmpleado($tabla, $item1, $valor1, $item2, $valor2);
 
-		echo json_encode($respuesta);
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
 
 	}
 
-	/***********************************************
-	********* VISUALIZAR ELIMINIACIÓN DATA *********
-	************************************************/
-	// public $idAdministradorElim;
+	/********************************************************
+	*********** ELIMINAR EL EMPLEADO/ADMINISTRADOR **********
+	*********************************************************/
 
-	// public function ajaxMostrarAdministradoresElim(){
+	public $idEliminar;
 
-	// 	$item = "id";
-	// 	$valor = $this->idAdministradorElim;
+	public function ajaxEliminarEmpleado(){
 
-	// 	$respuesta = ControladorAdministradores::ctrMostrarAdministradores($item, $valor);
+		$respuesta = ControladorEmpleados::ctrEliminarAdministrador($this->idEliminar);
 
-	// 	echo json_encode($respuesta);
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
 
-	// }
-
-	/***********************************************
-	*********** ELIMINAR EL ADMINISTRADOR **********
-	************************************************/
-
-	// public $idEliminar;
-
-	// public function ajaxEliminarAdministrador(){
-
-	// 	$respuesta = ControladorAdministradores::ctrEliminarAdministrador($this->idEliminar);
-
-	// 	echo $respuesta;
-
-	// }
+	}
 
 }
 
@@ -101,27 +85,16 @@ if(isset($_GET["estadoAdmin"])){
 
 }
 
-/***********************************************
-********* VISUALIZAR ELIMINIACIÓN DATA *********
-************************************************/
-// if(isset($_POST["idAdministradorElim"])){
+/********************************************************
+************ ELIMINAR EMPLEADO/ADMINISTRADOR ************
+*********************************************************/
 
-// 	$elimPrev = new AjaxEmpleados();
-// 	$elimPrev -> idAdministradorElim = $_POST["idAdministradorElim"];
-// 	$elimPrev -> ajaxMostrarAdministradoresElim();
+if(isset($_GET["idEliminar"])){
 
-// }
+	$eliminar = new AjaxEmpleados();
+	$eliminar -> idEliminar = $_GET["idEliminar"];
+	$eliminar -> ajaxEliminarEmpleado();
 
-/***********************************************
-************ ELIMINAR ADMINISTRADOR ************
-************************************************/
-
-// if(isset($_POST["idEliminar"])){
-
-// 	$eliminar = new AjaxEmpleados();
-// 	$eliminar -> idEliminar = $_POST["idEliminar"];
-// 	$eliminar -> ajaxEliminarAdministrador();
-
-// }
+}
 
 ?>

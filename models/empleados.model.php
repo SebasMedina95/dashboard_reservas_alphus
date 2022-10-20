@@ -147,6 +147,31 @@ class ModeloEmpleados{
 
 	}
 
+	/*************************************************
+	******* ELIMINAR ADMINISTRADOR DEL SISTEMA *******
+	**************************************************/
+
+	static public function mdlEliminarEmpleado($tabla, $id){
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+
+		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
+
 
 }
 

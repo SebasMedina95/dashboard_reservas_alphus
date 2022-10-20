@@ -71,20 +71,20 @@ class ControladorEmpleados{
 
                     echo'<script>
 
-                            swal.fire({
-                                icon: "error",
-                                title: "Oops... ERROR!",
-                                text: "¡El usuario y/o la contraseña son incorrectos!",
-                                
-                            }).then(function(result){
+                        swal.fire({
+                            icon: "error",
+                            title: "Oops... ERROR!",
+                            text: "¡El usuario y/o la contraseña son incorrectos!",
+                            
+                        }).then(function(result){
 
-                                if(result.value){   
-                                    history.back();
-                                } 
+                            if(result.value){   
+                                history.back();
+                            } 
 
-                            });
+                        });
 
-                        </script>';	
+                    </script>';	
 
 				} /**Usuario / Contraseña incorrectos. */
 
@@ -92,20 +92,20 @@ class ControladorEmpleados{
 
                 echo'<script>
 
-                            swal.fire({
-                                icon: "error",
-                                title: "Oops... ERROR!",
-                                text: "¡No se permite el uso de ningún tipo de caracter especial!",
-                                
-                            }).then(function(result){
+                    swal.fire({
+                        icon: "error",
+                        title: "Oops... ERROR!",
+                        text: "¡No se permite el uso de ningún tipo de caracter especial!",
+                        
+                    }).then(function(result){
 
-                                if(result.value){   
-                                    history.back();
-                                } 
+                        if(result.value){   
+                            history.back();
+                        } 
 
-                            });
+                    });
 
-                        </script>';	
+                </script>';	
 
 			} /**Tenemos que el usuario y contraseña coinciden */
 
@@ -497,6 +497,30 @@ class ControladorEmpleados{
         } /**Vino una variable POST para la edición */
 
     } /**Método de edición */
+
+    /***************************************************
+	********** ELIMINACIÓN DE ADMINISTRADORES **********
+	****************************************************/
+
+	static public function ctrEliminarAdministrador($id){
+
+		$tabla = "administradores";
+
+        // $resAdmini = ModeloAdministradores::mdlMostrarAdministradores($tabla , "id" , $id);
+        // $directorio = "vistas/img/admins/".$resAdmini["documento"];
+
+		$respuesta = ModeloEmpleados::mdlEliminarEmpleado($tabla, $id);
+
+        // /**Eliminamos el directorio de la BD */
+        // if($respuesta == "ok"){
+        //     unlink($directorio."/".$resAdmini["documento"].".jpg" , 0755); 
+        //     //unlink($directorio."/".$resAdmini["documento"].".png" , 0755); 
+        //     rmdir($directorio , 0755); 
+        // }
+
+		return $respuesta;
+
+	} /**Método de eliminación */
 
 
 } /**Class ControladorEmpleados*/

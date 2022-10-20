@@ -18,7 +18,6 @@ $.ajax({
 document.addEventListener('DOMContentLoaded' , (e) => {
     let tabla = new DataTable('#tablaEmpleados' , {
         "ajax":"jobs/json/tablaEmpleados.ajax.php",
-        "autoWidth":false,
         "scrollX": true,
         "deferRender": true,
         "retrieve": true,
@@ -30,7 +29,7 @@ document.addEventListener('DOMContentLoaded' , (e) => {
         "info": true,
         "language": {
 
-            "sProcessing":     "Procesando...",
+            "sProcessing":     "Procesando para Mostrar Información ...",
             "sLengthMenu":     "<i class='fa-solid fa-eye'></i> Visualizar _MENU_ Registros al Tiempo.",
             "sZeroRecords":    "No se encontraron resultados",
             "sEmptyTable":     "Ningún dato disponible en esta tabla",
@@ -601,11 +600,99 @@ async function habilitar_inhabilitar(idAdmin , estadoAdmin){
 
 }
 
+/******************************************************
+/***** DADO EL CASO QUE QUERAMOS DESACTIVAR ADMIN *****
+/******************************************************/
+const gestionarEstSuperAdmin = () => {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El SUPER ADMINISTRADOR del sistema no puede ser inhabilitado, siempre se encuentra activo ...'
+    });
+    return;
+}
 
+/***********************************************************************
+/************** ELIMINAR UN EMPLEADO QUE PUEDA SER BORRADO *************
+/***********************************************************************/
+async function eliminarAdministrador(id) {
 
+    try {
 
+        let idAdministradorElim = id;
+        let btnComplet = document.querySelector('#botonElimAdmins'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
 
+        console.log("idAdministradorElim" , idAdministradorElim);
+        console.log('btnComplet' , btnComplet);
 
+        $('#spinnerCargaEditarEmpleado').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarEmpleado").classList.add("show");
+
+        let respuesta = await fetch("jobs/empleados.ajax.php?"+"idAdministrador="+idAdministradorElim);
+        json1 = await respuesta.json();
+        await waitforme(1000);
+
+        $('#spinnerCargaEditarEmpleado').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarEmpleado').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        let documentoCap = json1["tipo_documento"] + " - " + json1["documento"];
+        let nombreCap = json1["primer_nombre"] + " " + json1["segundo_nombre"] + " " + json1["primer_apellido"] + " " + json1["segundo_apellido"];
+        let mensaje = "¿Estás seguro de eliminar al empleado: ?" + documentoCap + " - " + nombreCap;
+
+        /**Preguntamos primero */
+        Swal.fire({
+            title: 'Eliminación de Empleado',
+            text: mensaje,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar empleado!',
+            cancelButtonText: 'Cancelar'
+        }).then(function(result){
+
+            /**Si es verdadero, presionó la tecla aceptar */
+            if(result.value){
+
+                /**Habilitamos/Inhabilitamos:
+                 * Debemos independizar la operación para manejar mejor la promesa que será resuelta.*/
+                realizarEliminacion(idAdministradorElim).then();
+
+            } /**La persona selecciona que si desea eliminar */
+
+        }) /**Estructura then del Sweet Alert */  
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+async function realizarEliminacion(idAdministradorElim){
+
+    let respuesta = await fetch("jobs/empleados.ajax.php?"+"idEliminar="+idAdministradorElim);
+    json = await respuesta.json();
+    console.log("json " , json);
+
+    if(json == "ok"){
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Eliminación de Empleado',
+            text: 'El Empleado fue eliminado correctamente! ...'
+        }).then(function(result){
+
+            if(result.value || !result.value){
+
+                window.location = "empleados";
+
+            } /**Si el resultado valida ok, logramos eliminar y redirecciono */
+
+        }) /**Swal de que se elimino correctamente */
+
+    } /**Si la respuesta que retornamos es Ok */
+
+}
 
 /*************** VALIDACIONES POR EL EVENTO KEYPRESS ****************/
 
