@@ -694,6 +694,72 @@ async function realizarEliminacion(idAdministradorElim){
 
 }
 
+
+const cargarDatosAdmin = async (idEmpleadoContrato) => {
+    try{
+      const url = "jobs/empleados.ajax.php?"+"idAdministrador="+idEmpleadoContrato;
+      const res = await fetch(url);
+      const datos = await res.json();
+      return datos
+    } catch(err) {
+      console.log(err)
+    }
+};
+
+const cargarDatosContrato = async (idEmpleadoContrato) => {
+    try{
+      const url = "jobs/contratosEmpleados.ajax.php?"+"idContratoEmpleado="+idEmpleadoContrato;
+      const res = await fetch(url);
+      const datos = await res.json();
+      return datos
+    } catch(err) {
+      console.log(err)
+    }
+};
+
+async function verContratoEmpleado(idEmpleado){
+
+
+    try {
+        let idEmpleadoContrato = idEmpleado;
+        let btnComplet = document.querySelector('#botonVerContrato'+idEmpleado); /**Lo tengo personalizado para que cada Row sea dinámico */
+
+        console.log("idEmpleadoContrato" , idEmpleadoContrato);
+        console.log('btnComplet' , btnComplet);
+
+        let json1;
+        let json2;
+
+        $('#spinnerCargaEditarEmpleado').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarEmpleado").classList.add("show");
+
+        let respuesta1 = await fetch("jobs/empleados.ajax.php?"+"idAdministrador="+idEmpleadoContrato);
+        json1 = await respuesta1.json();
+        await waitforme(600);
+    
+        console.log("Respuesta de JSON1 = " , json1);
+
+        let respuesta2 = await fetch("jobs/contratosEmpleados.ajax.php?"+"idContratoEmpleado="+idEmpleadoContrato);
+        json2 = await respuesta2.json();
+        await waitforme(600);
+
+        /**TODO: Debemos construir el form y asignar a los campos los valores obtenidos */
+
+        console.log("Respuesta de JSON2 = " , json2);
+
+        $('#spinnerCargaEditarEmpleado').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarEmpleado').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        /**Así no lo recomienda Bootstrap, pequeña excepción cono JQuery para abrir Modal Programáticamente. */
+        $('#verContratoEmpleado').modal('show'); // Abrir Modal por que todo está cargado ...
+
+        console.log();
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
 /*************** VALIDACIONES POR EL EVENTO KEYPRESS ****************/
 
 /**Validador1 = Validamos permitir caracteres de la a - z - áéíóú

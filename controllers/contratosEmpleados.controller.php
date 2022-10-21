@@ -1,13 +1,12 @@
 <?php
 
-
-class ControladorContratoAdmins{
+class ControladorContratoEmpleados{
 
     /*****************************************************
 	************* MOSTRAR CONTRATOS EMPLEADO *************
 	******************************************************/
 
-	static public function ctrMostrarContratoAdmins($item, $valor){
+	static public function ctrMostrarContratoEmpleados($item, $valor){
 
 		$tabla = "contratos";
 
@@ -18,3 +17,5 @@ class ControladorContratoAdmins{
 	}
 
 }
+
+?>

@@ -72,11 +72,11 @@
 
                   <div class="dropdown-menu">
 
-                    <a class="dropdown-item" href="administradores-contratos"><i class="fa-solid fa-file-signature"></i> Contrato</a>
+                    <a class="dropdown-item" href="empleados-contratos"><i class="fa-solid fa-file-signature"></i> Contratos de Empleados</a>
 
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item" href="#"><i class="fa-solid fa-id-card-clip"></i> Fichas Nómina</a>
+                    <a class="dropdown-item" href="#"><i class="fa-solid fa-id-card-clip"></i> Fichas de Contratos</a>
 
                     <div class="dropdown-divider"></div>
 

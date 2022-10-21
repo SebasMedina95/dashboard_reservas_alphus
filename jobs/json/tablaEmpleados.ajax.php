@@ -35,7 +35,7 @@ class TablaEmpleados{
 			/**Validamos contrato para saber si mostramos o no botón de eliminar */
 			$itemContrato = "id_admin";
 			$valorContrato = $value["id"];
-			$respuestaContrato = ControladorContratoAdmins::ctrMostrarContratoAdmins($itemContrato, $valorContrato);
+			$respuestaContrato = ControladorContratoEmpleados::ctrMostrarContratoEmpleados($itemContrato, $valorContrato);
 
 			
 			if($value["id"] != 1){
@@ -84,12 +84,12 @@ class TablaEmpleados{
             }
 
 			if(is_array($respuestaContrato) && $respuestaContrato["id_admin"] == 1){ /**El administrador no tiene cabida a eliminarse */
-				$acciones = "<div title='Ver Ficha' class='btn-group'><button class='btn btn-success btn-sm fichaAdministrador' idAdministrador='".$value["id"]."'><i class='fa-solid fa-file-contract'></i></button><button title='Actualizar Admin' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button></div>";
+				$acciones = "<div class='btn-group'><button title='Ver Contrato Asociado' onclick='verContratoEmpleado(".$value["id"].")' class='btn btn-success btn-sm contratoEmpleado' id='botonVerContrato".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fa-solid fa-file-contract'></i></button><button title='Actualizar Empleado' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button></div>";
 			}else{
 				if(is_array($respuestaContrato) && $respuestaContrato["id_admin"] == $value["id"]){/**El empleado tiene contrato, no podemos eliminar! */
-					$acciones = "<div title='Ver Ficha' class='btn-group'><button class='btn btn-success btn-sm fichaAdministrador' idAdministrador='".$value["id"]."'><i class='fa-solid fa-file-contract'></i></button><button title='Actualizar Admin' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button></div>";
+					$acciones = "<div class='btn-group'><button title='Ver Contrato Asociado' onclick='verContratoEmpleado(".$value["id"].")' class='btn btn-success btn-sm contratoEmpleado' id='botonVerContrato".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fa-solid fa-file-contract'></i></button><button title='Actualizar Empleado' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button></div>";
 				}else{
-					$acciones = "<div title='Ver Ficha' class='btn-group'><button title='Actualizar Admin' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Admin' class='btn btn-danger btn-sm eliminarAdministrador' onclick='eliminarAdministrador(".$value["id"].")' id='botonElimAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
+					$acciones = "<div class='btn-group'><button title='Actualizar Empleado' class='btn btn-warning btn-sm editarAdministrador' onclick='editarAdministrador(".$value["id"].")' id='botonEditAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Empleado' class='btn btn-danger btn-sm eliminarAdministrador' onclick='eliminarAdministrador(".$value["id"].")' id='botonElimAdmins".$value["id"]."' idAdministrador='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
 				}
 			}
 

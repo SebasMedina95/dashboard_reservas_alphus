@@ -190,9 +190,10 @@
 <!-- ARCHIVOS DE JS PROPIOS PARA LA REALIZACIÓN DE LA FUNCIONALIDAD -->
 <!-- ************************************************************** -->
 <!-- JavaScript personalizados de la plantilla -->
-<!-- <script src="vistas/js/plantilla.js"></script> -->
+<!-- <script src="vistas/js/plantilla.js"></script> --> 
 <script src="views/resources/js/plantilla.js"></script>
 <script src="views/resources/js/empleados.js"></script>
+<script src="views/resources/js/contratosEmpleados.js"></script>
 
 </html>
 
