@@ -127,6 +127,23 @@ class ControladorEmpleados{
 
 	} /**Método ctrMostrarAdministradores */
 
+    /*********************************************************************
+	*********** MOSTRAR ADMINISTRADORES LIMITADOS POR CONTRATO ***********
+    ****** Que ya no estén incluidos en los contratos anteriores *********
+	**********************************************************************/
+
+	static public function ctrMostrarEmpleadosParaContrato(){
+
+		$tabla1 = "administradores";
+		$tabla2 = "contratos";
+        $estado = '1';
+
+		$respuesta = ModeloEmpleados::mdlMostrarEmpleadosParaContrato($tabla1, $tabla2, $estado);
+
+		return $respuesta;
+
+	}
+
     /*****************************************
 	********** REGISTRO DE EMPLEADOS *********
 	******************************************/

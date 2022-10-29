@@ -10,8 +10,12 @@ require_once "controllers/empleados.controller.php";
 require_once "models/empleados.model.php";
 
 /**Cargos Empleados:  */
-//require_once "controllers/cargos.controller.php";
+require_once "controllers/cargos.controller.php";
 require_once "models/cargos.model.php";
+
+/**Conceptos Contables para Fichas:  */
+require_once "controllers/conceptos.controller.php";
+require_once "models/conceptos.model.php";
 
 /**Contratos de Empleados */
 require_once "controllers/contratosEmpleados.controller.php";

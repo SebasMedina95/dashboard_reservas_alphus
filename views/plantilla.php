@@ -152,18 +152,71 @@
              $_GET["pagina"] == "plantilla-hotel" ||
              $_GET["pagina"] == "salir"){
 
-              include "views/pages/".$_GET["pagina"].".php";
+               include "views/pages/".$_GET["pagina"].".php";
+               
+               /**Vamos a validar parar cargar los modales ...
+                * *************************************************************************************************
+                * Al mismo tiempo, según lo que vayamos a cargar y la variable de página cargamos el respectivo
+                archivo de JS, esto con el fin de no cargar todo al tiempo si no irlo cargando según se vaya 
+                necesitando a lo largo de la aplicación. 
+                * ************************************************************************************************* */
+               switch($_GET["pagina"]){
+                 /**1. Empleados:  */
+                 case "empleados":
 
-              /**Vamos a validar parar cargar los modales ... */
-              /**1. Empleados: 
-               *    Cargamos los modales asociados: */
-              if($_GET["pagina"] == "empleados"){
-                include "views/pages/modals/empleados/modals_admins.php";
-                // include "views/pages/modals/modals/empleados/modals_cargos.php";
-                // include "views/pages/modals/modals/empleados/modals_contratosAdmins.php";
-                // include "views/pages/modals/modals/empleados/modals_conceptos.php";
-                // include "views/pages/modals/modals/empleados/modals_fichas.php";  
-              }
+                   include "views/pages/modals/empleados/modals_admins.php"; 
+                   echo '<script src="views/resources/js/empleados.js"></script>';
+
+                 break;
+                 
+                 /**2. Contratos de Empleados:  */
+                 case "empleados-contratos":
+
+                   include "views/pages/modals/empleados/modals_contratos.php";
+                   echo '<script src="views/resources/js/contratosEmpleados.js"></script>';
+
+                 break;
+
+                 /**3. Cargos de Empleados:  */
+                 case "configuracion-cargos":
+                  
+                  include "views/pages/modals/empleados/modals_cargos.php";
+                  echo '<script src="views/resources/js/cargos.js"></script>';
+
+                 break;
+
+                 /**4. Fichas de Empleados:  */
+                 case "ficha-empleado":
+                  
+                  include "views/pages/modals/empleados/modals_fichas.php";
+                  echo '<script src="views/resources/js/fichaEmpleados.js"></script>';
+
+                 break;
+
+                 /**5. Conceptos Contables:  */
+                 case "conceptos":
+                  
+                  include "views/pages/modals/empleados/modals_conceptos.php";
+                  echo '<script src="views/resources/js/conceptos.js"></script>';
+
+                 break;
+                 
+ 
+               } /**Switch de modales */
+
+              
+
+
+              // /**Vamos a validar parar cargar los modales ... */
+              // /**1. Empleados:  */
+              // if($_GET["pagina"] == "empleados"){
+              //   include "views/pages/modals/empleados/modals_admins.php"; 
+              // }
+
+              // /**2. Contratos de Empleados:  */
+              // if($_GET["pagina"] == "empleados-contratos"){
+              //   include "views/pages/modals/empleados/modals_contratos.php";
+              // }
 
           }else{
 
@@ -192,8 +245,10 @@
 <!-- JavaScript personalizados de la plantilla -->
 <!-- <script src="vistas/js/plantilla.js"></script> --> 
 <script src="views/resources/js/plantilla.js"></script>
-<script src="views/resources/js/empleados.js"></script>
-<script src="views/resources/js/contratosEmpleados.js"></script>
+
+
+
+
 
 </html>
 

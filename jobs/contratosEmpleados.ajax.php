@@ -22,9 +22,9 @@ class AjaxContratosEmpleados{
 
 	}
 
-    /*********************************************************
-	***** EDICIÓN DE CONTRATO ADMINISTRADOR - TRAER DATA *****
-	**********************************************************/	
+    /******************************************************
+	***** TRAER CONTRATO DESDE EMPLEADOS - TRAER DATA *****
+	*******************************************************/	
 
 	public $idContratoEmpleado;
 
@@ -39,11 +39,34 @@ class AjaxContratosEmpleados{
 
 	}
 
+	/********************************************
+	****** ACTIVAR - DESACTIVAR - CONTRATO ******
+	*********************************************/
+
+	public $idContratoEst;
+	public $estadoAdmin;
+
+	public function ajaxActivarContratos(){
+
+		$tabla = "contratos";
+
+		$item1 = "id";
+		$valor1 = $this->idContratoEst;
+
+		$item2 = "estado";
+		$valor2 = $this->estadoAdmin;
+
+		$respuesta = ModeloContratoEmpleados::mdlHabilitarContrato($tabla, $item1, $valor1, $item2, $valor2);
+
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
+
+	}
+
 } /**Clase */
 
-/****************************************************************
+/**************************************************************************
 ***** EDICIÓN DE CONTRATO ADMINISTRADOR/EMPLEADOS - EJECUCIÓN DE AJAX *****
-*****************************************************************/
+***************************************************************************/
 if(isset($_GET["idContrato"])){
 
 	$editar = new AjaxContratosEmpleados();
@@ -52,14 +75,27 @@ if(isset($_GET["idContrato"])){
 
 }
 
-/****************************************************************
+/**************************************************************************
 ***** EDICIÓN DE CONTRATO ADMINISTRADOR/EMPLEADOS - EJECUCIÓN DE AJAX *****
-*****************************************************************/
+***************************************************************************/
 if(isset($_GET["idContratoEmpleado"])){
 
 	$verContrato = new AjaxContratosEmpleados();
 	$verContrato -> idContratoEmpleado = $_GET["idContratoEmpleado"];
 	$verContrato -> ajaxMostrarContratoDesdeEmpleados();
+
+}
+
+/***************************************************
+***** ACTIVAR O DESACTIVAR - EJECUCIÓN DE AJAX *****
+****************************************************/	
+
+if(isset($_GET["idContratoEst"])){
+
+	$activarContratos = new AjaxContratosEmpleados();
+	$activarContratos -> idContratoEst = $_GET["idContratoEst"];
+	$activarContratos -> estadoAdmin = $_GET["estadoAdmin"];
+	$activarContratos -> ajaxActivarContratos();
 
 }
 

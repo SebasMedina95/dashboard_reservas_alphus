@@ -98,7 +98,6 @@
                                 <th>Inicio_Contratación: </th>
                                 <th>Fin_Contratación: </th>
                                 <th>Cargo_Empleado: </th>
-                                <th>Estado_Contratación: </th>
                                 <th>Anotaciones_Contrato: </th>
                                 <th>Registro: </th>
 

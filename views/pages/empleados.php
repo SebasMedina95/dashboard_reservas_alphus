@@ -76,15 +76,15 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item" href="#"><i class="fa-solid fa-id-card-clip"></i> Fichas de Contratos</a>
+                    <!-- <a class="dropdown-item" href="#"><i class="fa-solid fa-id-card-clip"></i> Fichas de Contratos</a>
 
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div> -->
 
                     <a class="dropdown-item" href="#"><i class="fa-solid fa-file-invoice-dollar"></i> Planillas Nómina</a>
 
-                    <div class="dropdown-divider"></div>
+                    <!-- <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item" href="#"><i class="fa-solid fa-file-contract"></i> Generar Nómina</a>
+                    <a class="dropdown-item" href="#"><i class="fa-solid fa-file-contract"></i> Generar Nómina</a> -->
 
                   </div>
 

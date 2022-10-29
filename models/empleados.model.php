@@ -41,7 +41,7 @@ class ModeloEmpleados{
 	anteriormente, esto con la finalidad de evitar duplicidad de la información. Para ello el apartado IF NOT EXISTs
 	MUY SIMILAR al que se usa en el PL SQL.
 	********************************************************************************************************************/
-	static public function mdlMostrarAdministradoresLimit($tabla1, $tabla2, $estado){
+	static public function mdlMostrarEmpleadosParaContrato($tabla1, $tabla2, $estado){
 
 		/**MUESTRE LA DATA QUE COINCIDE CON LA FILA Y EL VALOR RESPECTIVO */
 		// $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla1 WHERE $tabla1.estado = $estado ORDER BY $tabla1.primer_nombre ASC");

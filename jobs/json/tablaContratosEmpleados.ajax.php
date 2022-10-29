@@ -86,14 +86,14 @@ class TablaContratosEmpleados{
 			/**---------------------------------------------ESTADO VAL */
 			if($value["estado"] == 0){
 
-				$estado = "<button class='btn btn-dark btn-sm btnActivarContratoAdmin' estadoContratoAdmin='1' idContratoAdmin='".$value["id"]."'>Contrato Inactivo</button>";
+				$estado = "<button id='botonCamEstContratos".$value["id"]."' onclick='gestionarEstContratosAdmins(".$value["id"].")' class='btn btn-dark btn-sm btnActivarContratoAdmin' estadoContratoAdmin='1' idContratoAdmin='".$value["id"]."'>Contrato Inactivo</button>";
 
 			}else{
 
-				$estado = "<button class='btn btn-info btn-sm btnActivarContratoAdmin' estadoContratoAdmin='0' idContratoAdmin='".$value["id"]."'>Contrato Activo</button>";
+				$estado = "<button id='botonCamEstContratos".$value["id"]."' onclick='gestionarEstContratosAdmins(".$value["id"].")' class='btn btn-info btn-sm btnActivarContratoAdmin' estadoContratoAdmin='0' idContratoAdmin='".$value["id"]."'>Contrato Activo</button>";
 			}
 
-            $acciones = "<div class='btn-group'><button title='Ficha de Contrato' class='btn btn-primary btn-sm verFichaContrato' onclick='verFichaContrato(".$value["id"].")' id='botonFichaContrAdmins".$value["id"]."' idContrato='".$value["id"]."'><i class='fas fa-file-alt text-white'></i></button><button title='Actualizar Contrato' class='btn btn-warning btn-sm editarContratoAdmins' onclick='editarContratoAdmins(".$value["id"].")' id='botonEditContrAdmins".$value["id"]."' data-toggle='modal' data-target='#actualizarContratoAdministrador' idContrato='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Contrato' class='btn btn-danger btn-sm eliminarContrato' idContrato='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
+            $acciones = "<div class='btn-group'><button title='Ficha de Contrato' class='btn btn-primary btn-sm verFichaContrato' onclick='verFichaContrato(".$value["id"].")' id='botonFichaContrAdmins".$value["id"]."' idContrato='".$value["id"]."'><i class='fas fa-file-alt text-white'></i></button><button title='Actualizar Contrato' class='btn btn-warning btn-sm editarContratoAdmins' onclick='editarContratoAdmins(".$value["id"].")' id='botonEditContrAdmins".$value["id"]."' idContrato='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button>".$estado."</div>";
 
             $datosJson .='[
                 "'."".'",
@@ -110,7 +110,6 @@ class TablaContratosEmpleados{
                 "'.date("d-M-Y" , strtotime($value["fecha_inicio"])).'",
                 "'.$finalizacionContrato.'",
                 "'.$nomCargo.'",
-                "'.$estado.'",
                 "'.$value["anotaciones_contrato"].'",
                 "'.$value["fecha"].'"
               ],';

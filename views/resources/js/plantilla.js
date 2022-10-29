@@ -20,14 +20,14 @@ $(".cambiarModoLuz").click(function(){
 });
 
 $(document).ready(function(){
-
-    //Initialize Select2 Elements
-    $('.select2').select2()
+    /**Vamos a cargar directamente en cada JS y no general */
+    // //Initialize Select2 Elements
+    // $('.select2').select2()
     
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
+    // //Initialize Select2 Elements
+    // $('.select2bs4').select2({
+    //   theme: 'bootstrap4'
+    // })
     
     /***********************************************************
      * ************* Cargamos los componentes directamente:  
@@ -48,6 +48,8 @@ $(document).ready(function(){
     // });
 
 })
+
+$("[name='my-checkbox']").bootstrapSwitch();
 
 /**Por medio de una petición de Ajax vamos a actualizar automáticamente
  * y de forma asíncrona el estilo oscuro o light del hotel, lo aplicaremos
