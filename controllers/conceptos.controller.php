@@ -31,123 +31,127 @@ class ControladorConceptos{
 
 	// }
 
-    /**************************************
-	********** REGISTRO DE CARGOS *********
-	***************************************/
-    // public function ctrRegistroCargo(){
-    //     /**Que nos venga alguna de las variables POST */
+    /***************************************************
+	********** REGISTRO DE CONCEPTOS CONTABLES *********
+	****************************************************/
+    public function ctrRegistroConcepto(){
+        /**Que nos venga alguna de las variables POST */
         
-    //     if(isset($_POST["cargo"])){
+        if(isset($_POST["capitulo"])){
 
-    //         $tabla = "cargos_empleado";
+            $tabla = "conceptos";
 
-    //         $datos = array("cargo" => $_POST["cargo"],
-    //                        "alias" => $_POST["alias"],
-    //                        "estado" => "0");
+            $datos = array("capitulo" => $_POST["capitulo"],
+                           "concepto" => $_POST["concepto"],
+                           "descripcion" => $_POST["descripcion_concepto"],
+                           "porcentaje" => $_POST["porcentaje_concepto"],
+                           "estado" => "0");
 
-    //         $respuesta = ModeloCargos::mdlRegistroCargo($tabla, $datos);
+            $respuesta = ModeloConceptos::mdlRegistroConcepto($tabla, $datos);
 
-    //         if($respuesta == "ok"){
+            if($respuesta == "ok"){
 
-    //             echo '<script> 
+                echo '<script> 
                 
-    //                 Swal.fire({
-    //                     icon: "success",
-    //                     title: "¡ Correcto !",
-    //                     text: "El cargo para empleado ha sido creado correctamente!"
-    //                 }).then(function(result){
+                    Swal.fire({
+                        icon: "success",
+                        title: "¡ Correcto !",
+                        text: "El concepto para nómina ha sido creado correctamente!"
+                    }).then(function(result){
     
-    //                     if(result.value){   
-    //                         window.location = "'.$_SERVER["REQUEST_URI"].'";
-    //                     } 
+                        if(result.value || !result.value){   
+                            window.location = "'.$_SERVER["REQUEST_URI"].'";
+                        } 
     
-    //                 });
+                    });
                 
-    //             </script>';
+                </script>';
 
-    //         }else{
+            }else{
 
-    //             echo '<script> 
+                echo '<script> 
                 
-    //                 Swal.fire({
-    //                     icon: "error",
-    //                     title: "¡ Opss ... Error !",
-    //                     text: "No pudimos registrar el cargo!"
-    //                 }).then(function(result){
+                    Swal.fire({
+                        icon: "error",
+                        title: "¡ Opss ... Error !",
+                        text: "No pudimos registrar el concepto!"
+                    }).then(function(result){
     
-    //                     if(result.value){   
-    //                         window.location = "'.$_SERVER["REQUEST_URI"].'";
-    //                     } 
+                        if(result.value || !result.value){   
+                            window.location = "'.$_SERVER["REQUEST_URI"].'";
+                        } 
     
-    //                 });
+                    });
                 
-    //             </script>';
+                </script>';
 
-    //         } /**Condicional ¿Ok? de Admins */	
+            } /**Condicional ¿Ok? de Admins */	
 
-    //     } /**Condicional vienen variables POST */
+        } /**Condicional vienen variables POST */
 
-    // } /**Método de ctrRegistroAdministrador */
+    } /**Método de ctrRegistroAdministrador */
 
     /**************************************************
-	********** EDICIÓN DE CARGOS DE EMPLEADO **********
+	********** EDICIÓN DE CONCEPTOS CONTABLES *********
 	***************************************************/
-    // public function ctrActualizarCargo(){
+    public function ctrEditarConcepto(){
 
-    //     /**Que nos venga alguna de las variables POST */
-    //     if(isset($_POST["editarCargoEmp"])){
+        /**Que nos venga alguna de las variables POST */
+        if(isset($_POST["editarCapitulo"])){
 
-    //         /**Como ya hicimos las validaciones vía JS, pasamos a la acción ... */
+            /**Como ya hicimos las validaciones vía JS, pasamos a la acción ... */
 
-    //         $tabla = "cargos_empleado";
+            $tabla = "conceptos";
 
-    //         $datos = array("id" => $_POST["editarIdCargos"],
-    //                        "cargo" => $_POST["editarCargoEmp"],  /**Tomamos el elemento POST pero de Edición */
-    //                        "alias" => $_POST["editarAlias"]); /**Tomamos el elemento POST pero de Edición */
+            $datos = array("capitulo" => $_POST["editarCapitulo"],
+                           "concepto" => $_POST["editarConcepto"],
+                           "descripcion" => $_POST["editarDescripcion_concepto"],
+                           "porcentaje" => $_POST["editarPorcentaje_concepto"],
+                           "id" => $_POST["editarConceptoId"]);
 
-    //         $respuesta = ModeloCargos::mdlEditarCargos($tabla, $datos);
+            $respuesta = ModeloConceptos::mdlEditarConceptos($tabla, $datos);
 
-    //         if($respuesta == "ok"){
+            if($respuesta == "ok"){
 
-    //             echo '<script> 
+                echo '<script> 
                 
-    //                 Swal.fire({
-    //                     icon: "success",
-    //                     title: "¡ Correcto !",
-    //                     text: "El cargo para empleado ha sido actualizado correctamente!"
-    //                 }).then(function(result){
+                    Swal.fire({
+                        icon: "success",
+                        title: "¡ Correcto !",
+                        text: "El concepto para nómina ha sido actualizado correctamente!"
+                    }).then(function(result){
     
-    //                     if(result.value){   
-    //                         window.location = "'.$_SERVER["REQUEST_URI"].'";
-    //                     } 
+                        if(result.value || !result.value){   
+                            window.location = "'.$_SERVER["REQUEST_URI"].'";
+                        } 
     
-    //                 });
+                    });
                 
-    //             </script>';
+                </script>';
 
-    //         }else{
+            }else{
 
-    //             echo '<script> 
+                echo '<script> 
                 
-    //                 Swal.fire({
-    //                     icon: "error",
-    //                     title: "¡ Opss ... Error !",
-    //                     text: "No pudimos actualizar el cargo!"
-    //                 }).then(function(result){
+                    Swal.fire({
+                        icon: "error",
+                        title: "¡ Opss ... Error !",
+                        text: "No pudimos actualizar el concepto!"
+                    }).then(function(result){
     
-    //                     if(result.value){   
-    //                         window.location = "'.$_SERVER["REQUEST_URI"].'";
-    //                     } 
+                        if(result.value || !result.value){   
+                            window.location = "'.$_SERVER["REQUEST_URI"].'";
+                        } 
     
-    //                 });
+                    });
                 
-    //             </script>';
+                </script>';
 
-    //         } /**Condicional ¿Ok? de CARGOS */
+            } /**Condicional ¿Ok? de CARGOS */
 
-    //     }
+        }
 
-    // }
+    }
 
     /***************************************************
 	********** ELIMINACIÓN DE ADMINISTRADORES **********

@@ -494,6 +494,222 @@ document.querySelector("#editarDocumento").addEventListener('keypress' , (e) => 
 document.querySelector("#direccion").addEventListener('keypress' , (e) => { validador6(e); });
 document.querySelector("#editarDireccion").addEventListener('keypress' , (e) => { validador6(e); });
 
+/*************************************************************
+************** VALIDAR OBLIGATORIEDAD DE CAMPOS **************
+******** TODO ESTO SERÁ USANDO JQUERY, SIMILAR EN JS *********
+******** Lo usaremos tanto para agregar como editar  *********
+**************************************************************/
+function validarFormularioAdmins(form) {
+
+    /**Capturamos si vamos a agregar, editar, eliminar, habilitar/inhabilitar */
+    let formulario = form;
+    /**Agregar */
+    let documento = document.querySelector("#documento").value;
+    let primerNombre = document.querySelector("#primerNombre").value;
+    let primerApellido = document.querySelector("#primerApellido").value;
+    let correo = document.querySelector("#correoElectronico").value;
+    let telefonCelular = document.querySelector("#telefonoCelular").value;
+    let telefonFijo = document.querySelector("#telefonoFijo").value;
+    let direccion = document.querySelector("#direccion").value;
+    let usuario = document.querySelector("#nombreUsuario").value;
+    let password = document.querySelector("#passwordUsuario").value;
+
+    /**Editar */
+    let editarDocumento = document.querySelector("#editarDocumento").value;
+    let editarPrimerNombre = document.querySelector("#editarPrimerNombre").value;
+    let editarPrimerApellido = document.querySelector("#editarPrimerApellido").value;
+    let editarCorreo = document.querySelector("#editarCorreoElectronico").value;
+    let editarTelefonCelular = document.querySelector("#editarTelefonoCelular").value;
+    let editarTelefonFijo = document.querySelector("#editarTelefonoFijo").value;
+    let editarDireccion = document.querySelector("#editarDireccion").value;
+    let editarUsuario = document.querySelector("#editarNombreUsuario").value;
+    let editarPassword = document.querySelector("#editarPasswordUsuario").value;
+
+    if(formulario == "adicionar"){
+        console.log('Vamos a adicionar ...');
+        /**Validamos cada uno - Tanto para agregar como actualizar ... */
+        if (documento != "" && documento.length >= 6) {
+            if (primerNombre != "" && primerNombre.length >= 3){
+                if (primerApellido != "" && primerApellido.length >= 3){
+                    if (correo != ""){
+                        if (telefonCelular != "" && telefonCelular.length == 10){
+                            if (telefonFijo != "" && telefonFijo.length == 10){
+                                if (direccion != ""){
+                                    if (usuario != "" && usuario.length >= 6){
+                                        if (password != "" && password.length >= 6){
+
+                                            return true; /**Todos los campos están consistentes, no hay necesidad de validar vía PHP */
+
+                                        }else{
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Oops...',
+                                                text: 'El password no puede ir vacío y debe tener al menos 6 caracteres ...'
+                                            });
+                                            return false; /**Errores, no podemos enviar el formulario */
+                                        }
+                                    }else{
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'El usuario no puede ir vacío y debe tener al menos 6 caracteres ...'
+                                        });
+                                        return false; /**Errores, no podemos enviar el formulario */
+                                    }
+                                }else{
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'La dirección no puede ir vacía ...'
+                                    });
+                                    return false; /**Errores, no podemos enviar el formulario */
+                                }
+                            }else{
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'El teléfono fíjo debe tener 10 dígitos (Débe anteceder el código, por ejemplo 604#######) ...'
+                                });
+                                return false; /**Errores, no podemos enviar el formulario */
+                            }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'El teléfono celular debe tener 10 dígitos ...'
+                            });
+                            return false; /**Errores, no podemos enviar el formulario */
+                        }
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El correo electrónico no puede ir vacío ...'
+                        });
+                        return false; /**Errores, no podemos enviar el formulario */
+                    }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El primer apellido no puede ir vacío y debe tener al menos 3 caracteres ...'
+                    });
+                    return false; /**Errores, no podemos enviar el formulario */
+                }
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'El primer nombre no puede ir vacío y debe tener al menos 3 caracteres ...'
+                });
+                return false; /**Errores, no podemos enviar el formulario */
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El documento no puede ir vacío y debe tener al menos 6 dígitos ...'
+            });
+            return false; /**Errores, no podemos enviar el formulario */
+        }
+
+    }else if(formulario == "editar"){
+        console.log('Vamos a editar ...');
+        /**Validamos cada uno - Tanto para agregar como actualizar ... */
+        if (editarDocumento != "" && editarDocumento.length >= 6) {
+            if (editarPrimerNombre != "" && editarPrimerNombre.length >= 3){
+                if (editarPrimerApellido != "" && editarPrimerApellido.length >= 3){
+                    if (editarCorreo != ""){
+                        if (editarTelefonCelular != "" && editarTelefonCelular.length == 10){
+                            if (editarTelefonFijo != "" && editarTelefonFijo.length == 10){
+                                if (editarDireccion != ""){
+                                    if (editarUsuario != "" && editarUsuario.length >= 6){
+                                        // if (editarPassword != "" && editarPassword.length >= 6){
+
+                                            return true; /**Todos los campos están consistentes, no hay necesidad de validar vía PHP */
+
+                                        // }else{
+                                            // Swal.fire({
+                                                // icon: 'error',
+                                                // title: 'Oops...',
+                                                // text: 'El password no puede ir vacío y debe tener al menos 6 caracteres ...'
+                                            // });
+                                            // return false; /**Errores, no podemos enviar el formulario */
+                                        // }
+                                    }else{
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'El usuario no puede ir vacío y debe tener al menos 6 caracteres ...'
+                                        });
+                                        return false; /**Errores, no podemos enviar el formulario */
+                                    }
+                                }else{
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'La dirección no puede ir vacía ...'
+                                    });
+                                    return false; /**Errores, no podemos enviar el formulario */
+                                }
+                            }else{
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'El teléfono fíjo debe tener 10 dígitos (Débe anteceder el código, por ejemplo 604#######) ...'
+                                });
+                                return false; /**Errores, no podemos enviar el formulario */
+                            }
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'El teléfono celular debe tener 10 dígitos ...'
+                            });
+                            return false; /**Errores, no podemos enviar el formulario */
+                        }
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El correo electrónico no puede ir vacío ...'
+                        });
+                        return false; /**Errores, no podemos enviar el formulario */
+                    }
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El primer apellido no puede ir vacío y debe tener al menos 3 caracteres ...'
+                    });
+                    return false; /**Errores, no podemos enviar el formulario */
+                }
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'El primer nombre no puede ir vacío y debe tener al menos 3 caracteres ...'
+                });
+                return false; /**Errores, no podemos enviar el formulario */
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El documento no puede ir vacío y debe tener al menos 6 dígitos ...'
+            });
+            return false; /**Errores, no podemos enviar el formulario */
+        }
+
+    }else if(formulario == "eliminar"){
+        console.log('Vamos a eliminar ...');
+    }else{
+        console.log('Vamos a habilitar/inhabilitar ...');
+    }
+     
+
+}
+
 /*************************************************************************
 /************** ACTIVAR/DESACTIVAR UN ADMINISTRADOR/EMPLEADO *************
 /*************************************************************************/

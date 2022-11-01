@@ -114,6 +114,179 @@ document.querySelector("#concepto").addEventListener('keypress' , (e) => { valid
 document.querySelector("#descripcion_concepto").addEventListener('keypress' , (e) => { validador1_conceptos(e); });
 document.querySelector("#porcentaje_concepto").addEventListener('keypress' , (e) => { validador2_conceptos(e); });
 
+document.querySelector("#editarConcepto").addEventListener('keypress' , (e) => { validador1_conceptos(e); });
+document.querySelector("#editarDescripcion_concepto").addEventListener('keypress' , (e) => { validador1_conceptos(e); });
+document.querySelector("#editarPorcentaje_concepto").addEventListener('keypress' , (e) => { validador2_conceptos(e); });
+
+/**********************************************************************
+/************** ACTUALIZACIÓN CONCEPTO CONTABLE DE NÓMINA *************
+/**********************************************************************/
+async function botonActualizarConcepto(id){
+
+    try {
+        
+        let idConceptoContable = id;
+        let btnComplet = document.querySelector('#botonActualizarConcepto'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+
+        // console.log("idConceptoContable" , idConceptoContable);
+        // console.log("btnComplet" , btnComplet);
+
+        let json1;
+
+        $('#spinnerCargaEditarConcepto').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarConcepto").classList.add("show");
+
+        let resContratos = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContable="+idConceptoContable);
+        json1 = await resContratos.json();
+        await waitforme(500);
+
+        // console.log("Respuesta de JSON1 = " , json1);
+
+        $('#spinnerCargaEditarConcepto').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarConcepto').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        let capituloNomi;
+        if(json1["capitulo"] == "1"){
+            capituloNomi = "Salario";
+        }else if(json1["capitulo"] == "2"){
+            capituloNomi = "Deducciones"; 
+        }else if(json1["capitulo"] == "3"){
+            capituloNomi = "Prestaciones"; 
+        }else if(json1["capitulo"] == "4"){
+            capituloNomi = "Otros";
+        }else if(json1["capitulo"] == "5"){
+            capituloNomi = "Compensación Flexibles";
+        }else if(json1["capitulo"] == "6"){
+            capituloNomi = "Apoyo Económico";
+        }else if(json1["capitulo"] == "7"){
+            capituloNomi = "Provisiones";
+        }
+
+        document.querySelector('.editarCapituloOption').value = json1["capitulo"];
+        document.querySelector('.editarCapituloOption').innerHTML = capituloNomi;
+
+        document.querySelector('input[name="editarConcepto"]').value = json1["concepto"];
+        document.querySelector('input[name="editarDescripcion_concepto"]').value = json1["descripcion"];
+        document.querySelector('input[name="editarPorcentaje_concepto"]').value = json1["porcentaje"];
+
+        document.querySelector('input[name="editarConceptoId"]').value = json1["id"];
+
+        /**Así no lo recomienda Bootstrap, pequeña excepción cono JQuery para abrir Modal Programáticamente. */
+        $('#editarConceptoNomina').modal('show'); // Abrir Modal por que todo está cargado ...
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+/******************************************************************************
+/************** ACTIVAR/DESACTIVAR UN CONCEPTO CONTABLE DE NÓMINA *************
+/******************************************************************************/
+async function gestionarEstConceptosNomi(id){
+
+    try {
+        
+        /**Capturamos los parámetros que vienen del botón de archivo tablaCargos.ajax.php */
+        let idConceptoContableGest = id;
+        let btnComplet = document.querySelector('#botonCamEstConcepto'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+        let estadoConcepto = btnComplet.getAttribute('estadoConceptoNomina');
+
+        console.log("idConceptoContableGest" , idConceptoContableGest);
+        console.log('btnComplet' , btnComplet);
+        console.log("estadoConcepto" , estadoConcepto);
+
+        let json1;
+
+        $('#spinnerCargaEditarConcepto').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarConcepto").classList.add("show");
+
+        let respuesta1 = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContable="+idConceptoContableGest);
+        json1 = await respuesta1.json();
+        await waitforme(600);
+
+        console.log("Respuesta de JSON1 = " , json1);
+
+        $('#spinnerCargaEditarConcepto').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarConcepto').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        if(estadoConcepto == "1"){
+            mensaje = "¿Estás seguro de activar el Concepto Contable de Nómina: " + json1["concepto"] + " ?";
+        }else{
+            mensaje = "¿Estás seguro de desactivar el Concepto Contable de Nómina: " + json1["concepto"] + " ?";
+        }
+
+        /**Preguntamos primero */
+        Swal.fire({
+            title: 'Gestión de Conceptos Contables de Nómina',
+            text: mensaje,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, cambiar de estado!',
+            cancelButtonText: 'Cancelar'
+        }).then(function(result){
+
+            /**Si es verdadero, presionó la tecla aceptar */
+            if(result.value){
+
+                /**Habilitamos/Inhabilitamos:
+                 * Debemos independizar la operación para manejar mejor la promesa que será resuelta.*/
+                habilitar_inhabilitar(idConceptoContableGest , estadoConcepto).then();
+
+            } /**La persona selecciona que si desea eliminar */
+
+        }) /**Estructura then del Sweet Alert */  
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+/**Para habilitar/Inhabilitar -> La acción como tal: */
+async function habilitar_inhabilitar(idConceptoContableGest , estadoConcepto){
+
+    let respuesta = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContableGest="+idConceptoContableGest+"&"+"estadoConcepto="+estadoConcepto);
+    json = await respuesta.json();
+    console.log("json " , json);
+
+    if(json == "ok"){
+
+        if(estadoConcepto == 0){
+
+            const boton = document.querySelector('#botonCamEstConcepto'+idConceptoContableGest);
+            boton.classList.remove('btn-info');
+            boton.classList.add('btn-dark');
+            boton.innerHTML = "Desactivado";
+            boton.setAttribute('estadoConceptoNomina' , 1);
+
+            Swal.fire({
+                icon: 'info',
+                title: 'Gestión de Concepto Contable de Nómina',
+                text: 'El Concepto Contable fue Desactivado ...'
+            });
+
+        }else{
+
+            const boton = document.querySelector('#botonCamEstConcepto'+idConceptoContableGest);
+            boton.classList.remove('btn-dark');
+            boton.classList.add('btn-info');
+            boton.innerHTML = "Activado";
+            boton.setAttribute('estadoConceptoNomina' , 0);
+
+            Swal.fire({
+                icon: 'info',
+                title: 'Gestión de Concepto Contable de Nómina',
+                text: 'El Concepto Contable fue Activado ...'
+            });
+
+        } /**Estado */
+
+    } /**Si la respuesta que retornamos es Ok */
+
+}
 
 
 /*************** VALIDACIONES POR EL EVENTO KEYPRESS ****************/
@@ -173,4 +346,11 @@ let validador2_conceptos = (e) => {
         return false;
 
     } 
+}
+
+/**Función de espera para Async Await - Para ayudar los Time */
+function waitforme(milisec) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, milisec);
+    })
 }

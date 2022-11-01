@@ -51,83 +51,87 @@ class ModeloConceptos{
 
 	// }
 
-    /**********************************************
-	********** INSERTAR CARGO DEL HOTEL ***********
-	***********************************************/
-	// static public function mdlRegistroCargo($tabla, $datos){
+    /************************************************************
+	********** INSERTAR CONCEPTO CONTABLE PARA NÓMINA ***********
+	*************************************************************/
+	static public function mdlRegistroConcepto($tabla, $datos){
 
-	// 	$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(cargo, alias, estado) VALUES (:cargo, :alias, :estado)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(capitulo, concepto, porcentaje, descripcion, estado) VALUES (:capitulo, :concepto, :porcentaje, :descripcion, :estado)");
 
-	// 	$stmt->bindParam(":cargo", $datos["cargo"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":alias", $datos["alias"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+		$stmt->bindParam(":capitulo", $datos["capitulo"], PDO::PARAM_STR);
+		$stmt->bindParam(":concepto", $datos["concepto"], PDO::PARAM_STR);
+		$stmt->bindParam(":porcentaje", $datos["porcentaje"], PDO::PARAM_STR);
+		$stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 
-	// 	if($stmt->execute()){
+		if($stmt->execute()){
 
-	// 		return "ok";
+			return "ok";
 
-	// 	}else{
+		}else{
 
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
 		
-	// 	}
+		}
 
-	// 	$stmt = null;
+		$stmt = null;
 
-	// }
+	}
 
-	/***********************************************
-	*********** EDICIÓN CARGOS DEL HOTEL ***********
-	************************************************/
-	// static public function mdlEditarCargos($tabla, $datos){
+	/************************************************************
+	*********** EDICIÓN CONCEPTO CONTABLE PARA NÓMINA ***********
+	*************************************************************/
+	static public function mdlEditarConceptos($tabla, $datos){
 
-	// 	$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET cargo = :cargo, alias = :alias WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET capitulo = :capitulo, concepto = :concepto , porcentaje = :porcentaje, descripcion = :descripcion WHERE id = :id");
 
-	// 	$stmt->bindParam(":cargo", $datos["cargo"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":alias", $datos["alias"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+		$stmt->bindParam(":capitulo", $datos["capitulo"], PDO::PARAM_STR);
+		$stmt->bindParam(":concepto", $datos["concepto"], PDO::PARAM_STR);
+		$stmt->bindParam(":porcentaje", $datos["porcentaje"], PDO::PARAM_STR);
+		$stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
 
-	// 	if($stmt -> execute()){
+		if($stmt -> execute()){
 
-	// 		return "ok";
+			return "ok";
 
-	// 	}else{
+		}else{
 
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
 
-	// 	}
+		}
 
-	// 	$stmt = null;
+		$stmt = null;
 
-	// }
+	}
 
-	/***************************************************
-	****** ACTIVAR - DESACTIVAR - CARGOS EMPLEADO ******
-	****************************************************/
+	/******************************************************
+	****** ACTIVAR - DESACTIVAR - CONCEPTO DE NÓMINA ******
+	*******************************************************/
 
-	// static public function mdlHabilitarCargo($tabla, $item1, $valor1, $item2, $valor2){
+	static public function mdlHabilitarConcepto($tabla, $item1, $valor1, $item2, $valor2){
 
-	// 	$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item2 = :$item2 WHERE $item1 = :$item1");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item2 = :$item2 WHERE $item1 = :$item1");
 
-	// 	$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
-	// 	$stmt -> bindParam(":".$item1, $valor1, PDO::PARAM_STR);
+		$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+		$stmt -> bindParam(":".$item1, $valor1, PDO::PARAM_STR);
 
-	// 	if($stmt -> execute()){
+		if($stmt -> execute()){
 
-	// 		return "ok";
+			return "ok";
 		
-	// 	}else{
+		}else{
 
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
 
-	// 	}
+		}
 
-	// 	$stmt = null;
+		$stmt = null;
 
-	// }
+	}
 
 	/**************************************************
 	******* ELIMINAR CARGO EMPLEADO DEL SISTEMA *******

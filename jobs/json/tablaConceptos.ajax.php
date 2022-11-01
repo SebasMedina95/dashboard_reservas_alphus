@@ -49,14 +49,14 @@ class TablaConceptos{
             /**---------------------------------------------ESTADO VAL */
 			if($value["estado"] == 0){
 
-				$estado = "<button class='btn btn-dark btn-sm btnActivarConceptoNomina' estadoConceptoNomina='1' idConceptoNomina='".$value["id"]."'>Desactivado</button>";
+				$estado = "<button id='botonCamEstConcepto".$value["id"]."' class='btn btn-dark btn-sm btnActivarConceptoNomina' onclick='gestionarEstConceptosNomi(".$value["id"].")' estadoConceptoNomina='1' idConceptoNomina='".$value["id"]."'>Desactivado</button>";
 
 			}else{
 
-				$estado = "<button class='btn btn-info btn-sm btnActivarConceptoNomina' estadoConceptoNomina='0' idConceptoNomina='".$value["id"]."'>Activado</button>";
+				$estado = "<button id='botonCamEstConcepto".$value["id"]."' class='btn btn-info btn-sm btnActivarConceptoNomina' onclick='gestionarEstConceptosNomi(".$value["id"].")' estadoConceptoNomina='0' idConceptoNomina='".$value["id"]."'>Activado</button>";
 			}
 
-			$acciones = "<div class='btn-group'><button title='Actualizar Concepto Nomina' class='btn btn-warning btn-sm editarConceptoNomina' data-toggle='modal' data-target='#editarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Concepto Nomina' class='btn btn-danger btn-sm eliminarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
+			$acciones = "<div class='btn-group'><button title='Actualizar Concepto Nomina' onclick='botonActualizarConcepto(".$value["id"].");' id='botonActualizarConcepto".$value["id"]."' class='btn btn-warning btn-sm editarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Concepto Nomina' class='btn btn-danger btn-sm eliminarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
 		
 		$datosJson .='[
 					  "'.($key+1).'",
