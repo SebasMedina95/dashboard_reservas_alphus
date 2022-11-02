@@ -7,13 +7,15 @@
  * Nota: Validamos para cuando borremos la Cookie, no se nos quede luego en un limbo nuestra
  * variable de sesión, entonces re validamos y ajustamos para que se elimine la cookie pero 
  * se conserve la variable de sesión de forma adecuada: */
-if(!$_SESSION["idContratoFichaSession"]){
+if(!isset($_SESSION["idContratoFichaSession"])){
     $_SESSION["idContratoFichaSession"] = $_COOKIE["idContratoFicha"];
     echo '<script>
 
         /**Forzo borrado de cookie */
         console.log("Cookie eliminada - Queda el resto en la variable de Session ...");
         document.cookie = "idContratoFicha=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+        window.location = "ficha-empleado";
 
     </script>';
 }else{
@@ -24,6 +26,8 @@ if(!$_SESSION["idContratoFichaSession"]){
             /**Forzo borrado de cookie */
             console.log("Cookie eliminada - Queda el resto en la variable de Session ...");
             document.cookie = "idContratoFicha=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+            window.location = "ficha-empleado";
 
         </script>';
     }
@@ -634,6 +638,8 @@ $fechaNacimiento = date("d-M-Y" , strtotime($respuestaAdmins["fecha_nacimiento"]
 $_SESSION["idGetAdminSession"] = $respuestaContrato["id_admin"];
 $_SESSION["idGetContratoSession"] = $valorFicha;
 $_SESSION["idGetFichaSession"] = $respuestaFicha["id"];
+
+
 
 ?>
 
