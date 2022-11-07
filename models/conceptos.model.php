@@ -137,25 +137,25 @@ class ModeloConceptos{
 	******* ELIMINAR CARGO EMPLEADO DEL SISTEMA *******
 	***************************************************/
 
-	// static public function mdlEliminarCargo($tabla, $id){
+	static public function mdlEliminarConceptos($tabla, $id){
 
-	// 	$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
 
-	// 	$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
+		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
 
-	// 	if($stmt -> execute()){
+		if($stmt -> execute()){
 
-	// 		return "ok";
+			return "ok";
 		
-	// 	}else{
+		}else{
 
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
 
-	// 	}
+		}
 
-	// 	$stmt = null;
+		$stmt = null;
 
-	// }
+	}
 	
 }

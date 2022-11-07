@@ -200,6 +200,22 @@
                   echo '<script src="views/resources/js/conceptos.js"></script>';
 
                  break;
+
+                 /**6. Banner del Hotel:  */
+                 case "banner":
+                  
+                  include "views/pages/modals/banners/modals_banners.php";
+                  echo '<script src="views/resources/js/banner.js"></script>';
+
+                 break;
+
+                 /**6. Banner del Hotel:  */
+                 case "planes":
+                  
+                  //include "views/pages/modals/banners/modals_banners.php";
+                  echo '<script src="views/resources/js/planes.js"></script>';
+
+                 break;
                  
  
                } /**Switch de modales */

@@ -45,11 +45,11 @@
 
             <div class="card-header border-transparent">
 
-              <h3 class="card-title"><b>Gestión de Banners</b></h3>
+              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearBanner"><i class="fa-solid fa-plus"></i> Agregar un Banner</button> 
 
               <div class="card-tools">
 
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
 
                   <i class="fas fa-minus"></i>
 
@@ -59,7 +59,7 @@
 
                   <i class="fas fa-times"></i>
 
-                </button>
+                </button> -->
 
               </div>
 
@@ -69,11 +69,26 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+            <table style="width: 100%;" class="table table-hover table-striped dt-responsive display nowrap" id="tablaBanner">
+                
+                <thead class="estiloTablasGeneral">
 
-                Aquí se gestionará los banner que dispone el hotel
+                  <tr>
 
-              </p>
+                    <th style="width:5%">#</th> 
+                    <th style="width:60%">Banner</th>
+                    <th style="width:15%">Estado</th>
+                    <th style="width:20%">Acciones</th>          
+
+                  </tr>   
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+              </table>
 
             </div>
 

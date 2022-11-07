@@ -248,41 +248,128 @@ async function gestionarEstConceptosNomi(id){
 /**Para habilitar/Inhabilitar -> La acción como tal: */
 async function habilitar_inhabilitar(idConceptoContableGest , estadoConcepto){
 
-    let respuesta = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContableGest="+idConceptoContableGest+"&"+"estadoConcepto="+estadoConcepto);
+    try {
+        
+        let respuesta = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContableGest="+idConceptoContableGest+"&"+"estadoConcepto="+estadoConcepto);
+        json = await respuesta.json();
+        console.log("json " , json);
+
+        if(json == "ok"){
+
+            if(estadoConcepto == 0){
+
+                const boton = document.querySelector('#botonCamEstConcepto'+idConceptoContableGest);
+                boton.classList.remove('btn-info');
+                boton.classList.add('btn-dark');
+                boton.innerHTML = "Desactivado";
+                boton.setAttribute('estadoConceptoNomina' , 1);
+
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Gestión de Concepto Contable de Nómina',
+                    text: 'El Concepto Contable fue Desactivado ...'
+                });
+
+            }else{
+
+                const boton = document.querySelector('#botonCamEstConcepto'+idConceptoContableGest);
+                boton.classList.remove('btn-dark');
+                boton.classList.add('btn-info');
+                boton.innerHTML = "Activado";
+                boton.setAttribute('estadoConceptoNomina' , 0);
+
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Gestión de Concepto Contable de Nómina',
+                    text: 'El Concepto Contable fue Activado ...'
+                });
+
+            } /**Estado */
+
+        } /**Si la respuesta que retornamos es Ok */
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+/********************************************************************************
+/************** ELIMINAR UN CONCEPTO CONTABLE QUE PUEDA SER BORRADO *************
+/********************************************************************************/
+async function botonEliminarConceptoNomina(id){
+
+    try {
+         
+        let idConceptoContableElim = id;
+        let btnComplet = document.querySelector('#botonEliminarConceptoNomina'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+
+        // console.log("idConceptoContableElim" , idConceptoContableElim);
+        // console.log("btnComplet" , btnComplet);
+
+        $('#spinnerCargaEditarConcepto').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaEditarConcepto").classList.add("show");
+
+        let respuesta = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContable="+idConceptoContableElim);
+        json1 = await respuesta.json();
+        await waitforme(500);
+
+        $('#spinnerCargaEditarConcepto').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaEditarConcepto').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        let concepto = json1["concepto"];
+
+        /**Preguntamos primero */
+        Swal.fire({
+            title: 'Eliminación de Concepto Contable',
+            text: "¿Estás seguro de eliminar el concepto contable: " + concepto + " ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar concepto!',
+            cancelButtonText: 'Cancelar'
+        }).then(function(result){
+
+            /**Si es verdadero, presionó la tecla aceptar */
+            if(result.value){
+
+                /**Habilitamos/Inhabilitamos:
+                 * Debemos independizar la operación para manejar mejor la promesa que será resuelta.*/
+                realizarEliminacion(idConceptoContableElim).then();
+
+            } /**La persona selecciona que si desea eliminar */
+
+        }) /**Estructura then del Sweet Alert */  
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+/**Realizar la eliminación como tal ... */
+async function realizarEliminacion(idConceptoContableElim){
+
+    let respuesta = await fetch("jobs/conceptos.ajax.php?"+"idConceptoContableElim="+idConceptoContableElim);
     json = await respuesta.json();
     console.log("json " , json);
 
     if(json == "ok"){
 
-        if(estadoConcepto == 0){
+        Swal.fire({
+            icon: 'success',
+            title: 'Eliminación de Concepto Contable',
+            text: 'El Concepto Contable fue eliminado correctamente! ...'
+        }).then(function(result){
 
-            const boton = document.querySelector('#botonCamEstConcepto'+idConceptoContableGest);
-            boton.classList.remove('btn-info');
-            boton.classList.add('btn-dark');
-            boton.innerHTML = "Desactivado";
-            boton.setAttribute('estadoConceptoNomina' , 1);
+            if(result.value || !result.value){
 
-            Swal.fire({
-                icon: 'info',
-                title: 'Gestión de Concepto Contable de Nómina',
-                text: 'El Concepto Contable fue Desactivado ...'
-            });
+                window.location = "conceptos";
 
-        }else{
+            } /**Si el resultado valida ok, logramos eliminar y redirecciono */
 
-            const boton = document.querySelector('#botonCamEstConcepto'+idConceptoContableGest);
-            boton.classList.remove('btn-dark');
-            boton.classList.add('btn-info');
-            boton.innerHTML = "Activado";
-            boton.setAttribute('estadoConceptoNomina' , 0);
-
-            Swal.fire({
-                icon: 'info',
-                title: 'Gestión de Concepto Contable de Nómina',
-                text: 'El Concepto Contable fue Activado ...'
-            });
-
-        } /**Estado */
+        }) /**Swal de que se elimino correctamente */
 
     } /**Si la respuesta que retornamos es Ok */
 

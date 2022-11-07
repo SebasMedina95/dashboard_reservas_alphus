@@ -21,6 +21,14 @@ require_once "models/conceptos.model.php";
 require_once "controllers/contratosEmpleados.controller.php";
 require_once "models/contratosEmpleados.model.php";
 
+/**Banner de Interfaz */
+require_once "controllers/banner.controller.php";
+require_once "models/banner.model.php";
+
+/**Planes del Hotel para Interfaz */
+require_once "controllers/planes.controller.php";
+require_once "models/planes.model.php";
+
 $plantilla = new ControladorPlantilla();
 $plantilla -> ctrPlanilla();
 

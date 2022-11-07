@@ -10,7 +10,7 @@
 <!-- /***************************************************************/
      /***** SPINNER DE CARGA PARA EDITAR EMPLEADO/ADMINISTRADOR *****/
      /***************************************************************/ -->
-     <div class="modal fade" tabindex="-1" role="dialog" id="spinnerCargaEditarEmpleado" aria-labelledby="spinnerCargaEditarEmpleado" aria-hidden="true">
+<div class="modal fade" tabindex="-1" role="dialog" id="spinnerCargaEditarEmpleado" aria-labelledby="spinnerCargaEditarEmpleado" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="d-flex align-items-center">
             <h3 class="font-weight-bold text-white">Cargando Información ...</h3>

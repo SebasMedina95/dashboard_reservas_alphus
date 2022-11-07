@@ -58,6 +58,12 @@
     width:  275px;
 }
 
+.imagenPreviaBanner{
+    margin: 0 auto;
+    justify-content: center;
+    width:  500px;
+}
+
 .lineaPImgAdmin{
     margin-top: -10px;
 }

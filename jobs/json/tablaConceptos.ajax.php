@@ -3,6 +3,9 @@
 require_once "../../controllers/conceptos.controller.php";
 require_once "../../models/conceptos.model.php";
 
+require_once "../../controllers/contratosEmpleados.controller.php";
+require_once "../../models/contratosEmpleados.model.php";
+
 class TablaConceptos{
 
 	/*=============================================
@@ -28,6 +31,11 @@ class TablaConceptos{
 		"data":[';
 
 		foreach ($respuesta as $key => $value) {
+
+			/**Vamos a buscar primero si el concepto está siendo usado en alguna ficha */
+			$itemConcepto = "id_concepto";
+			$valorConcepto = $value["id"];
+			$respuestaConcepto = ControladorContratoEmpleados::ctrMostrarDetallesConceptoGeneral($itemConcepto, $valorConcepto);
 
             /**---------------------------------------------CAPITULO VAL */
             if($value["capitulo"] == "1"){
@@ -56,7 +64,16 @@ class TablaConceptos{
 				$estado = "<button id='botonCamEstConcepto".$value["id"]."' class='btn btn-info btn-sm btnActivarConceptoNomina' onclick='gestionarEstConceptosNomi(".$value["id"].")' estadoConceptoNomina='0' idConceptoNomina='".$value["id"]."'>Activado</button>";
 			}
 
-			$acciones = "<div class='btn-group'><button title='Actualizar Concepto Nomina' onclick='botonActualizarConcepto(".$value["id"].");' id='botonActualizarConcepto".$value["id"]."' class='btn btn-warning btn-sm editarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Concepto Nomina' class='btn btn-danger btn-sm eliminarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
+			if(is_array($respuestaConcepto) && $respuestaConcepto["id_concepto"] == $value["id"]){ /**El concepto está siendo usado, no podemos tener la opción de eliminar! */
+
+				$acciones = "<div class='btn-group'><button title='Actualizar Concepto Nomina' onclick='botonActualizarConcepto(".$value["id"].");' id='botonActualizarConcepto".$value["id"]."' class='btn btn-warning btn-sm editarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button></div>";
+
+			}else{
+
+				$acciones = "<div class='btn-group'><button title='Actualizar Concepto Nomina' onclick='botonActualizarConcepto(".$value["id"].");' id='botonActualizarConcepto".$value["id"]."' class='btn btn-warning btn-sm editarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Eliminar Concepto Nomina' onclick='botonEliminarConceptoNomina(".$value["id"].");' id='botonEliminarConceptoNomina".$value["id"]."' class='btn btn-danger btn-sm eliminarConceptoNomina' idConceptoNomina='".$value["id"]."'><i class='fas fa-trash-alt'></i></button></div>";
+
+			}
+		
 		
 		$datosJson .='[
 					  "'.($key+1).'",

@@ -716,7 +716,7 @@ function validarFormularioAdmins(form) {
 async function gestionarEstAdmins(id){
 
     try {
-        /**Capturamos los parámetros que vienen del botón de archivo tablaCargos.ajax.php */
+        /**Capturamos los parámetros que vienen del botón de archivo tablaEmpleados.ajax.php */
         let idAdmin = id;
         let btnComplet = document.querySelector('#botonCamEstAdmins'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
         let estadoAdmin = btnComplet.getAttribute('estadoAdmin');
@@ -884,6 +884,7 @@ async function eliminarAdministrador(id) {
 
 }
 
+/**Realizar la eliminación como tal ... */
 async function realizarEliminacion(idAdministradorElim){
 
     let respuesta = await fetch("jobs/empleados.ajax.php?"+"idEliminar="+idAdministradorElim);

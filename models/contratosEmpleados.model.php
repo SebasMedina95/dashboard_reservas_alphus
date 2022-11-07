@@ -218,6 +218,37 @@ class ModeloContratoEmpleados{
 
 	}
 
+	/***************************************************************
+	************* MOSTRAR DETALLES CONCEPTOS GENERALES *************
+	****************************************************************/
+	static public function mdlMostrarDetallesConceptoGeneral($tabla1, $item, $valor){
+
+		/**MUESTRE LA DATA QUE COINCIDE CON LA FILA Y EL VALOR RESPECTIVO */
+		if($item != null && $valor != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla1 WHERE $item = :$item");
+
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetch(); /**Por que puedo tener varios conceptos ... */
+		
+		/**MUESTRE TODA LA DATA */
+		}else{
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla1");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}
+
+		$stmt = null;
+
+	}
+
 	/*******************************************************************************************************************
 							MOSTRAR LOS CONCEPTOS LIMITADOS  -> Aplicación especializada
 	Requerimos mostrar a todos los conceptos disponibles para detalle ficha, PERO, que no se hayan registrado

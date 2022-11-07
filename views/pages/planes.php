@@ -42,12 +42,14 @@
         <div class="col-lg-12">
 
           <div class="card card-primary card-outline">
+              
+              <div class="card-header border-transparent">
+                
+              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearPlan">Crear nuevo plan</button>  
 
-            <div class="card-header border-transparent">
+              <!-- <h3 class="card-title"><b>Planes del Hotel</b></h3> -->
 
-              <h3 class="card-title"><b>Planes del Hotel</b></h3>
-
-              <div class="card-tools">
+              <!-- <div class="card-tools">
 
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
 
@@ -61,7 +63,7 @@
 
                 </button>
 
-              </div>
+              </div> -->
 
             </div>
 
@@ -69,11 +71,29 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+              <table style="width: 100%;" class="table table-hover table-striped dt-responsive display nowrap" id="tablaPlanes">
+                
+                <thead class="estiloTablasGeneral">
 
-                Aquí se gestionará los planes que ofrece el Hotel para las Reservaciones.
+                  <tr>
 
-              </p>
+                    <th style="width:5px">#</th> 
+                    <th>Imagen</th>
+                    <th>Título</th>
+                    <th>Estado</th>
+                    <th>$.Temp.Alta</th>
+                    <th>$.Temp.Baja</th>
+                    <th>Acciones</th>          
+
+                  </tr>   
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+              </table>
 
             </div>
 

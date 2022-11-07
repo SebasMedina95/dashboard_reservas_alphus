@@ -157,14 +157,14 @@ class ControladorConceptos{
 	********** ELIMINACIÓN DE ADMINISTRADORES **********
 	****************************************************/
 
-	// static public function ctrEliminarCargo($id){
+	static public function ctrEliminarConceptos($id){
 
-	// 	$tabla = "cargos_empleado";
+		$tabla = "conceptos";
 
-	// 	$respuesta = ModeloCargos::mdlEliminarCargo($tabla, $id);
+		$respuesta = ModeloConceptos::mdlEliminarConceptos($tabla, $id);
 
-	// 	return $respuesta;
+		return $respuesta;
 
-	// }
+	}
 
 }/**Clase */

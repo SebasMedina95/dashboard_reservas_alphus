@@ -217,6 +217,20 @@ class ControladorContratoEmpleados{
 
 	}
 
+    /**********************************************************
+	************* DETALLES DE CONCEPTO EN GENERAL *************
+	***********************************************************/
+
+	static public function ctrMostrarDetallesConceptoGeneral($item, $valor){
+
+        $tabla1 = "detalle_conceptos";       
+
+		$respuesta = ModeloContratoEmpleados::mdlMostrarDetallesConceptoGeneral($tabla1, $item, $valor);    
+
+		return $respuesta;
+
+	}
+
     /******************************************************
 	************* MOSTRAR CONCEPTOS CONTABLES *************
 	*******************************************************/

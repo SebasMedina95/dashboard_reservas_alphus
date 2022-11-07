@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2022 a las 16:16:17
+-- Tiempo de generación: 07-11-2022 a las 18:57:41
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -130,14 +130,16 @@ CREATE TABLE `banner` (
 --
 
 INSERT INTO `banner` (`id`, `img`, `estado`, `fecha`) VALUES
-(1, 'views/img/banner/banner01.jpg', '1', '2022-01-12 05:58:10'),
+(1, 'views/img/banner/819.jpg', '1', '2022-11-07 04:30:37'),
 (2, 'views/img/banner/banner02.jpg', '1', '2022-01-12 05:58:19'),
-(3, 'views/img/banner/banner03.jpg', '1', '2022-01-12 05:58:27'),
+(3, 'views/img/banner/239.jpg', '1', '2022-11-07 04:29:29'),
 (4, 'views/img/banner/banner04.jpg', '1', '2022-01-12 05:58:35'),
 (5, 'views/img/banner/banner05.jpg', '1', '2022-01-12 06:46:33'),
 (6, 'views/img/banner/banner06.jpg', '1', '2022-01-12 06:46:33'),
-(7, 'views/img/banner/banner07.jpg', '1', '2022-01-12 06:46:33'),
-(8, 'views/img/banner/banner08.jpg', '1', '2022-01-12 06:46:33');
+(8, 'views/img/banner/banner08.jpg', '1', '2022-01-12 06:46:33'),
+(11, 'views/img/banner/728.jpg', '1', '2022-11-07 04:04:56'),
+(12, 'views/img/banner/499.jpg', '1', '2022-11-06 05:10:51'),
+(13, 'views/img/banner/255.jpg', '1', '2022-11-07 04:27:16');
 
 -- --------------------------------------------------------
 
@@ -777,7 +779,7 @@ INSERT INTO `usuarios` (`id_u`, `numero_documento`, `nombre`, `email`, `celular`
 (10, '61852002', 'Maria Paulina Nuñez Taborda', 'mariapaulina999@gmail.com', '3156970344', '$2a$07$asxx54ahjppf45sd87a5auJnyEWu2I/LGrsdLfMawEZGMwUWnuJ6a', '', 'directo', 1, '44bb753ae884d702c23e6c5f3a7dd3ac', '2022-04-09 05:29:34'),
 (17, '1212121212', 'aaaaaaaaaaaa', 'luznellytoro123@gmail.com', '3123123111', '$2a$07$asxx54ahjppf45sd87a5auwnm8Ge8XfxTGkTRPAGhzMKh/9TujBbi', '', 'directo', 0, '6f5e6c62043d4c2606a375256155f8bf', '2022-04-06 04:41:11'),
 (18, '69032223', 'Luz Nelly Toro Sanchez', 'luznellytoro123@gmail.com', '3124121111', '$2a$07$asxx54ahjppf45sd87a5auoIO4f04vcwU5tufbLqFzu3NG9nq/DtW', '', 'directo', 1, '6f5e6c62043d4c2606a375256155f8bf', '2022-08-05 00:43:20'),
-(19, '1216717948', 'Juan Sebastian Medina Toro', 'sebastianmedina@gmail.com', '3102356630', '$2a$07$asxx54ahjppf45sd87a5auxzNM.rH23RQRe64u3C5YAmYeOllKxfW', 'views/img/usuarios/19/19.jpg', 'directo', 1, '038a96f3639529b4452ae7b9b352d7d3', '2022-08-31 16:27:18'),
+(19, '1216717948', 'Juan Sebastian Medina Toro', 'sebastianmedina@gmail.com', '3102356630', '$2a$07$asxx54ahjppf45sd87a5auxzNM.rH23RQRe64u3C5YAmYeOllKxfW', 'views/img/usuarios/19/19.jpg', 'directo', 1, '038a96f3639529b4452ae7b9b352d7d3', '2022-11-06 01:28:47'),
 (20, '89420333', 'Melina Mendoza Zarro', 'melinamendozaz1@outlock.com', '3120104452', '$2a$07$asxx54ahjppf45sd87a5auT4WZH36522Mx4xBej24gxqwhhLIovYO', 'views/img/usuarios/20/1281.jpg', 'directo', 1, '9e6a09e1a4437d8694dad2881d8469fd', '2022-08-20 07:31:54'),
 (22, 'null', 'Juan Sebastian Medina Toro', 'jsebastian19952011@gmail.com', 'null', 'null', 'https://lh3.googleusercontent.com/a-/AOh14GgA8BHhBShG3Ek-ahh_MSgpU9lrj7Obr_cApo7L9i8=s96-c', 'google', 1, 'null', '2022-04-18 02:03:40'),
 (23, 'null', 'Fabio de Jesus Medina Henao', 'fabiomedinahenao@gmail.com', 'null', 'null', 'https://lh3.googleusercontent.com/a-/AOh14Gj_8sQSSzfDe8Nu-bc9-pWU9lxgqx6sppfyUwib=s96-c', 'google', 1, 'null', '2022-04-18 02:27:24'),
@@ -907,7 +909,7 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de la tabla `banner`
 --
 ALTER TABLE `banner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `cargos_empleado`

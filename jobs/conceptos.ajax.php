@@ -45,6 +45,20 @@ class AjaxConceptosContables{
 
 	}
 
+	/***************************************************
+	*********** ELIMINAR EL CONCEPTO CONTABLE **********
+	****************************************************/
+
+	public $idConceptoContableElim;
+
+	public function ajaxEliminarConcepto(){
+
+		$respuesta = ControladorConceptos::ctrEliminarConceptos($this->idConceptoContableElim);
+
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
+
+	}
+
 }
 
 /************************************************************
@@ -68,6 +82,18 @@ if(isset($_GET["estadoConcepto"])){
 	$activarConcepto -> idConceptoContableGest = $_GET["idConceptoContableGest"];
 	$activarConcepto -> estadoConcepto = $_GET["estadoConcepto"];
 	$activarConcepto -> ajaxActivarConcepto();
+
+}
+
+/***************************************************
+************ ELIMINAR CONCEPTO CONTABLE ************
+****************************************************/
+
+if(isset($_GET["idConceptoContableElim"])){
+
+	$eliminarConcepto = new AjaxConceptosContables();
+	$eliminarConcepto -> idConceptoContableElim = $_GET["idConceptoContableElim"];
+	$eliminarConcepto -> ajaxEliminarConcepto();
 
 }
 
