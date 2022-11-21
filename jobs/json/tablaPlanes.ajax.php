@@ -33,33 +33,39 @@ class TablaPlanes{
 			************* IMAGEN *************
 			**********************************/	
 
-			$imagen = "<img style='width:50%;' src='".$value["img"]."' class='img-fluid'>";
+			$imagen = "<img style='width: 150px;' src='".$value["img"]."' class='img-fluid'>";
 
             if($value["estado"] == 0){
 
-				$estado = "<button id='botonCamEsBanner".$value["id"]."' class='btn btn-dark btn-sm btnActivarBanner' onclick='gestionarEstBanner(".$value["id"].")' estadoBanner='1' idBanner='".$value["id"]."'>Oculto para Cliente</button>";
+				$estado = "<button id='botonCamEsPlanes".$value["id"]."' class='btn btn-dark btn-sm btnActivarPlanes' onclick='gestionarEstPlanes(".$value["id"].")' estadoPlanes='1' idPlanes='".$value["id"]."'>Oculto para Cliente</button>";
 
 			}else{
 
-				$estado = "<button id='botonCamEsBanner".$value["id"]."' class='btn btn-info btn-sm btnActivarBanner' onclick='gestionarEstBanner(".$value["id"].")' estadoBanner='0' idBanner='".$value["id"]."'>Visible para Cliente</button>";
+				$estado = "<button id='botonCamEsPlanes".$value["id"]."' class='btn btn-info btn-sm btnActivarPlanes' onclick='gestionarEstPlanes(".$value["id"].")' estadoPlanes='0' idPlanes='".$value["id"]."'>Visible para Cliente</button>";
 			}
 			
 			/***********************************
 			************* ACCIONES *************
 			************************************/
 
-			$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarPlan' data-toggle='modal' data-target='#editarPlan' idPlan='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button class='btn btn-danger btn-sm eliminarPlan' idPlan='".$value["id"]."' imgPlan='".$value["img"]."'><i class='fas fa-trash-alt'></i></button></div>";	
+			$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarPlan' id='botonEditPlanes".$value["id"]."' onclick='editarPlan(".$value["id"].")' idPlan='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button id='botonElimPlan".$value["id"]."' class='btn btn-danger btn-sm eliminarPlan' onclick='eliminarPlan(".$value["id"].")' rutaPlan='".$value["img"]."' idPlan='".$value["id"]."' imgPlan='".$value["img"]."'><i class='fas fa-trash-alt'></i></button></div>";
+			
+			$minDescripcion = "<div class='form-group'><textarea disabled class='form-control' cols='30' rows='4'>".$value["min_descripcion"]."</textarea></div>";
+
+			$tempBajaFormat = number_format($value["precio_baja"], 0, ",",".");
+			$tempAltaFormat = number_format($value["precio_alta"], 0, ",",".");
 
 
 			$datosJson.= '[
 							
 						"'.($key+1).'",
+						"'.$acciones.'",
 						"'.$imagen.'",
 						"'.$value["tipo"].'",
 						"'.$estado.'",
-						"$ '.number_format($value["precio_alta"]).'",
-						"$ '.number_format($value["precio_baja"]).'",
-						"'.$acciones.'"
+						"'.$minDescripcion.'",
+						"$ '.$tempBajaFormat.'",
+						"$ '.$tempAltaFormat.'"
 						
 				],';
 

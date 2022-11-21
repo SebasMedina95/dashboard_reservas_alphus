@@ -69,7 +69,7 @@
 
             <div class="card-body">
 
-            <table style="width: 100%;" class="table table-hover table-striped dt-responsive display nowrap" id="tablaBanner">
+            <table style="width: 100%;" class="table table-bordered table-hover table-striped dt-responsive display nowrap" id="tablaBanner">
                 
                 <thead class="estiloTablasGeneral">
 

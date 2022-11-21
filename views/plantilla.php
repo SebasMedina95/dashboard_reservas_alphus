@@ -61,6 +61,9 @@
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="views/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
+    <!-- Summernote -->
+    <link rel="stylesheet" href="views/resources/plugins/summernote/summernote-bs4.min.css">
+
     <!-- *************************************************** -->
     <!-- ARCHIVOS DE JS REQUERIDOS PARA LA PLANILLA -->
     <!-- *************************************************** -->
@@ -92,6 +95,9 @@
     
     <!-- Bootstrap Switch -->
     <script src="views/resources/plugins/bootstrap-switch-master/js/bootstrap-switch.min.js"></script>
+
+    <!-- Summernote -->
+    <script src="views/resources/plugins/summernote/summernote-bs4.min.js"></script>
   
 
 </head>
@@ -212,8 +218,16 @@
                  /**6. Banner del Hotel:  */
                  case "planes":
                   
-                  //include "views/pages/modals/banners/modals_banners.php";
+                  include "views/pages/modals/planes/modals_planes.php";
                   echo '<script src="views/resources/js/planes.js"></script>';
+
+                 break;
+
+                 /**6. Banner del Hotel:  */
+                 case "categorias":
+                  
+                  include "views/pages/modals/categorias/modals_categorias.php";
+                  echo '<script src="views/resources/js/categorias.js"></script>';
 
                  break;
                  

@@ -185,16 +185,6 @@
 
             </div>
 
-            <!-- <div class="col-3">
-
-                <div class="input-group mb-3">
-
-                    <button title="Cancelar Imágen Cargada para la Actualización" onclick="cancelarImgAdminsEdit(event)" class="cancelarImgAdminsEdit text-white btn btn-warning"><i class="fa-solid fa-rotate-left"></i> Cancelar Img </button>
-
-                </div>
-
-            </div> -->
-
             <div align="center" class="col-12 text-center">
 
                 <div class="input-group mb-1">

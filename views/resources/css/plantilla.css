@@ -64,6 +64,12 @@
     width:  500px;
 }
 
+.imagenPreviaPlanes{
+    margin: 0 auto;
+    justify-content: center;
+    width:  350px;
+}
+
 .lineaPImgAdmin{
     margin-top: -10px;
 }

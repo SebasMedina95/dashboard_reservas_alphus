@@ -34,93 +34,115 @@ class ModeloPlanes{
 
 	}
 
-	// /*=============================================
-	// Registro Plan
-	// =============================================*/
+	/************************************************
+	********* ACTIVAR - DESACTIVAR - PLANES *********
+	*************************************************/
 
-	// static public function mdlRegistroPlan($tabla, $datos){
+	static public function mdlHabilitarPlanes($tabla, $item1, $valor1, $item2, $valor2){
 
-	// 	$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(tipo, img, descripcion, precio_alta, precio_baja) VALUES (:tipo, :img, :descripcion, :precio_alta, :precio_baja)");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $item2 = :$item2 WHERE $item1 = :$item1");
 
-	// 	$stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":img", $datos["img"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":precio_alta", $datos["precio_alta"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":precio_baja", $datos["precio_baja"], PDO::PARAM_STR);
+		$stmt -> bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+		$stmt -> bindParam(":".$item1, $valor1, PDO::PARAM_STR);
 
-	// 	if($stmt->execute()){
+		if($stmt -> execute()){
 
-	// 		return "ok";
-
-	// 	}else{
-
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+			return "ok";
 		
-	// 	}
+		}else{
 
-	// 	$stmt->close();
-	// 	$stmt = null;
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
 
-	// }
+		}
 
-	// /*=============================================
-	// Editar Plan
-	// =============================================*/
+		$stmt = null;
 
-	// static public function mdlEditarPlan($tabla, $datos){
+	}
 
-	// 	$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET tipo = :tipo, img = :img, descripcion = :descripcion, precio_alta = :precio_alta, precio_baja = :precio_baja  WHERE id = :id");
+	/*********************************************
+	********* REGISTRO GENERAL DE PLANES *********
+	**********************************************/
 
-	// 	$stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":img", $datos["img"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":precio_alta", $datos["precio_alta"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":precio_baja", $datos["precio_baja"], PDO::PARAM_STR);
-	// 	$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+	static public function mdlRegistroPlan($tabla, $datos){
 
-	// 	if($stmt -> execute()){
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(tipo, img, min_descripcion, precio_alta, precio_baja, estado) VALUES (:tipo, :img, :min_descripcion, :precio_alta, :precio_baja, :estado)");
 
-	// 		return "ok";
+		$stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
+		$stmt->bindParam(":img", $datos["img"], PDO::PARAM_STR);
+		$stmt->bindParam(":min_descripcion", $datos["min_descripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":precio_alta", $datos["precio_alta"], PDO::PARAM_STR);
+		$stmt->bindParam(":precio_baja", $datos["precio_baja"], PDO::PARAM_STR);
+		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 
-	// 	}else{
+		if($stmt->execute()){
 
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+			return "ok";
 
-	// 	}
+		}else{
 
-	// 	$stmt-> close();
-
-	// 	$stmt = null;
-
-	// }
-
-	// /*=============================================
-	// Eliminar Plan
-	// =============================================*/
-
-	// static public function mdlEliminarPlan($tabla, $id){
-
-	// 	$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
-
-	// 	$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
-
-	// 	if($stmt -> execute()){
-
-	// 		return "ok";
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
 		
-	// 	}else{
+		}
 
-	// 		echo "\nPDO::errorInfo():\n";
-    // 		print_r(Conexion::conectar()->errorInfo());
+		$stmt = null;
 
-	// 	}
+	}
 
-	// 	$stmt -> close();
+	/*************************************************
+	********** EDICIÓN DE PLAN SELECCIONADO **********
+	**************************************************/
 
-	// 	$stmt = null;
+	static public function mdlEditarPlan($tabla, $datos){
 
-	// }
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET tipo = :tipo, img = :img, min_descripcion = :min_descripcion, precio_alta = :precio_alta, precio_baja = :precio_baja  WHERE id = :id");
+
+		$stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
+		$stmt->bindParam(":img", $datos["img"], PDO::PARAM_STR);
+		$stmt->bindParam(":min_descripcion", $datos["min_descripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":precio_alta", $datos["precio_alta"], PDO::PARAM_STR);
+		$stmt->bindParam(":precio_baja", $datos["precio_baja"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
+
+	/***********************************
+	********* ELIMINAR EL PLAN *********
+	************************************/
+
+	static public function mdlEliminarPlan($tabla, $id){
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
+
+		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
 
 }

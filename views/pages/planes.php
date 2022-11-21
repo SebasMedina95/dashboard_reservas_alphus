@@ -45,7 +45,7 @@
               
               <div class="card-header border-transparent">
                 
-              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearPlan">Crear nuevo plan</button>  
+              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearPlan"><i class="fa-solid fa-plus"></i> Crear nuevo plan</button>  
 
               <!-- <h3 class="card-title"><b>Planes del Hotel</b></h3> -->
 
@@ -71,19 +71,20 @@
 
             <div class="card-body">
 
-              <table style="width: 100%;" class="table table-hover table-striped dt-responsive display nowrap" id="tablaPlanes">
+              <table style="width: 100%;" class="table table-bordered table-hover table-striped dt-responsive display nowrap" id="tablaPlanes">
                 
                 <thead class="estiloTablasGeneral">
 
                   <tr>
 
                     <th style="width:5px">#</th> 
-                    <th>Imagen</th>
+                    <th>Acciones</th>          
+                    <th style="width:15%">Imagen</th>
                     <th>Título</th>
                     <th>Estado</th>
-                    <th>$.Temp.Alta</th>
-                    <th>$.Temp.Baja</th>
-                    <th>Acciones</th>          
+                    <th style="width:35%">Min. Descripción</th>
+                    <th>$.  Temporada Baja</th>
+                    <th>$. Temporada Alta</th>
 
                   </tr>   
 

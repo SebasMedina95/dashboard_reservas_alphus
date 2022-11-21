@@ -45,11 +45,11 @@
 
             <div class="card-header border-transparent">
 
-              <h3 class="card-title"><b>Categorías de Habitación</b></h3>
+              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearCategoria"><i class="fa-solid fa-plus"></i> Agregar un Categoría de Habitación</button> 
 
               <div class="card-tools">
 
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
 
                   <i class="fas fa-minus"></i>
 
@@ -59,7 +59,7 @@
 
                   <i class="fas fa-times"></i>
 
-                </button>
+                </button> -->
 
               </div>
 
@@ -69,11 +69,35 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+              <table style="width: 100%;" class="table table-bordered table-hover table-striped dt-responsive display nowrap" id="tablaCategorias">
+                
+                <thead class="estiloTablasGeneral">
 
-                Aquí se gestionará las categorías a las que pertenece la habitación
+                  <tr>
 
-              </p>
+                    <th style="width:3px">#</th> 
+                    <th>Acciones</th>            
+                    <th style="width:50%">Imagen</th>
+                    <th>Ruta</th>
+                    <th>Color</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Descripción</th>
+                    <th>Cont. Temp. Alta</th>
+                    <th>Cont. Temp. Baja</th>
+                    <th>Amer. Temp. Alta</th>
+                    <th>Amer. Temp. Baja</th>
+                    <th>Características</th>
+
+                  </tr>   
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+              </table>
 
             </div>
 

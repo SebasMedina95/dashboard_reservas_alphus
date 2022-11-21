@@ -21,6 +21,17 @@ $(".cambiarModoLuz").click(function(){
 
 $(document).ready(function(){
     /**Vamos a cargar directamente en cada JS y no general */
+
+    // Summernote
+    $('#summernote').summernote({
+        height: 200,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']]
+          ]
+    });
+
     // //Initialize Select2 Elements
     // $('.select2').select2()
     

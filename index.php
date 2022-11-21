@@ -29,6 +29,10 @@ require_once "models/banner.model.php";
 require_once "controllers/planes.controller.php";
 require_once "models/planes.model.php";
 
+/**Categorías del Hotel para Interfaz */
+require_once "controllers/categorias.controller.php";
+require_once "models/categorias.model.php";
+
 $plantilla = new ControladorPlantilla();
 $plantilla -> ctrPlanilla();
 

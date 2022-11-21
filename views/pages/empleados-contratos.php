@@ -78,7 +78,7 @@
                         <!-- ******************************* -->
                         <!-- A partir de la tabla tablaContratosAdmins lo obtendré desde JS para hacer el proceso
                         de asignación y trabajar trayendo la data con una petición AJAX. -->
-                        <table style="width: 100%;" class="table table-hover table-striped dt-responsive" id="tablaContratosEmpleados">
+                        <table style="width: 100%;" class="table table-bordered table-hover table-striped dt-responsive" id="tablaContratosEmpleados">
 
                             <thead class="estiloTablasGeneral">
                             

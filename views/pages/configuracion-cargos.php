@@ -78,7 +78,7 @@
                             <!-- ******************************* -->
                             <!-- A partir de la tabla tablaCargos lo obtendré desde JS para hacer el proceso
                             de asignación y trabajar trayendo la data con una petición AJAX. -->
-                            <table class="table table-hover table-striped dt-responsive" id="tablaCargos">
+                            <table class="table table-bordered table-hover table-striped dt-responsive" id="tablaCargos">
 
                                 <thead class="estiloTablasGeneral">
                                 
