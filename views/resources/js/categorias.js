@@ -209,6 +209,23 @@ async function habilitar_inhabilitar(idCategoria , estadoCategoria){
 
 }
 
+/**VAMOS A TRABAJAR LA CAPTURA DE LOS CHECKS RELACIONADOS
+ * CON LAS COMODIDADES QUE TIENE LA CATEGORÍA PARA GUARDAR
+ * LA INFORMACIÓN -> AGREGAR CATEGORÍA DE HABITACIÓN. */
+ let caracteristicasCategoria = [];
+ let editarCaracteristicasCategoria = [];
+
+ 
+ $(".checkboxAdd, .editarCheckbox").on("ifChecked", function(){
+
+    var item = $(this).val().split(",")[0];
+	var icono = $(this).val().split(",")[1];
+
+    console.log("item" , item);
+    console.log("icono" , icono);
+
+ })
+
 
 
 function waitforme(milisec) {

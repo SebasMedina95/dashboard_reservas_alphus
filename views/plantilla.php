@@ -64,6 +64,12 @@
     <!-- Summernote -->
     <link rel="stylesheet" href="views/resources/plugins/summernote/summernote-bs4.min.css">
 
+    <!-- Color Piker - bootstrap-colorpicker -->
+    <link rel="stylesheet" href="views/resources/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+
+    <!-- iChek de Bootstrap -->
+    <link rel="stylesheet" href="views/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
     <!-- *************************************************** -->
     <!-- ARCHIVOS DE JS REQUERIDOS PARA LA PLANILLA -->
     <!-- *************************************************** -->
@@ -98,7 +104,9 @@
 
     <!-- Summernote -->
     <script src="views/resources/plugins/summernote/summernote-bs4.min.js"></script>
-  
+
+    <!-- Color Piker - bootstrap-colorpicker -->
+    <script src="views/resources/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
 
 </head>
 

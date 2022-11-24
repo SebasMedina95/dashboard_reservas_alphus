@@ -60,7 +60,29 @@ $(document).ready(function(){
 
 })
 
+/*********************************
+********** COLOR PICKER **********
+**********************************/
+$(".colorPicker").colorpicker();
+$('.my-colorpicker1').colorpicker();
+$('.my-colorpicker2').colorpicker();
+
+$('.my-colorpicker2').on('colorpickerChange', function(event) {
+    $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+});
+
+
 $("[name='my-checkbox']").bootstrapSwitch();
+
+/*********************************************
+***** Escoger Características con ICHECK *****
+**********************************************/
+
+// $('input[type="checkbox"], input[type="radio"]').iCheck({
+
+// 	checkboxClass: 'icheckbox_flat-blue',
+// 	radioClass   : 'iradio_flat-blue'
+// })
 
 /**Por medio de una petición de Ajax vamos a actualizar automáticamente
  * y de forma asíncrona el estilo oscuro o light del hotel, lo aplicaremos
