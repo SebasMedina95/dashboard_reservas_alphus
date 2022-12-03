@@ -751,9 +751,3 @@ let validador3_Planes = (e) => {
 
     }
 }
-
-function waitforme(milisec) {
-    return new Promise(resolve => {
-        setTimeout(() => { resolve('') }, milisec);
-    })
-}

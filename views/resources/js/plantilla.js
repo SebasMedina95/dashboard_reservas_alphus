@@ -211,3 +211,27 @@ document.querySelector(".cambiarModoLuzPlantilla").addEventListener('click' , ()
 $(".limpiarCacheSitio").click(function(){
     window.location.reload(true); /**Con el true en el argumento forzamos la recarga del servidor y no almacenada en caché */
 })
+
+/**TEMPORIZADOR PARA LAS FUNCIONES ASYNC AWAIT de JS */
+function waitforme(milisec) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, milisec);
+    })
+}
+
+/*****************************************************
+************** APLICANDO MILES DE SALDO **************
+******** MIENTRAS SE TECLEA EN PARALELO EL VALOR *****
+/*****************************************************/
+function formatSueldoBase(input){
+    let num = input.value.replace(/\./g,'');
+    if(!isNaN(num)){
+        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+        num = num.split('').reverse().join('').replace(/^[\.]/,'');
+        input.value = num;
+    }
+    
+    else{ alert('Solo se permiten numeros');
+        input.value = input.value.replace(/[^\d\.]*/g,'');
+    }
+}

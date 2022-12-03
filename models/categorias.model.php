@@ -52,7 +52,7 @@ class ModeloCategorias{
 
 		}else{
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE estado = '1' ORDER BY comodidad ASC");
 
 			$stmt -> execute();
 
@@ -83,6 +83,62 @@ class ModeloCategorias{
 
 			echo "\nPDO::errorInfo():\n";
     		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
+
+	/***************************************************************************************
+	********* INSERTAR DETALLES DE CATEGORÍA DE HABITACIÓN -> INSERTAR COMODIDADES *********
+	****************************************************************************************/
+	static public function mdlInsertarComodidadesCategorias($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_categoria, id_comodidad, estado) VALUES (:id_categoria, :id_comodidad, :estado)");
+
+		$stmt->bindParam(":id_categoria", $datos["id_categoria"], PDO::PARAM_INT);
+		$stmt->bindParam(":id_comodidad", $datos["id_comodidad"], PDO::PARAM_INT);
+		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+		
+		}
+
+		$stmt = null;
+
+	}
+
+	/*********************************************************
+	***** MOSTRAR DETALLES DE LA CATEGORÍA DE HABITACIÓN *****
+	**********************************************************/
+
+	static public function mdlMostrarDetallesCategorias($tabla, $item, $valor){
+
+		if($item != null && $valor != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll(); //Podría traer varios ...
+
+		}else{
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id DESC");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
 
 		}
 

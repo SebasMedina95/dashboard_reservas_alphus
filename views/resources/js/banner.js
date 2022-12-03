@@ -528,12 +528,3 @@ async function habilitar_inhabilitar(idBanner , estadoBanner){
     } /**Si la respuesta que retornamos es Ok */
 
 }
-
-
-
-/**Función de espera para Async Await - Para ayudar los Time */
-function waitforme(milisec) {
-    return new Promise(resolve => {
-        setTimeout(() => { resolve('') }, milisec);
-    })
-}

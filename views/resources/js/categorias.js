@@ -106,6 +106,84 @@ document.addEventListener('DOMContentLoaded' , (e) => {
     });
 })
 
+/*************************************************************
+************* VALIDAR FORMULARIO REGISTRO VÍA JS *************
+******** Validaremos tanto el agregar como el editar *********
+**************************************************************/
+/**https://elcodigoascii.com.ar/ */
+document.querySelector("#rutaCategoria").addEventListener('keypress' , (e) => { validador1_categorias(e); });
+document.querySelector("#descripcionCategoria").addEventListener('keypress' , (e) => { validador1_categorias(e); });
+document.querySelector("#continental_alta").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+document.querySelector("#continental_baja").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+document.querySelector("#americano_alta").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+document.querySelector("#americano_baja").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+
+/****************************************************************************************
+************* PREVISUALIZACIÓN DE IMÁGEN SUBIDA DE CATEGORÍAS DE HABITACIÓN *************
+*****************************************************************************************/
+document.querySelector("#fotoCategoria").addEventListener('change' , (e) => {
+    console.log("Cargamos una imágen ...");
+    let imagen = document.querySelector("#fotoCategoria").files[0];
+    let tamaImg = imagen["size"];
+    let tipoImg = imagen["type"];
+    let nameImg = imagen["name"];
+    let rutaImgDefault = "../../views/img/defaultCategorias/default.png";
+
+    console.log("imagen" , imagen);
+    console.log("tamaImg" , tamaImg);
+    console.log("tipoImg" , tipoImg);
+    console.log("nameImg" , nameImg);
+    console.log("rutaImgDefault" , rutaImgDefault);
+
+    /**Solo admitiremos imágenes JPG y PNG */
+    if(tipoImg != "image/jpeg" && tipoImg != "image/png"){
+
+        document.querySelector("input[name='fotoCategoria']").value = "";
+        document.querySelector(".nombreImagenCargadaAddCategoria").innerHTML = "Sin subir una imágen válida ...";
+        document.querySelector("#nombreImagenCategorias").innerHTML = "Sin determinar";
+        document.querySelector("#tamanoImagenCategorias").innerHTML = "Sin determinar";
+        document.querySelector("#extensImagenCategorias").innerHTML = "Sin determinar";
+        document.querySelector("#img-foto-categoria").setAttribute('src' , rutaImgDefault);
+  
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡ Solo imágenes JPG y PNG son permitidas !'
+        })
+            
+    }else if(tamaImg > 2000000){ /**Equivalente a 2 Megas */
+
+        document.querySelector("input[name='fotoCategoria']").value = "";
+        document.querySelector(".nombreImagenCargadaAddCategoria").innerHTML = "Sin subir una imágen válida ...";
+        document.querySelector("#nombreImagenCategorias").innerHTML = "Sin determinar";
+        document.querySelector("#tamanoImagenCategorias").innerHTML = "Sin determinar";
+        document.querySelector("#extensImagenCategorias").innerHTML = "Sin determinar";
+        document.querySelector("#img-foto-categoria").setAttribute('src' , rutaImgDefault);
+  
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡ La imágen no puede pesar mas de 2MB !'
+        })
+  
+    }else{
+        console.log("----- PODEMOS CARGAR IMÁGEN -----");
+        let datosImagen = new FileReader;
+        datosImagen.readAsDataURL(imagen);
+
+        datosImagen.addEventListener('load' , (event) => {
+            let rutaImagen = event.target.result;
+            document.querySelector("#img-foto-categoria").setAttribute('src' , rutaImagen);
+            document.querySelector(".nombreImagenCargadaAddCategoria").innerHTML = nameImg+tipoImg+"(Peso: "+tamaImg+")";
+            document.querySelector("#nombreImagenCategorias").innerHTML = nameImg;
+            document.querySelector("#tamanoImagenCategorias").innerHTML = tamaImg;
+            document.querySelector("#extensImagenCategorias").innerHTML = tipoImg;
+        })
+
+    }
+
+})
+
 /**************************************************************************************************
 /******************** ACTIVAR/DESACTIVAR UNA CATEGORÍA DE HABITACIÓN ******************************
  ***************** Versión mixta, JS Puro y JQuery puntual para Ajax y Plugins ********************
@@ -212,24 +290,389 @@ async function habilitar_inhabilitar(idCategoria , estadoCategoria){
 /**VAMOS A TRABAJAR LA CAPTURA DE LOS CHECKS RELACIONADOS
  * CON LAS COMODIDADES QUE TIENE LA CATEGORÍA PARA GUARDAR
  * LA INFORMACIÓN -> AGREGAR CATEGORÍA DE HABITACIÓN. */
- let caracteristicasCategoria = [];
- let editarCaracteristicasCategoria = [];
 
- 
- $(".checkboxAdd, .editarCheckbox").on("ifChecked", function(){
+let editarCaracteristicasCategoria = [];
 
-    var item = $(this).val().split(",")[0];
-	var icono = $(this).val().split(",")[1];
+/****************************************************************************
+/************** ACCIÓN DE INCLUSIÓN DE COMODIDADES PARA GUARDAR *************
+/****************************************************************************/
+async function accionIncluye(){
 
-    console.log("item" , item);
-    console.log("icono" , icono);
+    /**Generamos el array donde guardaremos las selecciones */
+    let caracteristicasCategoria = [];
 
- })
+    try {
+        /**Definimos el JSON y una bandera para distinguir la búsqueda asíncrona de las comodiades,
+         * la mecánica es, recorrer todo el JSON obtenido de comodidades y, panear la palabra comodidad-
+         * concatenado con el ID de la comodidad en relación al id dinámico que se va generando en el DOM
+         * al mostrar el listado de comodidades, si lo recorro y dibujados los elementos entonces voy accediento
+         * a los que se van seleccionando: */
+        let json1;
+        let banderaComodidades = true;
+
+        let resComodidades = await fetch("jobs/categorias.ajax.php?"+"banderaComodidades="+banderaComodidades);
+        json1 = await resComodidades.json();
+        await waitforme(250);
+
+        //console.log("json1 => " , json1);
+
+        /**Recorro lo que nos trae la selección: */
+        for(x of json1){
+
+            /**Obtengo el checkbox con el id de la concatenación dinámica y verifico
+             * si está checked o no para determinar si debo anexarlo: */
+            let checkbox = document.querySelector("#comodidad-" + x["id"]);
+            let check = checkbox.checked;
+
+            /**Indiferente del caso, obtengo mediante un Split cual es la comodidad y el ícono representativo: */
+            let item =  checkbox.value.split(",")[0];
+		    let icono =  checkbox.value.split(",")[1];
+
+            /**Si el elemento está marcado, entonces lo agregamos al array */
+            if(check){
+                console.log("***** Hemos seleccionado *****");
+                console.log("checkbox => " , checkbox);
+                console.log("check => " , check);
+                console.log("item => " , item);
+                console.log("icono => " , icono);
+                console.log("******* ******* ******* *******");
+                
+                /**Convierto el array ordinario en uno de objetos para enviar la 
+                 * data codificada en formato JSON, para luego, desde el server,
+                 * decodificar la data y recorrer para insertar los detalles: */
+                caracteristicasCategoria.push({
+
+                    "id" : x["id"],
+                    "item" : item,
+                    "icono" : icono
+            
+                });
+
+            }
+
+        }
+
+        console.log("Selección: " , caracteristicasCategoria);
+
+        document.querySelector('input[name="caracteristicasCategoria"]').value = JSON.stringify(caracteristicasCategoria);
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+/*************************************************************
+********** RUTA PARA LA CATEGORÍA DINÁMICA PARA URL **********
+**************************************************************/
+let newW;
+document.querySelector("#rutaCategoria").addEventListener('keyup' , (e) => {
+    //console.log("entrando ...");
+    newW = limpiarUrl(document.querySelector("#rutaCategoria").value);
+    //console.warn(newW)
+    document.querySelector("#rutaCategoria").value = newW;
+});
+
+function limpiarUrl(texto){
+
+    console.log("Entramos a limpiar la Ruta-URL: " , texto)
+	var texto = texto.toLowerCase();
+	texto = texto.replace(/[á]/g, 'a');
+	texto = texto.replace(/[é]/g, 'e');
+	texto = texto.replace(/[í]/g, 'i');
+	texto = texto.replace(/[ó]/g, 'o');
+	texto = texto.replace(/[ú]/g, 'u');
+	texto = texto.replace(/[ñ]/g, 'n');
+	texto = texto.replace(/ /g, '-');
+
+	return texto;
+
+}
+
+/*******************************************************************************
+/************** ACCIÓN DE GESTIÓN DE COMODIDADES PARA LA CATEGORÍA *************
+/*******************************************************************************/
+async function comodidadesCategoria(id){
+
+    try {
+        
+        let idCategoria = id;
+        let btnComplet = document.querySelector('#botonComodidadesCategorias'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+        let imgDefault = "views/img/defaultCategorias/default.png";
+
+        console.log('idCategoria ==> ' , idCategoria);
+        console.log('btnComplet ==> ' , btnComplet);
+        console.log('imgDefault ==> ' , imgDefault);
+
+        /**Creo una Cookie para guardar la ficha y hacer una petición con PHP luego
+         * que nos queda más fácil hacer el muestreo comodidades marcadas desde el servidor ... **/
+        setCookie("idCategoriaHabitacionComodidades" , idCategoria , 1); 
+
+        console.log("Creamos la cookie idCategoriaHabitacionComodidades");
+
+        let banderaComodidades = true;
+        let json1; //Para traer categoría
+        let json2; //Para traer comodidades
+        let json3; //Para traer detalles categoría y panearlos con comodidades.
+
+        /**Primero nos traemos la información de la categoría, podemos usar el de editar: */
+        $('#spinnerCargaComodidadesCategoria').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaComodidadesCategoria").classList.add("show");
+
+        let respuesta = await fetch("jobs/categorias.ajax.php?"+"idCategoria="+id);
+        json1 = await respuesta.json();
+        await waitforme(500);
+
+        $('#spinnerCargaComodidadesCategoria').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaComodidadesCategoria').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        console.log("json1" , json1);
+
+        document.querySelector('input[name="idCategoriaComodidad"]').value = json1["id"];
+        document.querySelector('input[name="tipoCategoriaComodidad"]').value = json1["tipo"] + ' - ' + json1["descripcion"];
+
+        if(json1["img"] == ""){
+            document.querySelector('img[id="img-foto-edit-categoria"]').setAttribute("src" , imgDefault); /**Input donde se carga previsualización */
+        }else{
+            console.log("Tenemos IMG en la BD ...");
+            document.querySelector('img[id="img-foto-edit-categoria"]').setAttribute("src" , json1["img"]); /**Input donde se carga previsualización */
+        }
+
+        /**Ahora, vamos a marcar los checks que correspondan, se hará de manera cíclica y trabajando
+         * también sobre el DOM de forma paralela: */
+
+        /**1. Traigo las comodidades: */
+        let resComodidadesMarcar = await fetch("jobs/categorias.ajax.php?"+"banderaComodidades="+banderaComodidades);
+        json2 = await resComodidadesMarcar.json();
+        await waitforme(250);
+
+        console.log("Resultado del json2 => " , json2);
+
+        /**2. Traigo los detalles de la categoría: */
+        let resDetallesComodidadesMarcadas = await fetch("jobs/categorias.ajax.php?"+"idCategoriaDetalles="+idCategoria);
+        json3 = await resDetallesComodidadesMarcadas.json();
+        await waitforme(250);
+
+        console.log("Resultado del json3 => " , json3);
+        
+        let div = "";
+        let marcado = false;
+
+        /**Recorro primero todas las comodidades registradas */
+        for(x of json2){
+            /**Inicializo la bandera para controlar:  */
+            marcado = false;
+            /**Ahora recorro cada uno de los detalles de la categoría. */
+            for(y of json3){
+                /**Si la comodidad coincide con algún detalle, dibujamos el check con el checked activo */
+                if(x.id == y.id_comodidad){
+                    
+                    div = div + '<div class="col-4"><div class="input-group"><div class="icheck-success"><input checked onclick="accionIncluye()" type="checkbox" id="comodidad-'+x["id"]+'" value="'+x["comodidad"]+','+x["icono"]+'"/><label for="comodidad-'+x["id"]+'"><i class="'+x["icono"]+'"></i>  '+x["comodidad"]+'</label></div></div></div>';
+                    /**Cambio la bandera para validar después */
+                    marcado = true;
+
+                }
+
+            }
+            /**Si no se marco, o sea quedo el false, quiere decir que en los detalles no había registrada esa comodidad,
+             * si ese es e caso, dibujamos el check pero lo dibujamos sin el Checked activo, así nos quedará organizado. */
+            if(!marcado){
+                div = div + '<div class="col-4"><div class="input-group"><div class="icheck-success"><input onclick="accionIncluye()" type="checkbox" id="comodidad-'+x["id"]+'" value="'+x["comodidad"]+','+x["icono"]+'"/><label for="comodidad-'+x["id"]+'"><i class="'+x["icono"]+'"></i>  '+x["comodidad"]+'</label></div></div></div>';
+            }
+
+        }
+
+        /**Destino una etiqueta el DOM llamada con el Id setDeChecks que es un Div para insertar allí los datos,
+         * insertar -> Dibujar los datos que hemos organizado, usamos la cláusula outerHTML para que nos dibuje
+         * considerando la etiqueta que estamso anexando y no la que actua como padre, esto último co la finalidad
+         * de que nos dibuje mejor la data. **/
+        let divCompact = document.querySelector("#setDeChecks");
+        divCompact.outerHTML = div;
+
+        /**Así no lo recomienda Bootstrap, pequeña excepción cono JQuery para abrir Modal Programáticamente. */
+        $('#gestionarCategoria').modal('show'); // Abrir Modal por que todo está cargado ...
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+function cancelarDetallesCategoria(){
+    window.location.reload();
+}
+
+async function guardarComodidades(){
+
+    let idCategoria = document.querySelector('input[name="idCategoriaComodidad"]').value;
+    console.log("idCategoria desde guardar comodidades - " , idCategoria);
+
+    /**Generamos el array donde guardaremos las selecciones */
+    let caracteristicasCategoria = [];
+
+    try {
+        
+        /**Definimos el JSON y una bandera para distinguir la búsqueda asíncrona de las comodiades,
+         * la mecánica es, recorrer todo el JSON obtenido de comodidades y, panear la palabra comodidad-
+         * concatenado con el ID de la comodidad en relación al id dinámico que se va generando en el DOM
+         * al mostrar el listado de comodidades, si lo recorro y dibujados los elementos entonces voy accediento
+         * a los que se van seleccionando: */
+        let json1;
+        let json2;
+        let banderaComodidades = true;
+
+        let resComodidades = await fetch("jobs/categorias.ajax.php?"+"banderaComodidades="+banderaComodidades);
+        json1 = await resComodidades.json();
+        await waitforme(250);
+
+        /**Recorro lo que nos trae la selección: */
+        for(x of json1){
+
+            /**Obtengo el checkbox con el id de la concatenación dinámica y verifico
+             * si está checked o no para determinar si debo anexarlo: */
+             let checkbox = document.querySelector("#comodidad-" + x["id"]);
+             let check = checkbox.checked;
+
+             /**Indiferente del caso, obtengo mediante un Split cual es la comodidad y el ícono representativo: */
+            let item =  checkbox.value.split(",")[0];
+		    let icono =  checkbox.value.split(",")[1];
+
+             /**Si el elemento está marcado, entonces lo agregamos al array */
+            if(check){
+                console.log("***** Hemos seleccionado *****");
+                console.log("checkbox => " , checkbox);
+                console.log("check => " , check);
+                console.log("item => " , item);
+                console.log("icono => " , icono);
+                console.log("******* ******* ******* *******");
+                
+                /**Convierto el array ordinario en uno de objetos para enviar la 
+                 * data codificada en formato JSON, para luego, desde el server,
+                 * decodificar la data y recorrer para insertar los detalles: */
+                caracteristicasCategoria.push({
+
+                    "idCategoria" : idCategoria,
+                    "idComodidad" : x["id"],
+                    "item" : item,
+                    "icono" : icono
+            
+                });
+
+            }
+
+        }
+
+        console.log("Terminaríamos guardando entonces ::: " , caracteristicasCategoria);
+        
+        let band;
+        /**Ahora recorremos el objeto y vamos guardando la información ... */
+        for(let i in caracteristicasCategoria) {
+            
+            /**Variables para registrar detalle: */
+            let idCategoriaInsert = caracteristicasCategoria[i]["idCategoria"];
+            let idComodidadInsert = caracteristicasCategoria[i]["idComodidad"];
+            
+            console.warn(caracteristicasCategoria[i]["item"]);
+
+            let resInsertComodidades = await fetch("jobs/categorias.ajax.php?"+"idCategoriaInsert="+idCategoriaInsert+"&"+"idComodidadInsert="+idComodidadInsert);
+            json2 = await resInsertComodidades.json();
+            //await waitforme(250);
+
+            if(json2 == "ok"){
+                band = true;
+                console.log("Insertamos adecuadamente a: " , caracteristicasCategoria[i]["item"]);
+            }else{
+                band = false;
+                console.log("Error insertando a: " , caracteristicasCategoria[i]["item"]);
+            }
+
+        } /**Terminamos de recorrer el objeto ... */
+
+        if(band){
+            Swal.fire({
+                icon: 'success',
+                title: 'Agregando Comodidades a la Categoría',
+                text: 'Comodidades anexadas con éxito! ...'
+            }).then(function(result){
+    
+                if(result.value || !result.value){
+    
+                    window.location = "categorias";
+    
+                } /**Si el resultado valida ok, logramos insertar comodidad y redirecciono */
+    
+            }) /**Swal de que se insertar comodidad correctamente */
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
 
 
+/*************** VALIDACIONES POR EL EVENTO KEYPRESS ****************/
 
-function waitforme(milisec) {
-    return new Promise(resolve => {
-        setTimeout(() => { resolve('') }, milisec);
-    })
+/**Validador1 = Validamos permitir caracteres de la a - z - áéíóú
+ *              Validamos permitir caracteres de la A - Z - ÁÉÍÓÚ
+ *              Validamos permitir caracteres de ñ - Ñ
+ *              Validamos los espacios en blanco */
+/*************** *********************************** ****************/
+let validador1_categorias = (e) => {
+    let keynum = window.event ? window.event.keyCode : e.which; /**Obtenemos el código ASCII */
+    console.log(e.which || e.keyCode);
+    /**Realizamos la validación en estilo ASCII*/
+    if((keynum >= 65 && keynum <= 90) ||                                            /**Letras de a-z */
+       (keynum >= 97 && keynum <= 122) ||                                           /**Letras de A-Z */
+       (keynum == 130) || (keynum == 144) || (keynum == 201) ||                     /**Letra é ,É*/
+       (keynum == 181) || (keynum == 160) || (keynum == 225) || (keynum == 193) ||  /** Á, á*/
+       (keynum == 161) || (keynum == 214) || (keynum == 237) || (keynum == 205) ||  /** í, Í*/
+       (keynum == 162) || (keynum == 224) || (keynum == 243) || (keynum == 211) ||  /** ó, Ó */
+       (keynum == 163) || (keynum == 233) ||                                        /** ú, Ó */
+       (keynum == 218) || (keynum == 250) ||                                        /** ú, Ú */
+       (keynum == 164) || (keynum == 165) ||                                        /** ñ, Ñ */
+       (keynum == 209) || (keynum == 241) ||                                        /** ñ, Ñ */
+       (keynum == 32)){                                                             /**Espacio */
+
+        return true;
+
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Este campo solo permite el ingreso de letras (Se permiten vocales tildadas) ...'
+        });
+        return false;
+
+    }
+}
+
+/**Validador1 = Validamos permitir números del 0 al 9
+ *              Validamos permitir caracteres de . para separar decimales */
+/*************** *********************************** ****************/
+let validador2_categorias = (e) => {
+    let keynum = window.event ? window.event.keyCode : e.which; /**Obtenemos el código ASCII */
+    console.log(e.which || e.keyCode);
+    /**Realizamos la validación en estilo ASCII*/
+    if((keynum >= 48 && keynum <= 57) || 
+    (keynum == 46)){   /** 0-9 y . */                                                          
+
+        return true;
+
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se permiten caracteres especiales en este campo, solo permite números y para decimales separar con punto ...'
+        });
+        return false;
+
+    } 
 }

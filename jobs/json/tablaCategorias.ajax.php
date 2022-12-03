@@ -70,7 +70,7 @@ class TablaCategorias{
             ***** ACCIONES DISPONIBLES *****
             ********************************/
 
-			$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarCategoria' data-toggle='modal' data-target='#editarCategoria' idCategoria='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button class='btn btn-danger btn-sm eliminarCategoria' idCategoria='".$value["id"]."' imgCategoria='".$value["img"]."' tipoCategoria='".$value["tipo"]."'><i class='fas fa-trash-alt'></i></button></div>";
+			$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarCategoria' id='botonEditCategorias".$value["id"]."' onclick='editarCategoria(".$value["id"].")' idCategoria='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button class='btn btn-danger btn-sm eliminarCategoria' idCategoria='".$value["id"]."' imgCategoria='".$value["img"]."' tipoCategoria='".$value["tipo"]."'><i class='fas fa-trash-alt'></i></button><button class='btn btn-primary text-white btn-sm comodidadesCategoria' id='botonComodidadesCategorias".$value["id"]."' onclick='comodidadesCategoria(".$value["id"].")' idCategoria='".$value["id"]."'><i class='fa-solid fa-star'></i></button></div>";
             
             $continentalBaja = number_format($value["continental_alta"], 0, ",",".");
             $continentalAlta = number_format($value["continental_baja"], 0, ",",".");

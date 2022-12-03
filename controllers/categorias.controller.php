@@ -30,6 +30,21 @@ class ControladorCategorias{
 
 	}
 
+	/************************************************************
+	***** MOSTRAR LISTADO DETALLES CATEGORÍAS DE HABITACIÓN *****
+	*************************************************************/
+
+	static public function ctrMostrarDetallesCategorias($item, $valor){
+
+		$tabla = "detalle_comodidades";
+
+		$respuesta = ModeloCategorias::mdlMostrarDetallesCategorias($tabla, $item, $valor);
+
+		return $respuesta;
+
+	}
+	
+
 }
 
 ?>

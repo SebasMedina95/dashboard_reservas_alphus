@@ -12,28 +12,6 @@ $.ajax({
 
 })
 
-// let idFichaDetallesConcp = document.querySelector("input[name='txtValFichaDef']").value;
-// console.log("idFichaDetallesConcp" , idFichaDetallesConcp);
-
-
-// let datosA = new FormData();
-// datosA.append("idFichaDetallesConcp", idFichaDetallesConcp);
-
-// $.ajax({
-//     url:"jobs/json/tablaFichasAdmins.ajax.php",
-//     method: "POST",
-//     data: datosA,
-//     cache: false,
-//     contentType: false,
-//     processData: false,
-//     dataType: "json",
-//     success:function(respuestaA){
-        
-//         console.log("Res Fichas: " , respuestaA);
-
-//     }
-// })
-
 /*******************************************************************************
 ************ CONFIGURACIONES PARA EL DATA TABLE DE CONTRATOS ADMINS ************
 ********************************************************************************/

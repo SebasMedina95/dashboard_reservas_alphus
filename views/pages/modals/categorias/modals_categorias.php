@@ -219,33 +219,38 @@
 
                             <?php 
                             
-                                $item = null;
-                                $valor = null;
+                                // $item = null;
+                                // $valor = null;
 
-                                $respuestaComodidades = ControladorCategorias::ctrMostrarComodidadesCategorias($item , $valor);
+                                // $respuestaComodidades = ControladorCategorias::ctrMostrarComodidadesCategorias($item , $valor);
 
-                                foreach ($respuestaComodidades as $key => $value) {
+                                // foreach ($respuestaComodidades as $key => $value) {
                                     
-                                    echo '
+                                //     echo '
                                     
-                                        <div class="col-4">
-                                            <div class="input-group">                                    
-                                                <div class="icheck-success">
-                                                    <input type="checkbox" id="comodidad-'.$value["id"].'" />
-                                                    <label for="comodidad-'.$value["id"].'"><i class="'.$value["icono"].'"></i>  '.$value["comodidad"].'</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                //         <div class="col-4">
+                                //             <div class="input-group">                                    
+                                //                 <div class="icheck-success">
+                                //                     <input onclick="accionIncluye()" type="checkbox" id="comodidad-'.$value["id"].'" value="'.$value["comodidad"].','.$value["icono"].'" />
+                                //                     <label for="comodidad-'.$value["id"].'"><i class="'.$value["icono"].'"></i>  '.$value["comodidad"].'</label>
+                                //                 </div>
+                                //             </div>
+                                //         </div>
                                     
-                                    ';
+                                //     ';
 
-                                }
+                                // }
                             
                             ?>
 
-                            <div class="col-4">
+                            <!-- ************************************************************************** -->
+                            <!-- ********** CARACTERÍSTICAS DE LA CATEGORÍA DE HABITACIÓN - JSON ********** -->
+                            <!-- ************************************************************************** -->
+                            <!-- <div class="col-12">
 
                                 <div class="input-group">
+
+                                    <input disabled class="form-control" type="text" name="caracteristicasCategoria" id="caracteristicasCategoria"> 
 
                                 </div>
 
@@ -257,7 +262,7 @@
 
                                 <hr>
 
-                            </div>
+                            </div> -->
 
                             <!-- *********************************************** -->
                             <!-- ******* $ CONTINENTAL EN TEMPORADA ALTA ******* -->
@@ -272,7 +277,7 @@
 
                                     </div>
 
-                                    <input title="(* Campo Requerido) Continental en Temp. Alta." type="text" class="form-control continental_alta" name="continental_alta" id="continental_alta" placeholder="Continental en Temp. Alta. ..." aria-label="continental_alta" aria-describedby="continental_alta" autocomplete="off" required>
+                                    <input title="(* Campo Requerido) Continental en Temp. Alta." type="text" class="form-control continental_alta" onkeyup="formatSueldoBase(this)" onchange="formatSueldoBase(this)" name="continental_alta" id="continental_alta" placeholder="Continental en Temp. Alta. ..." aria-label="continental_alta" aria-describedby="continental_alta" autocomplete="off" required>
 
                                 </div>
 
@@ -291,7 +296,7 @@
 
                                     </div>
 
-                                    <input title="(* Campo Requerido) Continental en Temp. Baja." type="text" class="form-control continental_baja" name="continental_baja" id="continental_baja" placeholder="Continental en Temp. Baja. ..." aria-label="continental_baja" aria-describedby="continental_baja" autocomplete="off" required>
+                                    <input title="(* Campo Requerido) Continental en Temp. Baja." type="text" class="form-control continental_baja" onkeyup="formatSueldoBase(this)" onchange="formatSueldoBase(this)" name="continental_baja" id="continental_baja" placeholder="Continental en Temp. Baja. ..." aria-label="continental_baja" aria-describedby="continental_baja" autocomplete="off" required>
 
                                 </div>
 
@@ -310,7 +315,7 @@
 
                                     </div>
 
-                                    <input title="(* Campo Requerido) Americano en Temp. Alta." type="text" class="form-control americano_alta" name="americano_alta" id="americano_alta" placeholder="Americano en Temp. Alta. ..." aria-label="americano_alta" aria-describedby="americano_alta" autocomplete="off" required>
+                                    <input title="(* Campo Requerido) Americano en Temp. Alta." type="text" class="form-control americano_alta" onkeyup="formatSueldoBase(this)" onchange="formatSueldoBase(this)" name="americano_alta" id="americano_alta" placeholder="Americano en Temp. Alta. ..." aria-label="americano_alta" aria-describedby="americano_alta" autocomplete="off" required>
 
                                 </div>
 
@@ -329,7 +334,7 @@
 
                                     </div>
 
-                                    <input title="(* Campo Requerido) Americano en Temp. Baja." type="text" class="form-control americano_baja" name="americano_baja" id="americano_baja" placeholder="Americano en Temp. Baja. ..." aria-label="americano_baja" aria-describedby="americano_baja" autocomplete="off" required>
+                                    <input title="(* Campo Requerido) Americano en Temp. Baja." type="text" class="form-control americano_baja" onkeyup="formatSueldoBase(this)" onchange="formatSueldoBase(this)" name="americano_baja" id="americano_baja" placeholder="Americano en Temp. Baja. ..." aria-label="americano_baja" aria-describedby="americano_baja" autocomplete="off" required>
 
                                 </div>
 

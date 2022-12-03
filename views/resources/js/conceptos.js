@@ -434,10 +434,3 @@ let validador2_conceptos = (e) => {
 
     } 
 }
-
-/**Función de espera para Async Await - Para ayudar los Time */
-function waitforme(milisec) {
-    return new Promise(resolve => {
-        setTimeout(() => { resolve('') }, milisec);
-    })
-}

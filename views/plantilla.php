@@ -223,7 +223,7 @@
 
                  break;
 
-                 /**6. Banner del Hotel:  */
+                 /**7. Planes del Hotel:  */
                  case "planes":
                   
                   include "views/pages/modals/planes/modals_planes.php";
@@ -231,10 +231,11 @@
 
                  break;
 
-                 /**6. Banner del Hotel:  */
+                 /**8. Categorías de Habitación del Hotel:  */
                  case "categorias":
                   
                   include "views/pages/modals/categorias/modals_categorias.php";
+                  include "views/pages/modals/categorias/modals_comodidades.php";
                   echo '<script src="views/resources/js/categorias.js"></script>';
 
                  break;
