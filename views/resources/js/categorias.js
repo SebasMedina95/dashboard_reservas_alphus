@@ -517,9 +517,20 @@ async function guardarComodidades(){
          * concatenado con el ID de la comodidad en relación al id dinámico que se va generando en el DOM
          * al mostrar el listado de comodidades, si lo recorro y dibujados los elementos entonces voy accediento
          * a los que se van seleccionando: */
+        let json0;
         let json1;
         let json2;
         let banderaComodidades = true;
+
+        /**Primero deberíamos eliminar los registros, esto porque, es mas fácil coger y elimianrlos y volverlos a crear, que ir 
+         * a modificar uno a uno cada uno de los estados de control, eliminamos de los detalles de comodidad los que correspondan
+         * a la categoría de habitación previamente seleccionado y al actualizar se generan nuevos elementos. */
+
+        let elimComodidades = await fetch("jobs/categorias.ajax.php?"+"elimCategoComodidadesId="+idCategoria);
+        json0 = await elimComodidades.json();
+        await waitforme(250);
+
+        console.log("Resultado de elimComodidades: " , elimComodidades);
 
         let resComodidades = await fetch("jobs/categorias.ajax.php?"+"banderaComodidades="+banderaComodidades);
         json1 = await resComodidades.json();

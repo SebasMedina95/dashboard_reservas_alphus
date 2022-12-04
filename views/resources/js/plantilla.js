@@ -98,112 +98,114 @@ document.querySelector(".cambiarModoLuzPlantilla").addEventListener('click' , ()
     console.log("CAMBIANDO MODO DE LUZ ...");
     let idPlantilla = 1; /**Traernos el primer elemento y único a decir verdad. */
 
-    /**Defino los datos que enviaré a Ajax */
-    let datos = new FormData();
-  	datos.append("idPlantilla", idPlantilla);
+    
 
-    $.ajax({
-        url:"ajax/plantilla-alphus.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success:function(respuesta){
-            console.log("respuesta: " , respuesta);
+    // /**Defino los datos que enviaré a Ajax */
+    // let datos = new FormData();
+  	// datos.append("idPlantilla", idPlantilla);
 
-            /**Asignamos las clases en variables */
-            let headerModoClaro = "navbar-white"; /**Y quitamos navbar-dark */
-            let headerModoOscuro = "navbar-dark"; /**Y quitamos navbar-white */
-            let bodyModoClaro = "light-mode"; /**Y quitamos dark-mode */
-            let bodyModoOscuro = "dark-mode"; /**Y quitamos light-mode */
-            let queAplicaremos = "";
-            let mensaje = "";
-            let modo = "";
+    // $.ajax({
+    //     url:"ajax/plantilla-alphus.ajax.php",
+    //     method: "POST",
+    //     data: datos,
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     dataType: "json",
+    //     success:function(respuesta){
+    //         console.log("respuesta: " , respuesta);
 
-            if(respuesta["modoOscuroDashboard"] == "1"){
-                console.log("Tenemos registrado [1] en [modoOscuroDashboard], o sea, Modo Osucro ---> Aplicamos Modo Claro [[[ 2 ]]] ");
-                queAplicaremos = "2";
-                mensaje = "¿Estás seguro de pasar a modo CLARO el gestor de contenido del Hotel Alphus?";
-                modo = "CLARO";
-            }else{
-                console.log("Tenemos registrado [2] en [modoOscuroDashboard], o sea, Modo Claro ---> Aplicamos Modo Oscuro [[[ 1 ]]] ");
-                queAplicaremos = "1";
-                mensaje = "¿Estás seguro de pasar a modo OSCURO el gestor de contenido del Hotel Alphus?";  
-                modo = "OSCURO";             
-            }
+    //         /**Asignamos las clases en variables */
+    //         let headerModoClaro = "navbar-white"; /**Y quitamos navbar-dark */
+    //         let headerModoOscuro = "navbar-dark"; /**Y quitamos navbar-white */
+    //         let bodyModoClaro = "light-mode"; /**Y quitamos dark-mode */
+    //         let bodyModoOscuro = "dark-mode"; /**Y quitamos light-mode */
+    //         let queAplicaremos = "";
+    //         let mensaje = "";
+    //         let modo = "";
 
-            Swal.fire({
-                title: 'Cambio Modo Iluminación del Gestor',
-                text: mensaje,
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Si, cambiar Modo!',
-                cancelButtonText: 'Cancelar'
-            }).then(function(result){
+    //         if(respuesta["modoOscuroDashboard"] == "1"){
+    //             console.log("Tenemos registrado [1] en [modoOscuroDashboard], o sea, Modo Osucro ---> Aplicamos Modo Claro [[[ 2 ]]] ");
+    //             queAplicaremos = "2";
+    //             mensaje = "¿Estás seguro de pasar a modo CLARO el gestor de contenido del Hotel Alphus?";
+    //             modo = "CLARO";
+    //         }else{
+    //             console.log("Tenemos registrado [2] en [modoOscuroDashboard], o sea, Modo Claro ---> Aplicamos Modo Oscuro [[[ 1 ]]] ");
+    //             queAplicaremos = "1";
+    //             mensaje = "¿Estás seguro de pasar a modo OSCURO el gestor de contenido del Hotel Alphus?";  
+    //             modo = "OSCURO";             
+    //         }
 
-                if(result.value){
-                    console.log("Cambio Realizado ... Pasaremos a: " , modo);
+    //         Swal.fire({
+    //             title: 'Cambio Modo Iluminación del Gestor',
+    //             text: mensaje,
+    //             icon: 'question',
+    //             showCancelButton: true,
+    //             confirmButtonColor: '#3085d6',
+    //             cancelButtonColor: '#d33',
+    //             confirmButtonText: 'Si, cambiar Modo!',
+    //             cancelButtonText: 'Cancelar'
+    //         }).then(function(result){
 
-                    /**Haremos la siguiente petición de Ajax pero para hacer el cambio */
-                    let idModoChange = queAplicaremos;
-                    /**Defino los datos que enviaré a Ajax */
-                    let datosEx = new FormData();
-                    datosEx.append("idModoChange", idModoChange);
+    //             if(result.value){
+    //                 console.log("Cambio Realizado ... Pasaremos a: " , modo);
 
-                    $.ajax({
-                        url:"ajax/plantilla-alphus.ajax.php",
-                        method: "POST",
-                        data: datosEx,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success:function(respuestaEx){
+    //                 /**Haremos la siguiente petición de Ajax pero para hacer el cambio */
+    //                 let idModoChange = queAplicaremos;
+    //                 /**Defino los datos que enviaré a Ajax */
+    //                 let datosEx = new FormData();
+    //                 datosEx.append("idModoChange", idModoChange);
 
-                            if(respuestaEx == "ok"){
-                                let mensajito = "Se ha cambiado el modo a " + modo + " correctamente!";
+    //                 $.ajax({
+    //                     url:"ajax/plantilla-alphus.ajax.php",
+    //                     method: "POST",
+    //                     data: datosEx,
+    //                     cache: false,
+    //                     contentType: false,
+    //                     processData: false,
+    //                     success:function(respuestaEx){
 
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "¡ Correcto !",
-                                    text: mensajito
-                                }).then(function(result){
+    //                         if(respuestaEx == "ok"){
+    //                             let mensajito = "Se ha cambiado el modo a " + modo + " correctamente!";
 
-                                    if(result.value || !result.value){
+    //                             Swal.fire({
+    //                                 icon: "success",
+    //                                 title: "¡ Correcto !",
+    //                                 text: mensajito
+    //                             }).then(function(result){
 
-                                        window.location.reload(true);
+    //                                 if(result.value || !result.value){
 
-                                    } /**Si el resultado valida ok, logramos cambiar y redirecciono */
+    //                                     window.location.reload(true);
 
-                                }) /**Swal de que se cambio el modo correctamente */
+    //                                 } /**Si el resultado valida ok, logramos cambiar y redirecciono */
 
-                            }else{
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "No se pudo cambiar el MODO",
-                                    text: "¡ No pudimos cambiar el modo de iluminación ... !"
-                                })
-                            }
+    //                             }) /**Swal de que se cambio el modo correctamente */
 
-                        }
+    //                         }else{
+    //                             Swal.fire({
+    //                                 icon: "error",
+    //                                 title: "No se pudo cambiar el MODO",
+    //                                 text: "¡ No pudimos cambiar el modo de iluminación ... !"
+    //                             })
+    //                         }
 
-                    }) /**Ajax ejecución de actualización */
+    //                     }
+
+    //                 }) /**Ajax ejecución de actualización */
 
 
-                }else{
+    //             }else{
 
-                    console.log("Cambio abortado ...");
+    //                 console.log("Cambio abortado ...");
 
-                } /**Respuesta del Then */
+    //             } /**Respuesta del Then */
 
-            }) /**Then del Ajax que trae la información de la planilla */
+    //         }) /**Then del Ajax que trae la información de la planilla */
 
-        } /**Rspuesta del Ajax que trae la información */
+    //     } /**Rspuesta del Ajax que trae la información */
         
-    }) /**Ajax que trae la información para la actualización */
+    // }) /**Ajax que trae la información para la actualización */
 
 }) /**Document.QuerySelector(...).addEventListener(...) ... */
 

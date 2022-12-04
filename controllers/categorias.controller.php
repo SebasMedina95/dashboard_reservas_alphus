@@ -43,6 +43,20 @@ class ControladorCategorias{
 		return $respuesta;
 
 	}
+
+	/**************************************************************************
+	********** ELIMINACIÓN DE DETALLES DE COMODIDAD PARA RE ISERCIÓN **********
+	***************************************************************************/
+
+	static public function ctrEliminarDetalleCatergoriaReInsert($id){
+
+		$tabla = "detalle_comodidades";
+
+		$respuesta = ModeloCategorias::mdlEliminarDetalleCatergoriaReInsert($tabla, $id);
+
+		return $respuesta;
+
+	}
 	
 
 }

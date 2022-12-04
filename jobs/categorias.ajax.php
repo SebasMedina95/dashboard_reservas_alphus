@@ -100,6 +100,20 @@ class AjaxCategorias{
 
 	}
 
+	/**************************************************************************
+	*********** LIMPIAR/ELIMINAR DETALLES CATEGORÍA PARA RE INSERTAR **********
+	***************************************************************************/
+
+	public $elimCategoComodidadesId;
+
+	public function ajaxEliminarDetalleCatergoriaReInsert(){
+
+		$respuesta = ControladorCategorias::ctrEliminarDetalleCatergoriaReInsert($this->elimCategoComodidadesId);
+
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
+
+	}
+
 }
 
 /********************************************************
@@ -158,5 +172,17 @@ if(isset($_GET["idCategoriaDetalles"])){
 	$traerDetallesCategorias = new AjaxCategorias();
 	$traerDetallesCategorias -> idCategoriaDetalles = $_GET["idCategoriaDetalles"];
 	$traerDetallesCategorias -> ajaxMostrarDetallesCategorias();
+
+}
+
+/********************************************************************************************************
+************ ELIMINAR DETALLE PARA CATEGORÍA TRIBUTARIA PARA RE INSERTAR - EJECUCIÓN DE AJAX ************
+*********************************************************************************************************/
+
+if(isset($_GET["elimCategoComodidadesId"])){
+
+	$eliminarCategoriaReInsert = new AjaxCategorias();
+	$eliminarCategoriaReInsert -> elimCategoComodidadesId = $_GET["elimCategoComodidadesId"];
+	$eliminarCategoriaReInsert -> ajaxEliminarDetalleCatergoriaReInsert();
 
 }

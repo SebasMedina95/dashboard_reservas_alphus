@@ -76,7 +76,7 @@ $plantillaHotel = ControladorPlantilla::ctrMostrarPlantilla($idPlanilla);
 
             <?php else: ?>
 
-              <img src="../../../vistas/img/admins/default/default.png" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
+              <img src="../../../views/img/admins/default/default.png" class="img-circle elevation-2 tamImagenHeader" alt="User Image">
 
             <?php endif; ?>
 

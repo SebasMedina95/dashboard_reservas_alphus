@@ -146,6 +146,31 @@ class ModeloCategorias{
 
 	}
 
+	/**************************************************************************
+	********** ELIMINACIÓN DE DETALLES DE COMODIDAD PARA RE ISERCIÓN **********
+	***************************************************************************/
+
+	static public function mdlEliminarDetalleCatergoriaReInsert($tabla, $id){
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id_categoria = :id");
+
+		$stmt -> bindParam(":id", $id, PDO::PARAM_INT);
+
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+
+		}
+
+		$stmt = null;
+
+	}
+
 }
 
 ?>
