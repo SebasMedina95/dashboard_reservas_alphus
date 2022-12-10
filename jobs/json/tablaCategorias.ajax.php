@@ -47,12 +47,12 @@ class TablaCategorias{
 
 			$caracteristicas = "";
             /**Decodificamos para convertir la estructura JSON en un String manipulable. */
-			$jsonIncluye = json_decode($value["incluye"], true);
+			// $jsonIncluye = json_decode($value["incluye"], true);
 
-			foreach ($jsonIncluye as $indice => $valor) {
+			// foreach ($jsonIncluye as $indice => $valor) {
 
-				$caracteristicas .= "<ul><div class='badge badge-secondary mx-1'><i class='".$valor["icono"]."'></i> ".$valor["item"]."</ul></div>";
-			}
+			// 	$caracteristicas .= "<ul><div class='badge badge-secondary mx-1'><i class='".$valor["icono"]."'></i> ".$valor["item"]."</ul></div>";
+			// }
 
             /******************************************************
             ***** ESTADO GENERAL DE LA CATEGORÍAS HABITACIÓN *****
@@ -70,7 +70,7 @@ class TablaCategorias{
             ***** ACCIONES DISPONIBLES *****
             ********************************/
 
-			$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarCategoria' id='botonEditCategorias".$value["id"]."' onclick='editarCategoria(".$value["id"].")' idCategoria='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button class='btn btn-danger btn-sm eliminarCategoria' idCategoria='".$value["id"]."' imgCategoria='".$value["img"]."' tipoCategoria='".$value["tipo"]."'><i class='fas fa-trash-alt'></i></button><button class='btn btn-primary text-white btn-sm comodidadesCategoria' id='botonComodidadesCategorias".$value["id"]."' onclick='comodidadesCategoria(".$value["id"].")' idCategoria='".$value["id"]."'><i class='fa-solid fa-star'></i></button></div>";
+			$acciones = "<div class='btn-group'><button title='Actualizar Categoría de Habitación' class='btn btn-warning btn-sm editarCategoria' id='botonEditCategorias".$value["id"]."' onclick='editarCategoria(".$value["id"].")' idCategoria='".$value["id"]."'><i class='fas fa-pencil-alt text-white'></i></button><button title='Gestionar Comodidades de Categoría de Habitación' class='btn btn-primary text-white btn-sm comodidadesCategoria' id='botonComodidadesCategorias".$value["id"]."' onclick='comodidadesCategoria(".$value["id"].")' idCategoria='".$value["id"]."'><i class='fa-solid fa-star'></i></button><button title='Eliminar Categoría de Habitación' class='btn btn-danger btn-sm eliminarCategoria' idCategoria='".$value["id"]."' imgCategoria='".$value["img"]."' tipoCategoria='".$value["tipo"]."'><i class='fas fa-trash-alt'></i></button></div>";
             
             $continentalBaja = number_format($value["continental_alta"], 0, ",",".");
             $continentalAlta = number_format($value["continental_baja"], 0, ",",".");
@@ -91,8 +91,7 @@ class TablaCategorias{
 						"$ '.$continentalBaja.'",
 						"$ '.$continentalAlta.'",
 						"$ '.$americanoBaja.'",
-						"$ '.$americanoAlta.'",
-						"'.$caracteristicas.'"
+						"$ '.$americanoAlta.'"
 						
 				],';
 

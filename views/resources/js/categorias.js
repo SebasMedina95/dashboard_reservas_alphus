@@ -61,11 +61,10 @@ document.addEventListener('DOMContentLoaded' , (e) => {
             {"className": "dt-left", "targets": [5]},  /**La columna del tipo */
             {"className": "dt-center", "targets": [6]},  /**La columna del estado */
             {"className": "dt-left", "targets": [7]},  /**La columna de la descripción */
-            {"className": "dt-right", "targets": [8]},  /**La columna de la caracteristicas */
-            {"className": "dt-right", "targets": [9]},  /**La columna de continental alta */
-            {"className": "dt-right", "targets": [10]},  /**La columna de continental baja */
-            {"className": "dt-right", "targets": [11]}, /**La columna de americano alta */
-            {"className": "dt-right", "targets": [12]}  /**La columna de americano baja */
+            {"className": "dt-right", "targets": [8]},  /**La columna de continental alta */
+            {"className": "dt-right", "targets": [9]},  /**La columna de continental baja */
+            {"className": "dt-right", "targets": [10]}, /**La columna de americano alta */
+            {"className": "dt-right", "targets": [11]}  /**La columna de americano baja */
         ], 
         "aLengthMenu": [[10, 10, 20, 40, 60, 100 , -1], [10, 10, 20, 40, 60, 100, "Todos"]], 
         "iDisplayLength" : 10,

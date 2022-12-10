@@ -47,6 +47,8 @@
 
               <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearCategoria"><i class="fa-solid fa-plus"></i> Agregar un Categoría de Habitación</button> 
 
+              <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#admonComodidad"><i class="fa-solid fa-plus"></i> Comodidades Categoría de Habitación</button> 
+
               <div class="card-tools">
 
                 <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -87,7 +89,6 @@
                     <th>Cont. Temp. Baja</th>
                     <th>Amer. Temp. Alta</th>
                     <th>Amer. Temp. Baja</th>
-                    <th>Características</th>
 
                   </tr>   
 

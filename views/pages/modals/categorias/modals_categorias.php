@@ -197,17 +197,17 @@
 
                             </div>
                             
-                            <div class="col-12">
+                            <!-- <div class="col-12">
 
                                 <hr>
 
-                            </div>
+                            </div> -->
 
                             <!-- ******************************************************************* -->
                             <!-- ********** CARACTERÍSTICAS DE LA CATEGORÍA DE HABITACIÓN ********** -->
                             <!-- ******************************************************************* -->
 
-                            <div class="col-12">
+                            <!-- <div class="col-12">
 
                                 <div class="input-group">
 
@@ -215,7 +215,7 @@
 
                                 </div>
                             
-                            </div>
+                            </div> -->
 
                             <?php 
                             
@@ -346,8 +346,8 @@
 
                     <?php 
                     
-                        // $registroCategorias = new ControladorCategorias();
-                        // $registroCategorias -> ctrRegistroCategorias();
+                        $registroCategorias = new ControladorCategorias();
+                        $registroCategorias -> ctrRegistroCategoria();
                     
                     ?>
 

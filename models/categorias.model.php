@@ -146,6 +146,40 @@ class ModeloCategorias{
 
 	}
 
+	/****************************************************
+	******** REGISTRO DE CATEGORÍA DE HABITACIÓN ********
+	*****************************************************/
+
+	static public function mdlRegistroCategoria($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(ruta, color, tipo, img, descripcion ,  continental_alta, continental_baja, americano_alta, americano_baja, estado) VALUES (:ruta, :color, :tipo, :img, :descripcion, :continental_alta, :continental_baja, :americano_alta, :americano_baja, :estado)");
+
+		$stmt->bindParam(":ruta", $datos["ruta"], PDO::PARAM_STR);
+		$stmt->bindParam(":color", $datos["color"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
+		$stmt->bindParam(":img", $datos["img"], PDO::PARAM_STR);
+		$stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":continental_alta", $datos["continental_alta"], PDO::PARAM_STR);
+		$stmt->bindParam(":continental_baja", $datos["continental_baja"], PDO::PARAM_STR);
+		$stmt->bindParam(":americano_alta", $datos["americano_alta"], PDO::PARAM_STR);
+		$stmt->bindParam(":americano_baja", $datos["americano_baja"], PDO::PARAM_STR);
+		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+		
+		}
+
+		$stmt = null;
+
+	}
+
 	/**************************************************************************
 	********** ELIMINACIÓN DE DETALLES DE COMODIDAD PARA RE ISERCIÓN **********
 	***************************************************************************/
