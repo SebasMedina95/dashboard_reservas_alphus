@@ -47,7 +47,7 @@
 
               <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearCategoria"><i class="fa-solid fa-plus"></i> Agregar un Categoría de Habitación</button> 
 
-              <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#admonComodidad"><i class="fa-solid fa-plus"></i> Comodidades Categoría de Habitación</button> 
+              <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#gestionTotalComodidadesCategoria"><i class="fa-solid fa-plus"></i> Comodidades Categoría de Habitación</button> 
 
               <div class="card-tools">
 

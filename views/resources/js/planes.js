@@ -12,9 +12,9 @@ $.ajax({
 
 })
 
-/*********************************************************************
-********** CONFIGURACIONES PARA EL DATA TABLE DE EMPLEADOS ***********
-**********************************************************************/
+/*****************************************************************************
+********** CONFIGURACIONES PARA EL DATA TABLE DE PLANES PARA HOTEL ***********
+******************************************************************************/
 document.addEventListener('DOMContentLoaded' , (e) => {
     let tabla = new DataTable('#tablaPlanes' , {
         "ajax":"jobs/json/tablaPlanes.ajax.php",

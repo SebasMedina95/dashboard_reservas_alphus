@@ -39,53 +39,67 @@
 
       <div class="row">
 
-        <div class="col-lg-12">
+        <!-- *********************************************** -->
+        <!-- ***** LISTADO DE HABITACIONES REGISTRADAS ***** -->
+        <!-- *********************************************** -->
+        
+        <div class="col-xl-5">
 
           <div class="card card-primary card-outline">
 
-            <div class="card-header border-transparent">
-
-              <h3 class="card-title"><b>Habitaciones del Hotel</b></h3>
+            <!-- card-header -->
+            <div class="card-header pl-2 pl-sm-3">
+            
+              <a href="habitaciones" class="btn btn-primary btn-sm">Crear nueva habitación</a>
 
               <div class="card-tools">
+                
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
 
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              </div>      
 
-                  <i class="fas fa-minus"></i>
+            </div> <!-- card-header -->
 
-                </button>
-
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-
-                  <i class="fas fa-times"></i>
-
-                </button>
-
-              </div>
-
-            </div>
-
-            <hr class="hrAnaliticaSitio">
-
+            <!-- body-card -->
             <div class="card-body">
 
-              <p class="card-text">
+              <table style="width: 100%;" class="table table-sm table-bordered table-hover table-striped dt-responsive display nowrap" id="tablaHabitaciones">
 
-                Aquí se gestionará las habitaciones que gestionará el hotel
+                <thead class="estiloTablasGeneral">
+                  
+                  <tr>
+                    
+                    <th style="width:10px">#</th> 
+                    <th>Categoría</th>
+                    <th>Estado Habitación</th>
+                    <th>Habitación</th>
+                    <th style="width:10px">Acciones</th>
 
-              </p>
+                  </tr>
 
-            </div>
+                  <tbody>
 
-            <div class="card-footer">
+                  </tbody>
 
-              <p class="card-text float-right text-muted"> Informe General de Habitaciones del Hotel.</p>
+                </thead>
 
-            </div>
+              </table>
 
-          </div><!-- /.card -->
+            </div> <!-- body-card -->
 
-        </div><!-- /.col-md-6 -->
+          </div> <!-- card card-primary -->
+
+        </div> <!-- col-xl-4 -->
+
+        <!-- ****************************************************** -->
+        <!-- ***** GESTOR GENERAL DE HABITACIONES REGISTRADAS ***** -->
+        <!-- ****************************************************** -->
+
+        <div class="col-xl-7">
+
+
+        </div>
 
       </div><!-- /.row -->
 

@@ -13,9 +13,20 @@ $.ajax({
 
 })
 
-/*********************************************************************
-************ CONFIGURACIONES PARA EL DATA TABLE DE ADMINS ************
-**********************************************************************/
+$.ajax({
+
+	"url":"jobs/json/tablaComodidades.ajax.php",
+	success: function(respuesta){
+		
+		//console.log("respuesta", respuesta);
+
+	}
+
+})
+
+/***************************************************************************************
+************ CONFIGURACIONES PARA EL DATA TABLE DE CATEGORÍAS DE HABITACIÓN ************
+****************************************************************************************/
 document.addEventListener('DOMContentLoaded' , (e) => {
     let tabla = new DataTable('#tablaCategorias' , {
         "ajax":"jobs/json/tablaCategorias.ajax.php",
@@ -105,6 +116,60 @@ document.addEventListener('DOMContentLoaded' , (e) => {
     });
 })
 
+/***************************************************************************************
+************ CONFIGURACIONES PARA EL DATA TABLE DE CATEGORÍAS DE HABITACIÓN ************
+****************************************************************************************/
+document.addEventListener('DOMContentLoaded' , (e) => {
+    let tabla = new DataTable('#tablaComodidades' , {
+        "ajax":"jobs/json/tablaComodidades.ajax.php",
+        "deferRender": true,
+        "retrieve": true,
+        "processing": true,
+        "paging": true,
+        "pagingType": "full_numbers",
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "language": {
+
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "<i class='fa-solid fa-eye'></i> Visualizar _MENU_ registros.",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando del _START_ al _END_",
+            "sInfoEmpty":      "Mostrando del 0 al 0",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "<div class='btn btn-primary input-group-sm'><i class='fas fa-search'></i> Buscar:</div>",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "<i title='Avanzar al Primero' class='fa-solid fa-angles-left'></i>",
+                "sLast":     "<i title='Avanzar al Último' class='fa-solid fa-angles-right'></i>",
+                "sNext":     "<i title='Avanzar al Siguiente' class='fa-solid fa-angle-right'></i>",
+                "sPrevious": "<i title='Avanzar al Anterior' class='fa-solid fa-angle-left'></i>"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        "columnDefs": [
+            {"className": "dt-center", "targets": [0]},  /**La columna de despliegue de mas columnas */
+            {"className": "dt-center", "targets": [1]},  /**La columna de las opciones de eliminación/edición ... */
+            {"className": "dt-left", "targets": [2]},  /**La columna de comodidad */
+            {"className": "dt-left", "targets": [3]},  /**La columna de icono */
+            {"className": "dt-center", "targets": [4]},  /**La columna de estado */
+            {"className": "dt-center", "targets": [5]}     /**La columna de fecha */
+        ], 
+        "aLengthMenu": [[10, 10, 20, 40, 60, 100 , -1], [10, 10, 20, 40, 60, 100, "Todos"]], 
+        "iDisplayLength" : 10,
+        "responsive": true, "lengthChange": true, "autoWidth": true,
+        "dom": 'tftp'   /**lftirtBpr */
+    });
+})
+
 /*************************************************************
 ************* VALIDAR FORMULARIO REGISTRO VÍA JS *************
 ******** Validaremos tanto el agregar como el editar *********
@@ -116,6 +181,13 @@ document.querySelector("#continental_alta").addEventListener('keypress' , (e) =>
 document.querySelector("#continental_baja").addEventListener('keypress' , (e) => { validador2_categorias(e); });
 document.querySelector("#americano_alta").addEventListener('keypress' , (e) => { validador2_categorias(e); });
 document.querySelector("#americano_baja").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+
+document.querySelector("#editarRutaCategoria").addEventListener('keypress' , (e) => { validador1_categorias(e); });
+document.querySelector("#editarDescripcionCategoria").addEventListener('keypress' , (e) => { validador1_categorias(e); });
+document.querySelector("#editarContinental_alta").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+document.querySelector("#editarContinental_baja").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+document.querySelector("#editarAmericano_alta").addEventListener('keypress' , (e) => { validador2_categorias(e); });
+document.querySelector("#editarAmericano_baja").addEventListener('keypress' , (e) => { validador2_categorias(e); });
 
 /****************************************************************************************
 ************* PREVISUALIZACIÓN DE IMÁGEN SUBIDA DE CATEGORÍAS DE HABITACIÓN *************
@@ -617,6 +689,153 @@ async function guardarComodidades(){
     } catch (error) {
         console.log(error);
     }
+
+}
+
+/**********************************************************************
+/************** ACTUALIZACIÓN DE CATEGORÍAS DE HABITACIÓN *************
+/**********************************************************************/
+async function editarCategoria(id){
+
+    try{
+
+        let idCategoria = id;
+        let btnComplet = document.querySelector('#botonEditCategorias'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+        let imgDefault = "views/img/defaultCategorias/default.png";
+
+        console.log('idCategoria ==> ' , idCategoria);
+        console.log('btnComplet ==> ' , btnComplet);
+        console.log('imgDefault ==> ' , imgDefault);
+
+        /**Primero nos traemos la información de la categoría, podemos usar el de editar: */
+        $('#spinnerCargaComodidadesCategoria').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaComodidadesCategoria").classList.add("show");
+
+        let respuesta = await fetch("jobs/categorias.ajax.php?"+"idCategoria="+id);
+        json1 = await respuesta.json();
+        await waitforme(500);
+
+        $('#spinnerCargaComodidadesCategoria').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaComodidadesCategoria').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        console.log("json1" , json1);
+
+        document.querySelector('input[name="editarIdCategoria"]').value = json1["id"];
+        document.querySelector('input[name="editarRutaCategoria"]').value = json1["ruta"];
+        document.querySelector('input[name="editarColorCategoria"]').value = json1["color"];
+        document.querySelector('input[name="editarTipoCategoria"]').value = json1["tipo"];
+
+        document.querySelector("#colorAplicadoEdit").style.color = json1["color"]; //Para la clase del colorpicker aplicada
+
+        document.querySelector('span[id="editarNombreImagenCategoria"]').innerHTML = "Desde BD/Default";
+        document.querySelector('span[id="editarTamanoImagenCategoria"]').innerHTML = "Desde BD/Default";
+        document.querySelector('span[id="editarExtensImagenCategoria"]').innerHTML = "Desde BD/Default";
+        document.querySelector(".nombreImagenCargadaEdiCategoria").innerHTML = "Imágen viene desde la Base de Datos";
+
+        if(json1["img"] == ""){
+            document.querySelector('input[name="imgFotoCategoriaActual"]').value = imgDefault; /**Input oculto con img temporal */
+            document.querySelector('img[id="img-foto-edit-categoria"]').setAttribute("src" , imgDefault); /**Input donde se carga previsualización */
+            document.querySelector('input[name="editarFotoCategoria"]').setAttribute("value" , imgDefault); /**Input en que se carga img */
+        }else{
+            console.log("Tenemos IMG en la BD ...");
+            document.querySelector('input[name="imgFotoCategoriaActual"]').value = json1["img"]; /**Input oculto con img temporal */
+            document.querySelector('img[id="img-foto-edit-categoria"]').setAttribute("src" , json1["img"]); /**Input donde se carga previsualización */
+            document.querySelector('input[name="editarFotoCategoria"]').setAttribute("value" , json1["img"]); /**Input en que se carga img */
+        }
+
+        document.querySelector('input[name="editarDescripcionCategoria"]').value = json1["descripcion"];
+        document.querySelector('input[name="editarContinental_alta"]').value = json1["continental_alta"];
+        document.querySelector('input[name="editarContinental_baja"]').value = json1["continental_baja"];
+        document.querySelector('input[name="editarAmericano_alta"]').value = json1["americano_alta"];
+        document.querySelector('input[name="editarAmericano_baja"]').value = json1["americano_baja"];
+
+        /**Así no lo recomienda Bootstrap, pequeña excepción cono JQuery para abrir Modal Programáticamente. */
+        $('#editarCategoria').modal('show'); // Abrir Modal por que todo está cargado ...
+
+    }catch(error){
+        console.log(error);
+    }
+
+}
+
+async function eliminarCategoria(id){
+
+    try {
+        
+        let idCategoriaElim = id;
+        let btnComplet = document.querySelector('#botonElimCategoria'+id); /**Lo tengo personalizado para que cada Row sea dinámico */
+        let rutaImg = btnComplet.getAttribute('rutaCategoria');
+
+        console.log("idCategoriaElim" , idCategoriaElim);
+        console.log('btnComplet' , btnComplet);
+        console.log('rutaImg' , rutaImg);
+
+        /**Primero nos traemos la información de la categoría, podemos usar el de editar: */
+        $('#spinnerCargaComodidadesCategoria').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+        document.querySelector("#spinnerCargaComodidadesCategoria").classList.add("show");
+
+        let respuesta = await fetch("jobs/categorias.ajax.php?"+"idCategoria="+id);
+        json1 = await respuesta.json();
+        await waitforme(500);
+
+        $('#spinnerCargaComodidadesCategoria').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+        $('#spinnerCargaComodidadesCategoria').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+        let mensaje = "¿Estás seguro de eliminar la categoría de habitación " + json1["tipo"] + " - " + json1["descripcion"] + "?";
+
+        /**Preguntamos primero */
+        Swal.fire({
+            title: 'Eliminación de Categoría de Habitación',
+            text: mensaje,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar la categoría!',
+            cancelButtonText: 'Cancelar'
+        }).then(function(result){
+
+            /**Si es verdadero, presionó la tecla aceptar */
+            if(result.value){
+
+                /**Habilitamos/Inhabilitamos:
+                 * Debemos independizar la operación para manejar mejor la promesa que será resuelta.*/
+                realizarEliminacion(idCategoriaElim, rutaImg).then();
+
+            } /**La persona selecciona que si desea eliminar */
+
+        }) /**Estructura then del Sweet Alert */
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+/**Realizar la eliminación como tal ... */
+async function realizarEliminacion(idCategoriaElim, rutaImg){
+
+    let respuesta = await fetch("jobs/categorias.ajax.php?"+"idCategoriaElim="+idCategoriaElim+"&"+"rutaImg="+rutaImg);
+    json = await respuesta.json();
+    console.log("json " , json);
+
+    if(json == "ok"){
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Eliminación de Categoría de Habitación',
+            text: 'La Categoría fue eliminado correctamente! ...'
+        }).then(function(result){
+
+            if(result.value || !result.value){
+
+                window.location = "categorias";
+
+            } /**Si el resultado valida ok, logramos eliminar y redirecciono */
+
+        }) /**Swal de que se elimino correctamente */
+
+    } /**Si la respuesta que retornamos es Ok */
 
 }
 

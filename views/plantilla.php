@@ -236,7 +236,16 @@
                   
                   include "views/pages/modals/categorias/modals_categorias.php";
                   include "views/pages/modals/categorias/modals_comodidades.php";
+                  include "views/pages/modals/categorias/modals_admonsComodidades.php";
                   echo '<script src="views/resources/js/categorias.js"></script>';
+
+                 break;
+
+                 /**9. Habitaciones del Hotel:  */
+                 case "habitaciones":
+                  
+                  //include "views/pages/modals/planes/modals_planes.php";
+                  echo '<script src="views/resources/js/habitaciones.js"></script>';
 
                  break;
                  

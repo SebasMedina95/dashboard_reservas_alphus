@@ -114,6 +114,21 @@ class AjaxCategorias{
 
 	}
 
+	/******************************************************
+	*********** ELIMINAR CATEGORÍA DE HABITACIÓN **********
+	*******************************************************/
+
+	public $idCategoriaElim;
+    public $rutaImg;
+
+	public function ajaxEliminarCategoria(){
+
+		$respuesta = ControladorCategorias::ctrEliminarCategoria($this->idCategoriaElim , $this->rutaImg);
+
+		echo json_encode($respuesta); /**Como estamos usando AsyncAwait, todo debe devolver como JSON para las Promises */
+
+	}
+
 }
 
 /********************************************************
@@ -184,5 +199,18 @@ if(isset($_GET["elimCategoComodidadesId"])){
 	$eliminarCategoriaReInsert = new AjaxCategorias();
 	$eliminarCategoriaReInsert -> elimCategoComodidadesId = $_GET["elimCategoComodidadesId"];
 	$eliminarCategoriaReInsert -> ajaxEliminarDetalleCatergoriaReInsert();
+
+}
+
+/******************************************
+***** ELIMINACIÓN - EJECUCIÓN DE AJAX *****
+*******************************************/	
+
+if(isset($_GET["rutaImg"])){
+
+	$eliminarCategorias = new AjaxCategorias();
+	$eliminarCategorias -> idCategoriaElim = $_GET["idCategoriaElim"];
+	$eliminarCategorias -> rutaImg = $_GET["rutaImg"];
+	$eliminarCategorias -> ajaxEliminarCategoria();
 
 }
