@@ -40,16 +40,23 @@
     <!-- *************************************************** -->
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css" integrity="zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=">
+
     <!-- Theme style -->
     <link rel="stylesheet" href="views/resources/css/layaut/adminlte.min.css">
+
     <!-- Estilos para los DataTables -->
     <link rel="stylesheet" href="views/resources/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="views/resources/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="views/resources/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
     <!-- Estilos personalizados de la plantilla -->
     <link rel="stylesheet" href="views/resources/css/plantilla.css">
+
+    <!-- jQuery Pano -->
+    <link rel="stylesheet" href="views/resources/plugins/jquery-pano/jquery.pano.css">
 
     <!-- Select2 -->
     <link rel="stylesheet" href="views/resources/plugins/select2/css/select2.min.css">
@@ -70,21 +77,35 @@
     <!-- iChek de Bootstrap -->
     <link rel="stylesheet" href="views/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
+
     <!-- *************************************************** -->
     <!-- ARCHIVOS DE JS REQUERIDOS PARA LA PLANILLA -->
     <!-- *************************************************** -->
     <!-- jQuery -->
     <script src="views/resources/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- jQuery Pano -->
+    <script src="views/resources/plugins/jquery-pano/jquery.pano.js"></script>
+    
     <!-- jQuery Validation -->
     <script src="views/resources/plugins/jquery-validation/jquery.validate.min.js"></script>
+
     <!-- Bootstrap 4 -->
     <script src="views/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!-- Select2 -->
     <script src="views/resources/plugins/select2/js/select2.full.min.js"></script>
+
     <!-- AdminLTE App -->
     <script src="views/resources/js/layaut/adminlte.min.js"></script>
+
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <!-- DataTables generados desde la plantilla -->
     <script src="views/resources/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="views/resources/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -107,6 +128,10 @@
 
     <!-- Color Piker - bootstrap-colorpicker -->
     <script src="views/resources/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+
+    <!-- CKEDITOR -->
+    <!-- https://ckeditor.com/ckeditor-5/#classic -->
+    <script src="views/resources/plugins/ckeditor/ckeditor.js"></script>
 
 </head>
 
