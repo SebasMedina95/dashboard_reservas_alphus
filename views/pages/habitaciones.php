@@ -176,13 +176,13 @@
 
                   <div class="row">
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                   
                       <div class="input-group mb-3">
 
                         <div class="input-group-prepend">
 
-                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-hotel"></i> Seleccione la Categoría:</b></span>
+                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-hotel"></i> Categoría:</b></span>
                           
                         </div>
 
@@ -222,13 +222,13 @@
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
 
                       <div class="input-group mb-3">
 
                         <div class="input-group-prepend">
 
-                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-bed"></i> Nombre de la habitación:</b></span>
+                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-bed"></i> Habitación:</b></span>
 
                         </div>
 
@@ -250,7 +250,7 @@
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-12">
 
                       <div class="input-group mb-3">
 

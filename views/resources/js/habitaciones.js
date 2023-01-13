@@ -262,35 +262,32 @@ function adjuntarMultiplesArchivos(archivos){
 
 }; /**Función de adjuntarMultiplesArchivos */
 
-/*************************************************
-********** QUITAR IMAGEN DE LA GALERÍA ***********
-**************************************************/
+/***********************************************************
+*************** QUITAR IMAGEN DE LA GALERÍA ****************
+** Vamos a usar ciertas configuraciones con JQuery porque **
+** por ahora no me fue posible estabilizarlo con JS Puro  **
+************************************************************/
 function quitarImagen(){
 
     console.log("*** QUITANDO LA IMAGEN ***");
 
-    //let listaFotosNuevas = $(".quitarFotoNueva"); 
     let listaFotosNuevas = document.querySelectorAll(".quitarFotoNueva");
     console.log("listaFotosNuevas - quitar: " , listaFotosNuevas);
 
-    //let listaTemporales = JSON.parse($(".inputNuevaGaleria").val()); 
     let listaTemporales = JSON.parse(document.querySelector(".inputNuevaGaleria").value); 
     console.log("listaTemporales - quitar: " , listaTemporales);
 
     for(var i = 0; i < listaFotosNuevas.length; i++){
 
-        //console.log($(listaFotosNuevas[i]));
-        //console.warn(listaFotosNuevas[i].setAttribute());
         listaFotosNuevas[i].setAttribute("temporal", listaTemporales[i]);
 
-        let quitarImagen = $(this).attr("temporal");
-        //let quitarImagen = listaFotosNuevas[i].getAttribute("temporal");
+        let quitarImagen = $(this).attr("temporal"); /**JQuery ... Guardamos el elemento al que nos referimos con el click */
 
         if(quitarImagen == listaTemporales[i]){
 
             listaTemporales.splice(i, 1); /**Quito solo el indice requerido */
             document.querySelector(".inputNuevaGaleria").value = JSON.stringify(listaTemporales); /**Actualizo el input de la nueva galería */
-            $(this).parent().parent().remove(); /**Remover visualmente la imagen */
+            $(this).parent().parent().remove(); /**JQuery ...  Remover visualmente la imagen */
 
         }
 
