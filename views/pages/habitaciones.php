@@ -342,6 +342,7 @@
 
                 <div class="card-footer">
                   
+                  <!-- Importantísimo el tema del ID galeria para manejar la subida de imagenes sin necesidad de arrastrar -->
                   <input type="file" multiple id="galeria" class="d-none"> <!-- multiple para poder contener varias imágenes al tiempo, y lo mantengo oculto para que a traves del input pueda usar un área para hacer clic y traer las imágenes del label siguiente (Con el label aplicando la etiqueta for al id del input file nos funciona la generalidad para aplicar el input): -->
 
                   <label for="galeria" class="text-dark text-center py-5 border rounded bg-white w-100 subirGaleria">

@@ -134,6 +134,16 @@ document.querySelector(".subirGaleria").addEventListener('dragover' , (e) =>{
 
 });
 
+/**Dar clic y agregar imágenes sin arrastrar */
+document.querySelector("#galeria").addEventListener('change' , (e) =>{
+
+    /**Evitamos acciones por defecto del navegador */
+    let archivosSinArr = e.target.files; //El que aplicamos para el tema del change
+    console.log("archivos -> " , archivosSinArr);
+	adjuntarMultiplesArchivos(archivosSinArr);
+
+});
+
 /**Capturamos ahora los archivos de imagen que se arrastren ... */
 document.querySelector(".subirGaleria").addEventListener('drop' , (e) =>{
 
@@ -144,7 +154,7 @@ document.querySelector(".subirGaleria").addEventListener('drop' , (e) =>{
     /**Quitamos el efecto de arrastre para dejar disponible, dar esa sensación */
     document.querySelector(".subirGaleria").setAttribute("style" , "background:''");
     
-    var archivos = e.dataTransfer.files;
+    let archivos = e.dataTransfer.files; //El que aplicamos para el tema del drop
     console.log("archivos -> " , archivos);
     adjuntarMultiplesArchivos(archivos);
     
@@ -196,8 +206,9 @@ function adjuntarMultiplesArchivos(archivos){
                 etiquetai.setAttribute('title' , 'Remover Imagen');
 
                 let etiquetaButton = document.createElement('button');
-                etiquetaButton.className = 'btn btn-danger btn-sm float-right shadow-sm quitarFotoNueva';
+                etiquetaButton.className = 'btn btn-danger btn-sm float-right shadow-sm quitarFotoNueva'; //Creamos quitarFotoNueva para apoyarnos en la función de quitar foto
                 etiquetaButton.setAttribute('temporal' , '');
+                etiquetaButton.onclick = quitarImagen;
 
                 let etiquetaDivImg = document.createElement('div');
                 etiquetaDivImg.className = 'card-img-overlay p-0 pr-3';
@@ -217,25 +228,14 @@ function adjuntarMultiplesArchivos(archivos){
 
                 document.querySelector(".vistaGaleria").appendChild(etiquetaLi);
 
-                // $(".vistaGaleria").append(`
-
-				// 	<li class="col-12 col-md-6 col-lg-3 card px-3 rounded-0 shadow-none">
-                      
-	            //         <img class="card-img-top" src="`+rutaImagen+`">
-
-	            //         <div class="card-img-overlay p-0 pr-3">
-	                      
-	            //            <button class="btn btn-danger btn-sm float-right shadow-sm quitarFotoNueva" temporal>
-	                         
-	            //              <i class="fas fa-times"></i>
-
-	            //            </button>
-
-	            //         </div>
-
-	            //     </li>
-
-      			// `)
+			// 	   <li class="col-12 col-md-6 col-lg-3 card px-3 rounded-0 shadow-none">                      
+            //         <img class="card-img-top" src="`+rutaImagen+`">
+            //         <div class="card-img-overlay p-0 pr-3">	                      
+            //            <button class="btn btn-danger btn-sm float-right shadow-sm quitarFotoNueva" temporal>	                         
+            //              <i class="fas fa-times"></i>
+            //            </button>
+            //         </div>
+            //     </li>		
 
                 /**Recordemos que tenemos definido globalmente archivosTemporales
                  * Validamos que no esté vacío en primer lugar: Por que si si hay
@@ -260,4 +260,69 @@ function adjuntarMultiplesArchivos(archivos){
 
     } /*Ciclo*/
 
+}; /**Función de adjuntarMultiplesArchivos */
+
+/*************************************************
+********** QUITAR IMAGEN DE LA GALERÍA ***********
+**************************************************/
+function quitarImagen(){
+
+    console.log("*** QUITANDO LA IMAGEN ***");
+
+    //let listaFotosNuevas = $(".quitarFotoNueva"); 
+    let listaFotosNuevas = document.querySelectorAll(".quitarFotoNueva");
+    console.log("listaFotosNuevas - quitar: " , listaFotosNuevas);
+
+    //let listaTemporales = JSON.parse($(".inputNuevaGaleria").val()); 
+    let listaTemporales = JSON.parse(document.querySelector(".inputNuevaGaleria").value); 
+    console.log("listaTemporales - quitar: " , listaTemporales);
+
+    for(var i = 0; i < listaFotosNuevas.length; i++){
+
+        //console.log($(listaFotosNuevas[i]));
+        //console.warn(listaFotosNuevas[i].setAttribute());
+        listaFotosNuevas[i].setAttribute("temporal", listaTemporales[i]);
+
+        let quitarImagen = $(this).attr("temporal");
+        //let quitarImagen = listaFotosNuevas[i].getAttribute("temporal");
+
+        if(quitarImagen == listaTemporales[i]){
+
+            listaTemporales.splice(i, 1); /**Quito solo el indice requerido */
+            document.querySelector(".inputNuevaGaleria").value = JSON.stringify(listaTemporales); /**Actualizo el input de la nueva galería */
+            $(this).parent().parent().remove(); /**Remover visualmente la imagen */
+
+        }
+
+    }
+
 }
+
+
+
+
+// $(document).on("click", ".quitarFotoNueva", function(){
+
+// 	var listaFotosNuevas = $(".quitarFotoNueva"); 
+	
+// 	var listaTemporales = JSON.parse($(".inputNuevaGaleria").val());
+
+// 	for(var i = 0; i < listaFotosNuevas.length; i++){
+
+// 		$(listaFotosNuevas[i]).attr("temporal", listaTemporales[i]);
+
+// 		var quitarImagen = $(this).attr("temporal");
+
+// 		if(quitarImagen == listaTemporales[i]){
+
+// 			listaTemporales.splice(i, 1);
+
+// 			$(".inputNuevaGaleria").val(JSON.stringify(listaTemporales));
+
+// 			 $(this).parent().parent().remove();
+
+// 		}
+
+// 	}
+
+// })
