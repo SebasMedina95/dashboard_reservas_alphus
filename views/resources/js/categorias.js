@@ -503,10 +503,13 @@ async function comodidadesCategoria(id){
         document.querySelector('input[name="tipoCategoriaComodidad"]').value = json1["tipo"] + ' - ' + json1["descripcion"];
 
         if(json1["img"] == ""){
-            document.querySelector('img[id="img-foto-edit-categoria"]').setAttribute("src" , imgDefault); /**Input donde se carga previsualización */
+            document.querySelector('input[name="imgFotoCateComodiadActual"]').value = imgDefault; /**Input oculto con img temporal */
+            document.querySelector('img[id="img-foto-edit"]').setAttribute("src" , imgDefault); /**Input donde se carga previsualización */
+            document.querySelector('input[name="editarFotoCateComodidad"]').setAttribute("value" , imgDefault); /**Input en que se carga img */
         }else{
-            console.log("Tenemos IMG en la BD ...");
-            document.querySelector('img[id="img-foto-edit-categoria"]').setAttribute("src" , json1["img"]); /**Input donde se carga previsualización */
+            document.querySelector('input[name="imgFotoCateComodiadActual"]').value = json1["img"]; /**Input oculto con img temporal */
+            document.querySelector('img[id="img-foto-edit"]').setAttribute("src" , json1["img"]); /**Input donde se carga previsualización */
+            document.querySelector('input[name="editarFotoCateComodidad"]').setAttribute("value" , json1["img"]); /**Input en que se carga img */
         }
 
         /**Ahora, vamos a marcar los checks que correspondan, se hará de manera cíclica y trabajando

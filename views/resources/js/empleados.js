@@ -299,6 +299,10 @@ async function editarAdministrador(id){
             tipoPerfilName = "Restaurante - Servicio y Bodega";
         }else if(json["perfil"] == "Marketing"){
             tipoPerfilName = "Marketing";
+        }else if(json["perfil"] == "Aseo"){
+            tipoPerfilName = "Aseo - Aseo General y Habitaciones";
+        }else if(json["perfil"] == "Vigilancia"){
+            tipoPerfilName = "Vigilancia del Hotel";
         }
 
         /************************************************************** */

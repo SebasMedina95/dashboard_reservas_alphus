@@ -51,7 +51,7 @@ class TablaHabitaciones{
             ***** ACCIONES DISPONIBLES *****
             ********************************/
 
-			$acciones = "<div class='btn-group'><a title='Ver Habitación' href='index.php?pagina=habitaciones&id_h=".$value["id_h"]."' class='btn btn-secondary btn-sm'><i class='far fa-eye'></i></a><button class='btn btn-info btn-sm verLimpieza' data-toggle='modal' data-target='#verLimpieza' title='Ver Limpiezas' id_h='".$value["id_h"]."'><i class='fa-solid fa-brush text-white'></i></button></div>";	
+			$acciones = "<div class='btn-group'><a title='Ver Habitación' href='index.php?pagina=habitaciones&id_h=".$value["id_h"]."' class='btn btn-secondary btn-sm'><i class='far fa-eye'></i></a><button class='btn btn-info btn-sm gestionarLimpiezaTurnos' data-toggle='modal' data-target='#gestionarLimpiezaTurnos' title='Ver Limpiezas' id_h='".$value["id_h"]."'><i class='fa-solid fa-brush text-white'></i></button><button class='btn btn-warning btn-sm verMantenimientos' data-toggle='modal' data-target='#verMantenimientos' title='Ver Mantenimientos' id_h='".$value["id_h"]."'><i class='fa-solid fa-wrench text-white'></i></button></div>";	
 
 
 			$datosJson.= '[

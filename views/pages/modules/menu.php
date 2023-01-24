@@ -91,13 +91,21 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-            <?php if($_GET["pagina"] == "inicio"): ?>
+            <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "inicio"): ?>
 
               <a href="inicio" class="nav-link active">
 
             <?php else: ?>
 
-              <a href="inicio" class="nav-link">
+              <?php if(!isset($_GET["pagina"])): ?>
+
+                <a href="inicio" class="nav-link active">
+
+              <?php else: ?>
+
+                <a href="inicio" class="nav-link">
+
+              <?php endif; ?>
 
             <?php endif; ?>
 
@@ -111,7 +119,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "empleados"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "empleados"): ?>
 
             <a href="empleados" class="nav-link active">
 
@@ -131,7 +139,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "banner"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "banner"): ?>
 
             <a href="banner" class="nav-link active">
 
@@ -151,7 +159,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "planes"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "planes"): ?>
 
             <a href="planes" class="nav-link active">
 
@@ -171,7 +179,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "categorias"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "categorias"): ?>
 
             <a href="categorias" class="nav-link active">
 
@@ -189,9 +197,9 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         </li>
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "habitaciones"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "habitaciones"): ?>
 
             <a href="habitaciones" class="nav-link active">
 
@@ -207,11 +215,99 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
           </a>
 
+        </li> -->
+
+        <li class="nav-item">
+
+          <?php if(isset($_GET["pagina"]) && ($_GET["pagina"] == "habitaciones" || $_GET["pagina"] == "aseo") || $_GET["pagina"] == "mantenimiento"): ?>
+
+            <a href="#" class="nav-link active">
+
+          <?php else: ?>
+
+            <a href="#" class="nav-link">
+
+          <?php endif; ?>
+
+            <i class="fa-solid fa-bed"></i>
+
+            <p> Habitaciones
+
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+
+          </a>
+
+          <ul class="nav nav-treeview">
+
+            <li class="nav-item">
+
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "aseo"): ?>
+
+                <a href="aseo" class="nav-link active">
+
+              <?php else: ?>
+
+                <a href="aseo" class="nav-link">
+
+              <?php endif; ?>
+
+                <i class="far fa-circle nav-icon"></i>
+
+                <p>Gestión de Aseo</p>
+
+              </a>
+
+            </li>
+
+            <li class="nav-item">
+
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "mantenimiento"): ?>
+
+                <a href="mantenimiento" class="nav-link active">
+
+              <?php else: ?>
+
+                <a href="mantenimiento" class="nav-link">
+
+              <?php endif; ?>
+
+                <i class="far fa-circle nav-icon"></i>
+
+                <p>Gestión Mantenimientos</p>
+
+              </a>
+
+            </li>
+
+            <li class="nav-item">
+
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "habitaciones"): ?>
+
+                <a href="habitaciones" class="nav-link active">
+
+              <?php else: ?>
+
+                <a href="habitaciones" class="nav-link">
+
+              <?php endif; ?>
+
+                <i class="far fa-circle nav-icon"></i>
+
+                <p>Gestión de Habitaciones</p>
+
+              </a>
+
+            </li>
+
+          </ul>
+
         </li>
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "reservas"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "reservas"): ?>
 
             <a href="reservas" class="nav-link active">
 
@@ -231,7 +327,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "testimonios"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "testimonios"): ?>
 
             <a href="testimonios" class="nav-link active">
 
@@ -251,7 +347,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "usuarios"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "usuarios"): ?>
 
             <a href="usuarios" class="nav-link active">
 
@@ -271,7 +367,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "atracciones" || $_GET["pagina"] == "servicioAtracciones"): ?>
+          <?php if(isset($_GET["pagina"]) && ($_GET["pagina"] == "atracciones" || $_GET["pagina"] == "servicioAtracciones")): ?>
 
             <a href="#" class="nav-link active">
 
@@ -295,7 +391,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
             <li class="nav-item">
 
-              <?php if($_GET["pagina"] == "atracciones"): ?>
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "atracciones"): ?>
 
                 <a href="atracciones" class="nav-link active">
 
@@ -315,7 +411,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
             <li class="nav-item">
 
-              <?php if($_GET["pagina"] == "servicioAtracciones"): ?>
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "servicioAtracciones"): ?>
 
                 <a href="servicioAtracciones" class="nav-link active">
 
@@ -339,7 +435,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "restaurante" || $_GET["pagina"] == "comprasRestaurante" || $_GET["pagina"] == "ventasRestaurante"): ?>
+          <?php if(isset($_GET["pagina"]) && ($_GET["pagina"] == "restaurantes" || $_GET["pagina"] == "carta" || $_GET["pagina"] == "comprasRestaurante" || $_GET["pagina"] == "ventasRestaurante")): ?>
 
             <a href="#" class="nav-link active">
 
@@ -363,7 +459,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
             <li class="nav-item">
 
-              <?php if($_GET["pagina"] == "restaurantes"): ?>
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "restaurantes"): ?>
 
                 <a href="restaurantes" class="nav-link active">
 
@@ -383,7 +479,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
             <li class="nav-item">
 
-              <?php if($_GET["pagina"] == "carta"): ?>
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "carta"): ?>
 
                 <a href="carta" class="nav-link active">
 
@@ -403,7 +499,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
             <li class="nav-item">
 
-              <?php if($_GET["pagina"] == "comprasRestaurante"): ?>
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "comprasRestaurante"): ?>
 
                 <a href="comprasRestaurante" class="nav-link active">
 
@@ -423,7 +519,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
             <li class="nav-item">
 
-              <?php if($_GET["pagina"] == "ventasRestaurante"): ?>
+              <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "ventasRestaurante"): ?>
 
                 <a href="ventasRestaurante" class="nav-link active">
 
@@ -447,7 +543,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if($_GET["pagina"] == "plantilla-hotel"): ?>
+          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "plantilla-hotel"): ?>
 
             <a href="plantilla-hotel" class="nav-link active">
 

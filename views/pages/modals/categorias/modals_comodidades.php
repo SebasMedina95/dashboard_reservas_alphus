@@ -105,11 +105,70 @@
 
                             </div>
 
-                            <div align="center" class="col-12 text-center">
+                            <!-- <div align="center" class="col-12 text-center">
 
                                 <div class="input-group mb-3">
 
                                     <span class="nombreImagenCargadaComodidadCategoria text-muted"> </span>
+
+                                </div>
+
+                            </div> -->
+
+                            <!-- ************************************************ -->
+                            <!-- ********** PREVISUALIZACIÓN DE IMÁGEN ********** -->
+                            <!-- ************************************************ -->
+                            <!-- <div class="imagenPreviaCategorias" id="imagenPreviaCategorias">
+
+                                <img src="views/img/defaultCategorias/default.png" alt="" id="img-foto-edit-categoria" class="img-fluid imagenCategoria">
+                                <hr>
+
+                            </div> -->
+
+
+                            <div class="col-12">
+
+                                <!-- <div class="input-group mb-3"> -->
+
+                                    <!-- <div class="custom-file"> -->
+
+                                        <input style="display: none" disabled title="(Opcional) Fotografía del Usuario" type="hidden" class="imgFotoCateComodiadActual form-control" name="imgFotoCateComodiadActual">
+
+                                        <input style="display: none" disabled title="(Opcional) Fotografía del Usuario" type="file" class="custom-file-input" name="editarFotoCateComodidad" id="editarFotoCateComodidad">
+
+                                        <label style="display: none" disabled title="(Opcional) Fotografía del Usuario" class="custom-file-label" for="inputGroupFile03"><i class="fa-solid fa-camera-retro"></i> Cargar Foto Admin</label>
+
+                                    <!-- </div> -->
+
+                                <!-- </div> -->
+
+                            </div>
+
+                            <!-- <div class="col-3">
+
+                                <div class="input-group mb-3">
+
+                                    <button title="Cancelar Imágen Cargada para la Actualización" onclick="cancelarImgAdminsEdit(event)" class="cancelarImgAdminsEdit text-white btn btn-warning"><i class="fa-solid fa-rotate-left"></i> Cancelar Img </button>
+
+                                </div>
+
+                            </div> -->
+
+                            <!-- <div align="center" class="col-12 text-center">
+
+                                <div class="input-group mb-1">
+
+                                    <span class="text-muted"><b>Imágen Cargada: </b> </span>
+
+                                </div>
+
+                            </div> -->
+
+                            <div align="center" class="col-12 text-center">
+
+                                <div class="input-group mb-3">
+
+                                    <span class="nombreImagenCargadaEdi text-muted"> </span>
 
                                 </div>
 
@@ -120,8 +179,11 @@
                             <!-- ************************************************ -->
                             <div class="imagenPreviaCategorias" id="imagenPreviaCategorias">
 
-                                <img src="views/img/defaultCategorias/default.png" alt="" id="img-foto-edit-categoria" class="img-fluid imagenCategoria">
+                                <img src="views/img/defaultCategorias/default.png" alt="" id="img-foto-edit" class="img-fluid imagenCategoria">
                                 <hr>
+                                <!-- <p><b>Nombre de la imágen: </b> <span id="editarnNombreImagenAdmins"></span></p>
+                                <p class="lineaPImgAdmin"><b>Tamaño de la imágen: </b> <span id="editarTamanoImagenAdmins"></span></p>
+                                <p class="lineaPImgAdmin"><b>Tipo de la imágen:   </b> <span id="editarExtensImagenAdmins"></span></p> -->
 
                             </div>
 

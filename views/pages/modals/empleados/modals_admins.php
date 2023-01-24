@@ -233,6 +233,10 @@
 
                                         <option value="Marketing">Marketing</option>
 
+                                        <option value="Aseo">Aseo - Aseo General y Habitaciones</option>
+
+                                        <option value="Vigilancia">Vigilancia del Hotel</option>
+
                                     </select>
 
                                 </div>
@@ -786,6 +790,10 @@
                                         <option value="Restaurante">Restaurante - Servicio y Bodega</option>
 
                                         <option value="Marketing">Marketing</option>
+
+                                        <option value="Aseo">Aseo - Aseo General y Habitaciones</option>
+
+                                        <option value="Vigilancia">Vigilancia del Hotel</option>
 
                                     </select>
 

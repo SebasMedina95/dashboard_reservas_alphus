@@ -28,8 +28,22 @@ $(".360Antiguo").pano({
 
 ClassicEditor.create(document.querySelector('#descripcionHabitacion'), {
 
-    toolbar: [ 'heading', '|', 'bold', 'italic', 'bulletedList', 'numberedList', '|', 'undo', 'redo']
- 
+    // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+    heading: {
+        options: [
+            { model: 'paragraph', title: 'Tamaño Texto', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Tamaño de Texto 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Tamaño de Texto 2', class: 'ck-heading_heading2' },
+            { model: 'heading3', view: 'h3', title: 'Tamaño de Texto 3', class: 'ck-heading_heading3' },
+            { model: 'heading4', view: 'h4', title: 'Tamaño de Texto 4', class: 'ck-heading_heading4' },
+            { model: 'heading5', view: 'h5', title: 'Tamaño de Texto 5', class: 'ck-heading_heading5' },
+            { model: 'heading6', view: 'h6', title: 'Tamaño de Texto 6', class: 'ck-heading_heading6' }
+        ]
+    },
+    // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+    placeholder: 'Descripción Enriquecida de la Habitación ...',
+    toolbar: [ 'heading', '|', 'Bold', 'Italic', '|', 'BulletedList', 'NumberedList', 'alignment' ,'|', 'Undo', 'Redo', '|'  , 'insertTable']
+
  }).then(function (editor) {
    
      $(".ck-content").css({"height":"400px"})
@@ -93,6 +107,15 @@ document.addEventListener('DOMContentLoaded' , (e) => {
         "dom": 'ftrtlpr'   /**lftirtBpr */
     });
 })
+
+/*************************************************************
+************* VALIDAR FORMULARIO REGISTRO VÍA JS *************
+******** Validaremos tanto el agregar como el editar *********
+**************************************************************/
+/**https://elcodigoascii.com.ar/ */
+document.querySelector(".seleccionarEstilo").addEventListener('keypress' , (e) => { validador1_habitacion(e); });
+document.querySelector(".agregarVideo").addEventListener('keypress' , (e) => { validador2_habitacion(e); });
+document.querySelector("#descripcionHabitacion").addEventListener('keypress' , (e) => { validador3_habitacion(e); });
 
 /**************************************************
 ******** ARRASTRAR VARIAS IMAGENES GALERÍA ********
@@ -269,7 +292,7 @@ function adjuntarMultiplesArchivos(archivos){
 ************************************************************/
 function quitarImagen(){
 
-    console.log("*** QUITANDO LA IMAGEN ***");
+    console.log("*** QUITANDO LA IMAGEN DE LA GALERÍA NUEVA ***");
 
     let listaFotosNuevas = document.querySelectorAll(".quitarFotoNueva");
     console.log("listaFotosNuevas - quitar: " , listaFotosNuevas);
@@ -295,31 +318,439 @@ function quitarImagen(){
 
 }
 
+/**************************************
+************ AGREGAR VIDEO ************
+***************************************/
+document.querySelector(".agregarVideo").addEventListener("change" , (e) => {
 
+    let codigoVideo = document.querySelector(".agregarVideo").value;
+    document.querySelector(".vistaVideo").innerHTML = `<iframe width="100%" height="320" src="https://www.youtube.com/embed/`+codigoVideo+`" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
 
+})
 
-// $(document).on("click", ".quitarFotoNueva", function(){
+/***********************************************
+************ AGREGAR IMAGEN DE 360° ************
+************************************************/
+document.querySelector("#imagen360").addEventListener("change" , (e) => {
 
-// 	var listaFotosNuevas = $(".quitarFotoNueva"); 
-	
-// 	var listaTemporales = JSON.parse($(".inputNuevaGaleria").val());
+    let imagen = document.querySelector("#imagen360").files[0];
 
-// 	for(var i = 0; i < listaFotosNuevas.length; i++){
+    /**Validamos el formato de la imagen */
+    if(imagen["type"] != "image/jpeg" && imagen["type"] != "image/png"){
 
-// 		$(listaFotosNuevas[i]).attr("temporal", listaTemporales[i]);
+		document.querySelector("#imagen360").value = "";
 
-// 		var quitarImagen = $(this).attr("temporal");
+		Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡ Solo imágenes JPG y PNG son permitidas !'
+        });
 
-// 		if(quitarImagen == listaTemporales[i]){
+        return;
 
-// 			listaTemporales.splice(i, 1);
+	}else if(imagen["size"] > 2000000){
 
-// 			$(".inputNuevaGaleria").val(JSON.stringify(listaTemporales));
+		document.querySelector("#imagen360").value = "";
 
-// 			 $(this).parent().parent().remove();
+		Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '¡ La imágen no puede pesar mas de 2MB !'
+        });
 
-// 		}
+        return;
 
-// 	}
+	}else{
 
-// })
+        console.log("----- PODEMOS CARGAR IMÁGEN DE 360° -----");
+        let datosImagen = new FileReader;
+        datosImagen.readAsDataURL(imagen);
+
+        datosImagen.addEventListener('load' , (event) => {
+            
+            let rutaImagen = event.target.result;
+            document.querySelector(".ver360").innerHTML = 
+            
+            `<div class="pano 360Nuevo" back="`+rutaImagen+`">
+
+                <div class="controls">
+                <a href="#" class="left">&laquo;</a>
+                <a href="#" class="right">&raquo;</a>
+                </div>
+
+            </div>`
+
+            /**Con JQuery para el PANO: */
+            $(".360Nuevo").pano({
+		        img: $(".360Nuevo").attr("back")
+		    });
+
+        })
+
+    }
+
+});
+
+/****************************************************************************
+*********** QUITAR IMAGEN DE LA GALERÍA VIEJA - CARGADA DE LA BD ************
+**** Tuve que usar JQuery completo, no encontré como hacerlo con JS PURO ****
+*****************************************************************************/
+$(document).on("click", ".quitarFotoAntigua", function(){
+
+    console.log("*** QUITANDO LA IMAGEN DE LA GALERÍA ANTIGUA ***");
+
+    let listaFotosAntiguas = document.querySelectorAll(".quitarFotoAntigua");
+    console.log("listaFotosAntiguas - Antigua Galería - quitar: " , listaFotosAntiguas);
+
+    let listaTemporales = document.querySelector(".inputAntiguaGaleria").value.split(","); //Lo convertimos en un array
+    console.log("listaTemporales - Antigua Galería - quitar: " , listaTemporales);
+
+    for(let i = 0; i < listaFotosAntiguas.length; i++){
+
+        let quitarImagen = $(this).attr("temporal"); /**JQuery ... Guardamos el elemento al que nos referimos con el click */
+
+        if(quitarImagen == listaTemporales[i]){
+
+            listaTemporales.splice(i, 1);
+            document.querySelector(".inputAntiguaGaleria").value = listaTemporales.toString(); /**Actualizo el input de la antigua galería */
+            $(this).parent().parent().remove(); /**JQuery ...  Remover visualmente la imagen */
+
+        }
+
+    }
+
+})
+
+/*******************************************************************************
+*********** GUARDAR HABITACIÓN - TAMBIÉN NOS SERVIRÁ PARA LA EDICIÓN ***********
+********************************************************************************/
+document.querySelector(".guardarHabitacion").addEventListener("click" , (e) => {
+
+    let idHabitacion = document.querySelector(".idHabitacion").value; /**Para la edición si es el caso */
+    let tipo = document.querySelector(".seleccionarTipo").value.split(",")[1];  /**Value que aplicamos: idCategoria,Categoria --TIPO para saber nombre carpeta para imágenes */
+	let tipo_h = document.querySelector(".seleccionarTipo").value.split(",")[0];  /**Value que aplicamos: idCategoria,Categoria -- EL ID*/
+
+    let estilo = document.querySelector(".seleccionarEstilo").value; /**Título para la habitación */
+
+    let galeria = document.querySelector(".inputNuevaGaleria").value; /**La nueva galería para cuando agregamos - Formato array pero está como String */
+    let galeriaAntigua = document.querySelector(".inputAntiguaGaleria").value; /**Por si requerimos la edición de la habitación */
+
+    let video = document.querySelector(".agregarVideo").value;
+
+    let recorrido_virtual = $(".360Nuevo").attr("back"); /**En el atributo back es donde tengo la rutaImagen -> Lo hacemos con JQuery por PANO.*/
+    var antiguoRecorrido = $(".antiguoRecorrido").val(); /**Para el tema de la edición -> Lo hacemos con JQuery por PANO. */
+
+    var descripcion = document.querySelector(".ck-content").innerHTML;
+
+    if(tipo == "" || tipo_h == "" || tipo == null || tipo_h == null){
+
+		Swal.fire({
+            icon: 'error',
+            title: 'Oops... Error Guardar',
+            text: '¡ Se debe seleccionar una categoría de habitación !'
+        });
+
+    	return;
+
+	}else if(estilo == "" || estilo == null){
+
+	    Swal.fire({
+            icon: 'error',
+            title: 'Oops... Error Guardar',
+            text: '¡ Debe asignar un nombre a la habitación !'
+        });
+
+	    return;
+
+	}else if(video == "" || video == null){
+
+	    Swal.fire({
+            icon: 'error',
+            title: 'Oops... Error Guardar',
+            text: '¡ Debe asignar un vídeo a la habitación !'
+        });
+
+	    return;
+
+	}else if(descripcion == "" || descripcion == null){
+
+	    Swal.fire({
+            icon: 'error',
+            title: 'Oops... Error Guardar',
+            text: '¡ Debe asignar una descripción a la habitación !'
+        });
+
+	    return;
+
+  	}else{
+
+        /**Guardo en un formulario de datos la información que voy a enviar: */
+        var datosHabitacionAdd = new FormData();
+    	datosHabitacionAdd.append("idHabitacion", idHabitacion);
+    	datosHabitacionAdd.append("tipo_h", tipo_h);
+    	datosHabitacionAdd.append("tipo", tipo);
+    	datosHabitacionAdd.append("estilo", estilo);
+    	datosHabitacionAdd.append("galeria", galeria);
+    	datosHabitacionAdd.append("galeriaAntigua", galeriaAntigua);
+    	datosHabitacionAdd.append("video", video);
+    	datosHabitacionAdd.append("recorrido_virtual", recorrido_virtual);
+    	datosHabitacionAdd.append("antiguoRecorrido", antiguoRecorrido);
+    	datosHabitacionAdd.append("descripcion", descripcion);
+
+        /**Mediante un fetch me comuinico con el archivo externo y, mediante el método POST envío los parámetros
+         * necesarios para la gestión*/
+        fetch("jobs/habitaciones.ajax.php", {
+
+            method: "post",
+            body: datosHabitacionAdd
+
+        }).then(function(data){
+
+            return data.json();
+
+        }).then(myJson => { 
+
+            console.log(myJson);
+
+            if(myJson == "ok"){
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Gestión de Habitación',
+                    text: '¡Se ha registrado y/o actualizado una habitación correctamente! ...'
+                }).then(function(result){
+
+                    if(result.value || !result.value){
+
+                      window.location = "habitaciones";
+
+                    }
+
+                });
+
+            }else{
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '¡Ocurrió algún error al gestionar la habitación! ...'
+                });
+
+            }
+
+        });
+
+    }
+
+})
+
+/******************************************
+*********** ELIMINAR HABITACIÓN ***********
+*******************************************/
+document.querySelector(".eliminarHabitacion").addEventListener("click" , async (e) => {
+
+    let btnComplet = document.querySelector('.eliminarHabitacion'); /**Lo obtengo directamente del panel derecho */
+    let idHabitacionElim = btnComplet.getAttribute('idEliminarHab');
+    let galeriaHabitacionElim = btnComplet.getAttribute('galeriaHabitacion');
+    let recorritoVirHabitacionElim = btnComplet.getAttribute('recorridoHabitacion');
+
+    console.log("btnComplet: " , btnComplet);
+    console.log("idHabitacionElim: " , idHabitacionElim);
+    console.log("galeriaHabitacionElim: " , galeriaHabitacionElim);
+    console.log("recorritoVirHabitacionElim: " , recorritoVirHabitacionElim);
+
+    let json1;
+
+    /**Primero nos traemos la información de la categoría, podemos usar el de editar: */
+    $('#spinnerCargaEstadosHabitacion').modal('show'); // Abrir Modal por que todo está cargado - Para esta operación usamos JQuery ...
+    document.querySelector("#spinnerCargaEstadosHabitacion").classList.add("show");
+
+    let respuesta = await fetch("jobs/habitaciones.ajax.php?"+"idHabitacionElim="+idHabitacionElim);
+    json1 = await respuesta.json();
+    await waitforme(500);
+
+    $('#spinnerCargaEstadosHabitacion').removeClass('fade'); /**Remuevo class fade para que no cause corto con el modal editar */
+    $('#spinnerCargaEstadosHabitacion').modal('hide'); // Cerrar Modal por que todo está cargado - Para esta operación usamos JQuery ...
+
+    let mensaje = "¿Estás seguro de eliminar la habitación " + json1["estilo"] + " que pertenece a la categoría " + json1["tipo"] + "?";
+
+    /**Preguntamos primero */
+    Swal.fire({
+        title: 'Eliminación de Habitación',
+        text: mensaje,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar la habitación!',
+        cancelButtonText: 'Cancelar'
+    }).then(function(result){
+
+        /**Si es verdadero, presionó la tecla aceptar */
+        if(result.value){
+
+            /**Habilitamos/Inhabilitamos:
+             * Debemos independizar la operación para manejar mejor la promesa que será resuelta.*/
+            realizarEliminacion(idHabitacionElim, galeriaHabitacionElim, recorritoVirHabitacionElim).then();
+
+        } /**La persona selecciona que si desea eliminar */
+
+    }) /**Estructura then del Sweet Alert */
+
+})
+
+/**Realizar la eliminación como tal ... */
+async function realizarEliminacion(idHabitacionElim, galeriaHabitacionElim, recorritoVirHabitacionElim){
+
+    /**Guardo en un formulario de datos la información que voy a enviar: */
+    var datosHabitacionElim = new FormData();
+    datosHabitacionElim.append("idHabitacionElimAction", idHabitacionElim);
+    datosHabitacionElim.append("galeriaHabitacionElimAction", galeriaHabitacionElim);
+    datosHabitacionElim.append("recorritoVirHabitacionElimAction", recorritoVirHabitacionElim);
+
+    /**Mediante un fetch me comuinico con el archivo externo y, mediante el método POST envío los parámetros
+         * necesarios para la gestión*/
+     fetch("jobs/habitaciones.ajax.php", {
+
+        method: "post",
+        body: datosHabitacionElim
+
+    }).then(function(data){
+
+        return data.json();
+
+    }).then(myJson => { 
+
+        console.log(myJson);
+
+        if(myJson == "ok"){
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Gestión de Habitación',
+                text: '¡Se ha eliminado la habitación correctamente! ...'
+            }).then(function(result){
+
+                if(result.value || !result.value){
+
+                  window.location = "habitaciones";
+
+                }
+
+            });
+
+        }else{
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Ocurrió algún error al gestionar la habitación en su proceso de eliminación! ...'
+            });
+
+        }
+
+    });
+
+}
+
+/*************** VALIDACIONES POR EL EVENTO KEYPRESS ****************/
+
+/**Validador1 = Validamos permitir caracteres de la a - z - áéíóú
+ *              Validamos permitir caracteres de la A - Z - ÁÉÍÓÚ
+ *              Validamos permitir caracteres de ñ - Ñ
+/*************** *********************************** ****************/
+let validador1_habitacion = (e) => {
+    let keynum = window.event ? window.event.keyCode : e.which; /**Obtenemos el código ASCII */
+    console.log(e.which || e.keyCode);
+    /**Realizamos la validación en estilo ASCII*/
+    if((keynum >= 65 && keynum <= 90) ||                                            /**Letras de a-z */
+       (keynum >= 97 && keynum <= 122) ||                                           /**Letras de A-Z */
+       (keynum == 130) || (keynum == 144) || (keynum == 201) ||                     /**Letra é ,É*/
+       (keynum == 181) || (keynum == 160) || (keynum == 225) || (keynum == 193) ||  /** Á, á*/
+       (keynum == 161) || (keynum == 214) || (keynum == 237) || (keynum == 205) ||  /** í, Í*/
+       (keynum == 162) || (keynum == 224) || (keynum == 243) || (keynum == 211) ||  /** ó, Ó */
+       (keynum == 163) || (keynum == 233) ||                                        /** ú, Ó */
+       (keynum == 218) || (keynum == 250) ||                                        /** ú, Ú */
+       (keynum == 164) || (keynum == 165) ||                                        /** ñ, Ñ */
+       (keynum == 209) || (keynum == 241)){                                         /** ñ, Ñ */
+
+        return true;
+
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Este campo solo permite el ingreso de letras (Se permiten vocales tildadas pero no espacios) ...'
+        });
+        return false;
+
+    }
+}
+
+/**Validador2 = Validamos permitir caracteres de la a - z
+ *              Validamos permitir caracteres de la A - Z
+ *              Validamos permitir números del 0 al 9
+/*************** *********************************** ****************/
+let validador2_habitacion = (e) => {
+    let keynum = window.event ? window.event.keyCode : e.which; /**Obtenemos el código ASCII */
+    console.log(e.which || e.keyCode);
+    /**Realizamos la validación en estilo ASCII*/
+    if((keynum >= 65 && keynum <= 90) ||                                           /**Letras de a-z */
+       (keynum >= 97 && keynum <= 122) ||                                          /**Letras de A-Z */
+       (keynum >= 48 && keynum <= 57)){                                            /**Números 0-9*/ 
+ 
+
+        return true;
+
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Este campo solo permite el ingreso de letras (No se permite tildes ni espacios) ...'
+        });
+        return false;
+
+    }
+}
+
+/**Validador1 = Validamos permitir caracteres de la a - z - áéíóú
+ *              Validamos permitir caracteres de la A - Z - ÁÉÍÓÚ
+ *              Validamos permitir caracteres de ñ - Ñ
+ *              Validamos permitir caracteres /
+ *              Validamos permitir caracteres <
+ *              Validamos permitir caracteres >
+ *              Validamos permitir caracteres de 0 - 9
+ *              Validamos permitir caracteres de , . ; ¡ ! ¿ ? " ' - _ 
+ *              Validamos los espacios en blanco */
+/*************** *********************************** ****************/
+let validador3_habitacion = (e) => {
+    let keynum = window.event ? window.event.keyCode : e.which; /**Obtenemos el código ASCII */
+    console.log(e.which || e.keyCode);
+    /**Realizamos la validación en estilo ASCII*/
+    if((keynum >= 65 && keynum <= 90) ||                                            /**Letras de a-z */
+       (keynum >= 97 && keynum <= 122) ||                                           /**Letras de A-Z */
+       (keynum == 130) || (keynum == 144) || (keynum == 201) ||                     /**Letra é ,É*/
+       (keynum == 181) || (keynum == 160) || (keynum == 225) || (keynum == 193) ||  /** Á, á*/
+       (keynum == 161) || (keynum == 214) || (keynum == 237) || (keynum == 205) ||  /** í, Í*/
+       (keynum == 162) || (keynum == 224) || (keynum == 243) || (keynum == 211) ||  /** ó, Ó */
+       (keynum == 163) || (keynum == 233) ||                                        /** ú, Ó */
+       (keynum == 218) || (keynum == 250) ||                                        /** ú, Ú */
+       (keynum == 164) || (keynum == 165) ||                                        /** ñ, Ñ */
+       (keynum == 209) || (keynum == 241) ||                                        
+       (keynum >= 48 && keynum <= 57) ||                                            /** 0, 9 */
+       (keynum == 44) || (keynum == 46) || (keynum == 59) || (keynum == 63) || (keynum == 191) || (keynum == 161) ||  (keynum == 33) ||
+       (keynum == 34) || (keynum == 39) || (keynum == 60) || (keynum == 62) || (keynum == 47) || (keynum == 45) ||  (keynum == 95) ||  /** , . ; < > - _ ¿ ? ! ¡ */
+       (keynum == 32)){                                                             /**Espacio */
+
+        return true;
+
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Este campo solo permite el ingreso de letras (Se permiten vocales tildadas) ...'
+        });
+        return false;
+
+    }
+}

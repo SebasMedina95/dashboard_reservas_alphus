@@ -1,3 +1,20 @@
+<!-- /*********************************************************************/
+     /***** SPINNER DE CARGA PARA GESTIONAR COMODIDADES DE CATEGORÍAS *****/
+     /*********************************************************************/ -->
+     <div class="modal fade" tabindex="-1" role="dialog" id="spinnerCargaEstadosHabitacion" aria-labelledby="spinnerCargaEstadosHabitacion" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="d-flex align-items-center">
+            <h3 class="font-weight-bold text-white">Cargando Información ...</h3>
+            <div class="spinner-border text-warning m-5 ml-auto" style="width: 8rem; height: 8rem;" role="status">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /*********************************************************************/ -->
+<!-- /*********************************************************************/ -->
+
 <div class="content-wrapper" style="min-height: 823px;">
     
   <!-- Content Header (Page header) -->
@@ -75,7 +92,7 @@
                     <th>Categoría Hab.</th>
                     <th>Estado Habitación</th>
                     <th>Habitación</th>
-                    <th>Ver Det.</th>
+                    <th>Opciones</th>
 
                   </tr>
 
@@ -125,13 +142,14 @@
 
               <h5  class="card-title"><b>Categoría: </b><?php echo isset($habitacion["tipo"]) ? $habitacion["tipo"] : 'Sin Seleccionar' ?> / <b>Habitación: </b><?php echo isset($habitacion["estilo"]) ? $habitacion["estilo"] : 'Sin Seleccionar' ?> - <?php echo isset($habitacion["descripcion"]) ? $habitacion["descripcion"] : '...' ?></h5>
 
+              <!-- Programo acá un Preload  si fuera utilizar JQuery para esperar que se haga la transacción -->
               <div class="preload"></div>
   
               <div class="card-tools">
 
-                <button type="button" class="btn btn-info btn-sm guardarHabitacion">
+                <button type="button" class="btn btn-success btn-sm guardarHabitacion">
                   
-                  <i class="fas fa-save"></i>
+                  <i class="fas fa-save"></i> Guardar Habitación
                 
                 </button>
             
@@ -139,14 +157,16 @@
 
                   /**Entonces, si dado el caso tenemos data, debemos contener en algún elemento la eliminación, es decir
                    * guardamos el id de eliminar para poder eliminar luego las imágenes relacionadas con la habitación y no dejar
-                   * basura en la base de datos */
+                   * basura en la base de datos 
+                   * Validamos si tenemos variable GET, o sea habitación, habilitamos para la eliminación*/
                   if($habitacion != null){
 
                     $galeria = json_decode($habitacion["galeria"], true);
 
-                    echo '<button type="button" class="btn btn-danger btn-sm eliminarHabitacion" idEliminar="'.$habitacion["id_h"].'" galeriaHabitacion="'.implode(",", $galeria).'" recorridoHabitacion="'.$habitacion["recorrido_virtual"].'">
+                    /**Recordemos que el implode nos volverá a convertir el array que tenemos ahora en un String y lo separa por comas ,*/
+                    echo '<button type="button" class="btn btn-danger btn-sm eliminarHabitacion" idEliminarHab="'.$habitacion["id_h"].'" galeriaHabitacion="'.implode(",", $galeria).'" recorridoHabitacion="'.$habitacion["recorrido_virtual"].'">
                   
-                          <i class="fas fa-trash"></i> 
+                          <i class="fas fa-trash"></i> Eliminar Habitación
 
                         </button>';
 
@@ -163,7 +183,8 @@
             <!-- ************************************************************** -->
 
             <div class="card-body">
-
+              
+              <!-- Capturamos el ID de la habitación que vamos a actualizar! -->
               <input type="hidden" class="idHabitacion" value="<?php echo $habitacion["id_h"]?>">
 
               <!-- ****************************************************************** -->
@@ -188,7 +209,9 @@
 
                         <?php 
 
-                          /**Estamos en el modo edición, entonces, el campo de tipo no se actualiza ... */
+                          /**Estamos en el modo edición, entonces, el campo de tipo no se actualiza ...
+                           * Importante, sobre el mismo value del OPTION colocaré tanto el ID como el nombre para luego, por medio de un Split acceder
+                           * tanto al nombre como el ID por medio de indicies. */
                           if($habitacion != null){
 
                             echo '<select class="form-control seleccionarTipo" readonly>
@@ -231,7 +254,8 @@
                           <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-bed"></i> Habitación:</b></span>
 
                         </div>
-
+                        
+                        <!-- Para mostrar el estilo -> nombre de la habitación -->
                         <?php 
 
                           if($habitacion != null){
@@ -250,7 +274,7 @@
 
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-8">
 
                       <div class="input-group mb-3">
 
@@ -278,6 +302,42 @@
 
                     </div>
 
+                    <div class="col-md-4">
+
+                      <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+
+                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-check-to-slot"></i> Estado:</b></span>
+
+                        </div>
+
+                        <?php 
+
+                          if($habitacion != null){
+
+                            if($habitacion["estado"] == "1"){
+
+                              echo '<input type="button" class="form-control btn btn-info btnActivarHabitacion" onclick="gestionarEstHabitacion('.$habitacion["id_h"].')" estadoHabitacion="1" idHabitacionEstado="'.$habitacion["id_h"].'" value="Disponible para Cliente">';
+
+                            }else{
+
+                              echo '<input type="button" class="form-control btn btn-dark btnActivarHabitacion" onclick="gestionarEstHabitacion('.$habitacion["id_h"].')" estadoHabitacion="0" idHabitacionEstado="'.$habitacion["id_h"].'" value="Inhabilitado para Cliente">';
+
+                            }
+                          
+                          }else{
+
+                            echo '<input type="button" class="form-control btn btn-secondary btnActivarHabitacion" value="Activo por defecto" disabled>';
+
+                          }
+
+                        ?>  
+
+                      </div>
+
+                    </div>
+
                   </div> <!-- row -->
 
                 </div>
@@ -292,7 +352,7 @@
                 
                 <div class="card-header pl-2 pl-sm-3">
 
-                  <h5>Galería:</h5>
+                  <h5>Galería de Imágenes:</h5>
 
                 </div>
 
@@ -302,6 +362,9 @@
 
                   <?php 
 
+                    /**Vamos a usar en el button la clase quitarFotoAntigua para hacer la misma funcionalidad que el quitarFoto de
+                     * la nueva galería pero, esta vez, a la antigua galería y, adicional, el atributo temporal lo vamos a asignar
+                     * de entrada con el valor que nos trae la galería antigua que ya tenemos registrada. */
                     if($habitacion != null){
 
                       $galeria = json_decode($habitacion["galeria"], true); /**Convierto ese String en un array */
@@ -314,7 +377,7 @@
 
                                 <div class="card-img-overlay p-0 pr-3">
                                   
-                                   <button class="btn btn-danger btn-sm float-right shadow-sm quitarFotoAntigua" temporal="'.$value.'">
+                                   <button class="btn btn-danger btn-sm float-right shadow-sm quitarFotoAntigua" id="quitarFotoAntigua" temporal="'.$value.'">
                                      
                                      <i title="Remover Imagen" class="fas fa-trash"></i>
 
@@ -335,10 +398,17 @@
                 </div>
 
                 <!-- Guardo en inputs ocultos la nueva galería que resulta del arrastre o la antigua antes de ser actualizada -->
-
                 <input type="hidden" class="inputNuevaGaleria">
+                
+                <!-- Mantendremos en una variable almacenada la antigua galería para que nos sirva para tener un retorno o espejo
+                comparativo a la hora de validar y envíar las imágenes cuando vamos a actualizar una habitación y no solo para agregar nuevas ...
+                El implode es para que me convierta en un array las imágenes, todo lo que encuentre con , lo convertirá en un índice.
+              
+                En conclusión, arriba lo teniamos convertido en un array, acá lo volvemos a convertir en una cadena de texto separada por comas
+                para tener guardado el pre galería por si se modifica allí algo.
 
-                <input type="hidden" class="inputAntiguaGaleria" value="<?php //echo implode(",", $galeria); ?>">
+                -->
+                <input type="hidden" class="inputAntiguaGaleria" value="<?php if($galeria){ echo implode(",", $galeria); } else {  } ?>">
 
                 <div class="card-footer">
                   
@@ -347,8 +417,8 @@
 
                   <label for="galeria" class="text-dark text-center py-5 border rounded bg-white w-100 subirGaleria">
 
-                     Haz clic aquí o arrastra las imágenes <br>
-                     <span class="help-block small">Dimensiones: 940px * 480px | Peso Max. 2MB | Formato: JPG o PNG</span>
+                    Haz clic aquí o arrastra las imágenes <br>
+                    <span class="help-block small">Dimensiones: 940px * 480px | Peso Max. 2MB | Formato: JPG o PNG</span>
                      
                   </label>
 
@@ -368,12 +438,14 @@
                     
                     <div class="card-header pl-2 pl-sm-3">
                         
-                      <h5>Vídeo:</h5>
+                      <h5>Vídeo Habitación:</h5>
 
                     </div>
 
+                    <!-- En este div visualizaremos el vídeo de youtube -->
                     <div class="card-body vistaVideo">
 
+                    <!-- Solo si tenemos una habitación mostramos, de lo contrario, proponemos data desde JS -->
                     <?php if ($habitacion != null): ?>
 
                         <iframe width="100%" height="320" src="https://www.youtube.com/embed/<?php echo $habitacion["video"]; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -388,16 +460,17 @@
                       <div class="input-group"> 
 
                         <div class="input-group-prepend">
-                          <span class="p-2 bg-secondary rounded-left small">youtube.com/embed/</span>
+                          <span class="p-2 bg-secondary rounded-left small">youtube.com/watch?v=</span>
                         </div>
 
-                         <?php if ($habitacion != null): ?>
+                      <!-- Solo si tenemos una habitación mostramos, de lo contrario, proponemos data desde JS -->
+                      <?php if ($habitacion != null): ?>
                         
                         <input type="text" class="form-control agregarVideo" placeholder="Agregue el código del vídeo" value="<?php echo $habitacion["video"]; ?>">
 
                       <?php else: ?>
 
-                        <input type="text" class="form-control agregarVideo" placeholder="Agregue el código del vídeo"> -->
+                        <input type="text" class="form-control agregarVideo" placeholder="Agregue el código del vídeo">
 
                       <?php endif ?>
 
@@ -415,30 +488,34 @@
                     
                     <div class="card-header pl-2 pl-sm-3">
 
-                      <h5>Recorrido virtual:</h5>
+                      <h5>Recorrido Virtual (360°):</h5>
 
                     </div>
-
+                    
+                    <!-- Aquí en neste div enviaremos la visualización de la imagen a 360° -->
                     <div class="card-body ver360">
+                    
+                      <!-- Solo si tenemos una habitación mostramos, de lo contrario, proponemos data desde JS -->
+                      <?php if ($habitacion != null): ?>
+                        
+                        <div class="pano 360Antiguo" back="<?php echo $habitacion["recorrido_virtual"]; ?>">
 
-                     <?php if ($habitacion != null): ?>
-                      
-                      <div class="pano 360Antiguo" back="<?php echo $habitacion["recorrido_virtual"]; ?>">
+                          <div class="controls">
+                            <a href="#" class="left">&laquo;</a>
+                            <a href="#" class="right">&raquo;</a>
+                          </div>
 
-                        <div class="controls">
-                          <a href="#" class="left">&laquo;</a>
-                          <a href="#" class="right">&raquo;</a>
                         </div>
 
-                      </div>
-
-                    <?php endif ?>
+                      <?php endif ?>
 
                     </div>
 
                     <div class="card-footer"> 
-
-                       <input type="hidden" class="antiguoRecorrido" value="views/img/suite/oriental-360.jpg<?php //echo $habitacion["recorrido_virtual"]; ?>">
+                       
+                       <!-- Así como en galería, capturamos la antigua imagen de 360° por si no se va cambiar y para mantener el control
+                       si dado el caso si se llega a cambiar -->
+                       <input type="hidden" class="antiguoRecorrido" value="<?php echo $habitacion["recorrido_virtual"]; ?>">
 
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="imagen360">
@@ -461,27 +538,31 @@
 
                 <div class="card-header pl-2 pl-sm-3">
 
-                  <h5>Descripción:</h5>
+                  <h5>Descripción de la Habitación:</h5>
 
                 </div>
 
-                <div class="card-body">
+                <!-- <div class="card-body"> -->
+
+                  <div id="container">
                   
-                  <textarea id="descripcionHabitacion" style="width: 100%">
-                    
-                    <?php 
+                    <textarea class="descripcionHabitacion" id="descripcionHabitacion">
+                      
+                      <?php 
 
-                      if($habitacion != null){
+                        if($habitacion != null){
 
-                        echo $habitacion["descripcion_h"];
+                          echo $habitacion["descripcion_h"];
 
-                      } 
+                        } 
 
-                    ?>
+                      ?>
 
-                  </textarea>
+                    </textarea>
 
-                </div>
+                  </div>
+
+                <!-- </div> -->
 
               </div>
 
@@ -490,30 +571,33 @@
             <!-- footer-card -->
 
             <div class="card-footer">
-
+              
+              <!-- Programo acá un Preload  si fuera utilizar JQuery para esperar que se haga la transacción -->
               <div class="preload"></div>
               
               <div class="card-tools float-right">
             
-                <button type="button" class="btn btn-info btn-sm guardarHabitacion">
+                <!-- <button type="button" class="btn btn-info btn-sm guardarHabitacion">
                   
-                  <i class="fas fa-save"></i>
+                  <i class="fas fa-save"></i> Guardar Footer
                 
-                </button>
+                </button> -->
+
+                <p class="text-muted">Administración de Habitaciones.</p>
 
                 <?php 
 
-                  if($habitacion != null){
+                  // if($habitacion != null){
 
-                    $galeria = json_decode($habitacion["galeria"], true);
+                  //   $galeria = json_decode($habitacion["galeria"], true);
 
-                    echo '<button type="button" class="btn btn-danger btn-sm eliminarHabitacion" idEliminar="'.$habitacion["id_h"].'" galeriaHabitacion="'.implode(",", $galeria).'" recorridoHabitacion="'.$habitacion["recorrido_virtual"].'">
+                  //   echo '<button type="button" class="btn btn-danger btn-sm eliminarHabitacion" idEliminar="'.$habitacion["id_h"].'" galeriaHabitacion="'.implode(",", $galeria).'" recorridoHabitacion="'.$habitacion["recorrido_virtual"].'">
                   
-                          <i class="fas fa-trash"></i> 
+                  //         <i class="fas fa-trash"></i> 
 
-                        </button>';
+                  //       </button>';
 
-                  }
+                  // }
 
                 ?>
 

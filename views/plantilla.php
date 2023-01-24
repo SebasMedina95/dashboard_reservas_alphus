@@ -165,7 +165,7 @@
           /**Si existe, quiere decir que existe como un archivo de proyecto */
           if($_GET["pagina"] == "inicio" || 
              $_GET["pagina"] == "empleados" ||
-             /**---------- SUB CONTENIDOS DE EMPLEADOS ----------*/
+                /**---------- SUB CONTENIDOS DE EMPLEADOS ----------*/
                 $_GET["pagina"] == "empleados-contratos" ||
                 $_GET["pagina"] == "empleados-fichas" ||
                 $_GET["pagina"] == "empleados-planillas" ||
@@ -179,6 +179,10 @@
              $_GET["pagina"] == "planes" ||
              $_GET["pagina"] == "categorias" ||
              $_GET["pagina"] == "habitaciones" ||
+                /**---------- SUB CONTENIDOS DE HABITACIONES ----------*/
+                $_GET["pagina"] == "aseo" ||
+                $_GET["pagina"] == "mantenimiento" ||
+             /**------------------------------------------------------ */
              $_GET["pagina"] == "reservas" ||
              $_GET["pagina"] == "testimonios" ||
              $_GET["pagina"] == "usuarios" ||
@@ -269,7 +273,7 @@
                  /**9. Habitaciones del Hotel:  */
                  case "habitaciones":
                   
-                  //include "views/pages/modals/planes/modals_planes.php";
+                  include "views/pages/modals/habitaciones/modals_estadoHabitacion.php";
                   echo '<script src="views/resources/js/habitaciones.js"></script>';
 
                  break;
