@@ -199,15 +199,15 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <!-- <li class="nav-item">
 
-          <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "habitaciones"): ?>
+          <?php //if(isset($_GET["pagina"]) && $_GET["pagina"] == "habitaciones"): ?>
 
             <a href="habitaciones" class="nav-link active">
 
-          <?php else: ?>
+          <?php //else: ?>
 
             <a href="habitaciones" class="nav-link">
 
-          <?php endif; ?>
+          <?php //endif; ?>
 
             <i class="fa-solid fa-bed"></i>
 
@@ -219,7 +219,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
         <li class="nav-item">
 
-          <?php if(isset($_GET["pagina"]) && ($_GET["pagina"] == "habitaciones" || $_GET["pagina"] == "aseo") || $_GET["pagina"] == "mantenimiento"): ?>
+          <?php if(isset($_GET["pagina"]) && ($_GET["pagina"] == "habitaciones" || $_GET["pagina"] == "aseo" || $_GET["pagina"] == "mantenimiento")): ?>
 
             <a href="#" class="nav-link active">
 

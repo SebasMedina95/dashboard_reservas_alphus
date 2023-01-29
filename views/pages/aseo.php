@@ -45,23 +45,7 @@
 
             <div class="card-header border-transparent">
 
-              <h3 class="card-title"><b>Aseo</b></h3>
-
-              <div class="card-tools">
-
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-
-                  <i class="fas fa-minus"></i>
-
-                </button>
-
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-
-                  <i class="fas fa-times"></i>
-
-                </button>
-
-              </div>
+              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearTurnoLimpieza"><i class="fa-solid fa-plus"></i> Agregar un Aseo de Habitación</button> 
 
             </div>
 

@@ -277,6 +277,14 @@
                   echo '<script src="views/resources/js/habitaciones.js"></script>';
 
                  break;
+
+                 /**10. Aseo Habitaciones del Hotel:  */
+                 case "aseo":
+                  
+                  include "views/pages/modals/habitaciones/modals_estadoHabitacion.php";
+                  echo '<script src="views/resources/js/aseo.js"></script>';
+
+                 break;
                  
  
                } /**Switch de modales */

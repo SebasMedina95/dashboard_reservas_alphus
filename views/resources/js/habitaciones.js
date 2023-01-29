@@ -54,9 +54,9 @@ ClassicEditor.create(document.querySelector('#descripcionHabitacion'), {
  
  })
 
-/***************************************************************************************
-************ CONFIGURACIONES PARA EL DATA TABLE DE CATEGORÍAS DE HABITACIÓN ************
-****************************************************************************************/
+/*************************************************************************************
+************ CONFIGURACIONES PARA EL DATA TABLE DE HABITACIONES DEL HOTEL ************
+**************************************************************************************/
 document.addEventListener('DOMContentLoaded' , (e) => {
     let tabla = new DataTable('#tablaHabitaciones' , {
         "ajax":"jobs/json/tablaHabitaciones.ajax.php",
