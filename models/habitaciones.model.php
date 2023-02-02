@@ -120,4 +120,40 @@ class ModeloHabitaciones{
 
 	}
 
+	/**********************************************************************************
+	******* MOSTRAR MANTENIMIENTOS/ASEOS CATEGORIAS-HABITACIONES CON INNER JOIN *******
+	***********************************************************************************/
+	/**
+	 * $tabla1 = categorias 
+	 * $tabla2 = habitaciones
+	 * $tabla3 = administradores
+	 * $tabla4 = mantenimientos
+	 */
+
+	static public function mdlMostrarMantenimientos($tabla1, $tabla2, $tabla3, $tabla4, $valor){
+
+		if($valor != null){
+
+			$stmt = Conexion::conectar()->prepare("SELECT $tabla1.*, $tabla2.*, $tabla3.*, $tabla4.* FROM $tabla1 INNER JOIN $tabla2 ON $tabla1.id = $tabla2.tipo_h INNER JOIN $tabla4 ON $tabla4.id_habitacion = $tabla2.id_h INNER JOIN $tabla3 ON $tabla3.id = $tabla4.id_encargado  WHERE $tabla4.id_mant = :id");
+
+			$stmt -> bindParam(":id", $valor, PDO::PARAM_STR);
+
+			$stmt -> execute();
+
+			return $stmt -> fetch();
+
+		}else{
+
+			$stmt = Conexion::conectar()->prepare("SELECT $tabla1.*, $tabla2.*, $tabla3.*, $tabla4.* FROM $tabla1 INNER JOIN $tabla2 ON $tabla1.id = $tabla2.tipo_h INNER JOIN $tabla4 ON $tabla4.id_habitacion = $tabla2.id_h INNER JOIN $tabla3 ON $tabla3.id = $tabla4.id_encargado ORDER BY $tabla4.id_mant DESC");
+
+			$stmt -> execute();
+
+			return $stmt -> fetchAll();
+
+		}
+
+		$stmt = null;
+
+	}
+
 }

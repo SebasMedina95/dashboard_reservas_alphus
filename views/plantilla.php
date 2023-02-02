@@ -279,10 +279,10 @@
                  break;
 
                  /**10. Aseo Habitaciones del Hotel:  */
-                 case "aseo":
+                 case "mantenimiento":
                   
                   include "views/pages/modals/habitaciones/modals_estadoHabitacion.php";
-                  echo '<script src="views/resources/js/aseo.js"></script>';
+                  echo '<script src="views/resources/js/mantenimiento.js"></script>';
 
                  break;
                  

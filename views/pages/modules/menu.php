@@ -241,7 +241,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
           <ul class="nav nav-treeview">
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
 
               <?php if(isset($_GET["pagina"]) && $_GET["pagina"] == "aseo"): ?>
 
@@ -259,7 +259,7 @@ $administrador = ControladorEmpleados::ctrMostrarEmpleados($item , $valor);
 
               </a>
 
-            </li>
+            </li> -->
 
             <li class="nav-item">
 

@@ -187,7 +187,7 @@ const actualizarEstadoFicha = (Fic , Adm , Est) => {
   	datos1.append("idEmpleadoFicha", idEmpleadoFicha);
 
     $.ajax({
-        url:"ajax/fichas.ajax.php",
+        url:"jobs/fichas.ajax.php",
         method: "POST",
         data: datos1,
         cache: false,
@@ -244,7 +244,7 @@ const actualizarEstadoFicha = (Fic , Adm , Est) => {
                     datos2.append("estadoFicha", estadoFichaDef);
 
                     $.ajax({
-                        url:"ajax/fichas.ajax.php",
+                        url:"jobs/fichas.ajax.php",
                         method: "POST",
                         data: datos2,
                         cache: false,

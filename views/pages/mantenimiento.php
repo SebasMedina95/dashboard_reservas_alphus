@@ -9,7 +9,7 @@
 
         <div class="col-sm-6">
 
-          <h1 class="m-0">Registros de Mantenimientos de Mantenimientos</h1>
+          <h1 class="m-0">Registros de Mantenimientos y Aseo</h1>
 
         </div><!-- /.col -->
 
@@ -19,7 +19,7 @@
 
             <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
 
-            <li class="breadcrumb-item active">Mantenimientos</li>
+            <li class="breadcrumb-item active">Mantenimiento y Aseo</li>
 
           </ol>
 
@@ -45,23 +45,7 @@
 
             <div class="card-header border-transparent">
 
-              <h3 class="card-title"><b>Mantenimiento</b></h3>
-
-              <div class="card-tools">
-
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-
-                  <i class="fas fa-minus"></i>
-
-                </button>
-
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-
-                  <i class="fas fa-times"></i>
-
-                </button>
-
-              </div>
+              <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#crearTurnoLimpieza"><i class="fa-solid fa-plus"></i> Agregar Registro</button> 
 
             </div>
 
@@ -69,17 +53,40 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+              <table style="width: 100%;" class="table table-bordered table-hover table-striped dt-responsive display nowrap" id="tablaMantsAseoHab">
+                
+                <thead class="estiloTablasGeneral">
 
-                Aquí se gestionará los registros de mantenimientos de las habitaciones
+                  <tr>
 
-              </p>
+                    <th style="width:5%">#</th> 
+                    <th>Acciones</th>          
+                    <th>Encargado</th>
+                    <th>Foto Encargado</th>
+                    <th>Habitación</th>
+                    <th>Foto Habitación</th>
+                    <th>Tipo</th>
+                    <th>Jornada</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Fecha Gestión</th>
+                    <th>Registro</th>
+
+                  </tr>   
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+              </table>
 
             </div>
 
             <div class="card-footer">
 
-              <p class="card-text float-right text-muted"> Informe General de Mantenimiento de Habitación del Hotel.</p>
+              <p class="card-text float-right text-muted"> Informe General de Aseo y Mantenimientos de Habitación del Hotel.</p>
 
             </div>
 

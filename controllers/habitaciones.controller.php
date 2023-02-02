@@ -306,9 +306,9 @@ class ControladorHabitaciones{
 
 	}
 
-	/*=============================================
-	Eliminar Habitación
-	=============================================*/
+	/************************************************
+	********* ELIMINACIÓN DE UNA HABITACIÓN *********
+	*************************************************/
 
 	static public function ctrEliminarHabitacion($datos){
 		
@@ -328,6 +328,22 @@ class ControladorHabitaciones{
 		$tabla = "habitaciones";
 
 		$respuesta = ModeloHabitaciones::mdlEliminarHabitacion($tabla, $datos["idHabitacionElimAction"]);
+
+		return $respuesta;
+
+	}
+
+	/***********************************************************
+	********* MOSTRAR MANTENIMIENTOS DE UNA HABITACIÓN *********
+	************************************************************/
+	static public function ctrMostrarMantenimientos($valor){
+
+		$tabla1 = "categorias";
+		$tabla2 = "habitaciones";
+		$tabla3 = "administradores";
+		$tabla4 = "mantenimientos";
+
+		$respuesta = ModeloHabitaciones::mdlMostrarMantenimientos($tabla1, $tabla2, $tabla3, $tabla4, $valor);
 
 		return $respuesta;
 
