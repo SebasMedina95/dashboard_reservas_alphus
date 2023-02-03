@@ -532,7 +532,8 @@
                         <div class="modal-footer">
 
                             <!-- <button type="button" onclick="guardarLimpiezaMant()" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Guardar Gestión</button> -->
-                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Guardar Gestión</button>
+                            <!-- recordemos que debemos aplicar submit para recibir todo el formulario con PHP, haremos las validaciones respectivas con JS. -->
+                            <button type="button" onclick="validarFormularioTurnosLimpiezaMant();" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Guardar Gestión</button>
 
                             <button type="button" onclick="cancelarGestionarLimpiezaTurno()" class="cancelarGestionarLimpiezaTurno btn btn-secondary" data-dismiss="modal"><i class="fa-solid fa-xmark"></i> Cancelar</button>
 

@@ -147,9 +147,9 @@
   
               <div class="card-tools">
 
-                <button type="button" class="btn btn-success btn-sm guardarHabitacion">
+                <button type="button" class="btn btn-success btn-sm guardarHabitacion" title="Guardar Información de Habitación">
                   
-                  <i class="fas fa-save"></i> Guardar Habitación
+                  <i class="fas fa-save"></i>
                 
                 </button>
             
@@ -164,9 +164,9 @@
                     $galeria = json_decode($habitacion["galeria"], true);
 
                     /**Recordemos que el implode nos volverá a convertir el array que tenemos ahora en un String y lo separa por comas ,*/
-                    echo '<button type="button" class="btn btn-danger btn-sm eliminarHabitacion" idEliminarHab="'.$habitacion["id_h"].'" galeriaHabitacion="'.implode(",", $galeria).'" recorridoHabitacion="'.$habitacion["recorrido_virtual"].'">
+                    echo '<button type="button" class="btn btn-danger btn-sm eliminarHabitacion" idEliminarHab="'.$habitacion["id_h"].'" galeriaHabitacion="'.implode(",", $galeria).'" recorridoHabitacion="'.$habitacion["recorrido_virtual"].'" title="Eliminar la Información de Habitación">
                   
-                          <i class="fas fa-trash"></i> Eliminar Habitación
+                          <i class="fas fa-trash"></i>
 
                         </button>';
 
