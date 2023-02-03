@@ -274,13 +274,13 @@
 
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-12">
 
                       <div class="input-group mb-3">
 
                         <div class="input-group-prepend">
 
-                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-bed"></i> Descripción:</b></span>
+                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-bed"></i> Descripción Resumen:</b></span>
 
                         </div>
 
@@ -302,13 +302,13 @@
 
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-12">
 
                       <div class="input-group mb-3">
 
                         <div class="input-group-prepend">
 
-                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-check-to-slot"></i> Estado:</b></span>
+                          <span class="input-group-text" id="basic-addon3"><b class="text-muted"><i class="fa-solid fa-check-to-slot"></i> Estado de Disponibilidad:</b></span>
 
                         </div>
 
