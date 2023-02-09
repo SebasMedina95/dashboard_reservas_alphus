@@ -231,6 +231,7 @@ $(document).on('change', '#selectEncargadoAseo', function(event) {
  *********************************************************************/
 function validarFormularioTurnosLimpiezaMant(form){
 
+    console.log("Entramos al validarFormularioTurnosLimpiezaMant() con el form: " , form);
     /**Capturamos si vamos a agregar, editar, eliminar, habilitar/inhabilitar */
     let formulario = form;
 
@@ -250,5 +251,81 @@ function validarFormularioTurnosLimpiezaMant(form){
 
 
     }
+
+}
+
+function guardarMantenimientoAseo(){
+
+    validarFormularioTurnosLimpiezaMant("adicionar");
+
+    let fecha = document.querySelector("#fecha_limpieza").value;
+    let habitacion = document.querySelector("#selectHabitacAseo").value;
+    let encargado = document.querySelector("#selectEncargadoAseo").value;
+    let radios = document.querySelector("input[name=flexRadioDefault]:checked").value; /**Leemos el grupo de checks y accedemos al value que esté marcado */
+    let jornada = document.querySelector("#jornadaAseo").value;
+    let horaIni = document.querySelector("#horaIniAseo").value;
+    let horaFin = document.querySelector("#horaFinAseo").value;
+    let descripcion = document.querySelector(".ck-content").innerHTML;
+
+    console.warn("fecha" , fecha);
+    console.warn("habitacion" , habitacion);
+    console.warn("encargado" , encargado);
+    console.warn("radios" , radios);
+    console.warn("jornada" , jornada);
+    console.warn("horaIni" , horaIni);
+    console.warn("horaFin" , horaFin);
+    console.warn("descripcion" , descripcion);
+
+    /**Guardo en un formulario de datos la información que voy a enviar: */
+    var datosManteniAseoAdd = new FormData();
+    datosManteniAseoAdd.append("mantAseoFecha", fecha);
+    datosManteniAseoAdd.append("mantAseoHabitacion", habitacion);
+    datosManteniAseoAdd.append("mantAseoEncargado", encargado);
+    datosManteniAseoAdd.append("mantAseoRadios", radios);
+    datosManteniAseoAdd.append("mantAseoJornada", jornada);
+    datosManteniAseoAdd.append("mantAseoHoraIni", horaIni);
+    datosManteniAseoAdd.append("mantAseoHoraFin", horaFin);
+    datosManteniAseoAdd.append("mantAseoDescripcion", descripcion);
+
+    fetch("jobs/habitaciones.ajax.php", {
+
+        method: "post",
+        body: datosManteniAseoAdd
+
+    }).then(function(data){
+
+        return data.json();
+
+    }).then(myJson => {
+
+        console.log(myJson);
+
+        if(myJson == "ok"){
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Gestión de Mantenimientos y Aseos',
+                text: '¡Se ha registrado y/o actualizado un mantenimiento y/o aseo correctamente! ...'
+            }).then(function(result){
+
+                if(result.value || !result.value){
+
+                    window.location = "mantenimiento";
+
+                }
+
+            });
+
+        }else{
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '¡Ocurrió algún error al gestionar el mantenimiento/aseo! ...'
+            });
+
+        }
+
+    });
 
 }

@@ -349,4 +349,27 @@ class ControladorHabitaciones{
 
 	}
 
+	/*********************************************************************
+	********* REGISTRO DE UN MANTENIMIENTO/ASEO A UNA HABITACIÓN *********
+	**********************************************************************/
+	static public function ctrNuevoMantenimientoAseo($datos){
+
+		$tabla = "mantenimientos";
+
+		$datos = array("mantAseoFecha" => $datos["mantAseoFecha"],
+					   "mantAseoHabitacion" => $datos["mantAseoHabitacion"],
+					   "mantAseoEncargado" => $datos["mantAseoEncargado"],
+					   "mantAseoRadios" => $datos["mantAseoRadios"],
+					   "mantAseoJornada" => $datos["mantAseoJornada"],
+					   "mantAseoHoraIni" => $datos["mantAseoHoraIni"],
+					   "mantAseoHoraFin" => $datos["mantAseoHoraFin"],
+					   "mantAseoDescripcion" => $datos["mantAseoDescripcion"],
+					   "estado" => "0");
+
+		$respuesta = ModeloHabitaciones::mdlNuevoMantenimientoAseo($tabla, $datos);
+
+		return $respuesta; 
+
+	}
+
 }

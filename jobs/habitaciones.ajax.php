@@ -18,10 +18,18 @@ class AjaxHabitaciones{
 
     public $idHabitacionElim;
 
+	public $mantAseoFecha;
+    public $mantAseoHabitacion;
+    public $mantAseoEncargado;
+    public $mantAseoRadios;
+    public $mantAseoJornada;
+    public $mantAseoHoraIni;
+    public $mantAseoHoraFin;
+    public $mantAseoDescripcion;
+
 	/**************************************************
 	********* NUEVA HABITACIÓN PARA CATEGORÍA *********
 	***************************************************/	
-
 	public function ajaxNuevaHabitacion(){
 
 		$datos = array( "tipo_h" => $this->tipo_h,
@@ -33,6 +41,26 @@ class AjaxHabitaciones{
 						"descripcion" => $this->descripcion);
 
 		$respuesta = ControladorHabitaciones::ctrNuevaHabitacion($datos);
+
+		echo json_encode($respuesta);
+
+	}
+
+	/******************************************************
+	********* NUEVO MANTENIMIENTO PARA HABITACIÓN *********
+	*******************************************************/
+	public function ajaxNuevoMantenimientoAseoHabitacion(){
+
+		$datos = array( "mantAseoFecha" => $this->mantAseoFecha,
+						"mantAseoHabitacion" => $this->mantAseoHabitacion,
+						"mantAseoEncargado" => $this->mantAseoEncargado,
+						"mantAseoRadios" => $this->mantAseoRadios,
+						"mantAseoJornada" => $this->mantAseoJornada,
+						"mantAseoHoraIni" => $this->mantAseoHoraIni,
+						"mantAseoHoraFin" => $this->mantAseoHoraFin,
+						"mantAseoDescripcion" => $this->mantAseoDescripcion);
+
+		$respuesta = ControladorHabitaciones::ctrNuevoMantenimientoAseo($datos);
 
 		echo json_encode($respuesta);
 
@@ -98,7 +126,6 @@ class AjaxHabitaciones{
 /*****************************************************************
 ********** GUARDAR NUEVA HABITACIÓN O EDITAR - EJECUTAR **********
 ******************************************************************/	
-
 if(isset($_POST["tipo"])){
 
 	$habitacion = new AjaxHabitaciones();
@@ -140,7 +167,6 @@ if(isset($_GET["idHabitacionElim"])){
 /***********************************************
 ********* ELIMINACIÓN DE LA HABITACIÓN *********
 ************************************************/
-
 if(isset($_POST["idHabitacionElimAction"])){
 
 	$eliminar = new AjaxHabitaciones();
@@ -149,4 +175,33 @@ if(isset($_POST["idHabitacionElimAction"])){
     $eliminar -> recorritoVirHabitacionElimAction = $_POST["recorritoVirHabitacionElimAction"];
     $eliminar -> ajaxEliminarHabitacion();
 	
+}
+
+/********************************************************************
+********** GUARDAR NUEVO MANTENIMIENTO O EDITAR - EJECUTAR **********
+*********************************************************************/	
+if(isset($_POST["mantAseoFecha"])){
+
+	$habitacionMantAseo = new AjaxHabitaciones();
+	$habitacionMantAseo -> mantAseoFecha = $_POST["mantAseoFecha"];
+	$habitacionMantAseo -> mantAseoHabitacion = $_POST["mantAseoHabitacion"];
+    $habitacionMantAseo -> mantAseoEncargado = $_POST["mantAseoEncargado"];
+    $habitacionMantAseo -> mantAseoRadios = $_POST["mantAseoRadios"];
+    $habitacionMantAseo -> mantAseoJornada = $_POST["mantAseoJornada"];
+    $habitacionMantAseo -> mantAseoHoraIni = $_POST["mantAseoHoraIni"];
+    $habitacionMantAseo -> mantAseoHoraFin = $_POST["mantAseoHoraFin"];
+    $habitacionMantAseo -> mantAseoDescripcion = $_POST["mantAseoDescripcion"];
+
+	/**Si viene algo en idHabitacion quiere decir que vamos a editar! */
+    // if($_POST["id_mant"] != ""){
+
+    	// $habitacion -> id_mant = $_POST["id_mant"];
+    	// $habitacion -> ajaxEditarHabitacion();
+
+    // }else{
+
+    	$habitacionMantAseo -> ajaxNuevoMantenimientoAseoHabitacion();
+
+    // }
+  
 }

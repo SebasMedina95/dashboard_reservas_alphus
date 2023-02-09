@@ -37,7 +37,6 @@ class ModeloHabitaciones{
 	/****************************************************
 	******* REGISTRAR NUEVA HABITACIÓN AL SISTEMA *******
 	*****************************************************/
-
 	static public function mdlNuevaHabitacion($tabla, $datos){
 
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(tipo_h, estilo, galeria, video, recorrido_virtual, descripcion_h, estado) VALUES (:tipo_h, :estilo, :galeria, :video, :recorrido_virtual, :descripcion_h, :estado)");
@@ -150,6 +149,38 @@ class ModeloHabitaciones{
 
 			return $stmt -> fetchAll();
 
+		}
+
+		$stmt = null;
+
+	}
+
+	/************************************************************************
+	******* REGISTRAR UN NUEVO MANTENIMIENTO DE HABITACIÓN AL SISTEMA *******
+	*************************************************************************/
+	static public function mdlNuevoMantenimientoAseo($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(id_encargado, id_habitacion, tipo_gestion, jornada, hora_inicio, hora_fin, fecha_gestion, descripcion, estado) VALUES (:id_encargado, :id_habitacion, :tipo_gestion, :jornada, :hora_inicio, :hora_fin, :fecha_gestion, :descripcion, :estado)");
+
+		$stmt->bindParam(":id_encargado", $datos["mantAseoEncargado"], PDO::PARAM_STR);
+		$stmt->bindParam(":id_habitacion", $datos["mantAseoHabitacion"], PDO::PARAM_STR);
+		$stmt->bindParam(":tipo_gestion", $datos["mantAseoRadios"], PDO::PARAM_STR);
+		$stmt->bindParam(":jornada", $datos["mantAseoJornada"], PDO::PARAM_STR);
+		$stmt->bindParam(":hora_inicio", $datos["mantAseoHoraIni"], PDO::PARAM_STR);
+		$stmt->bindParam(":hora_fin", $datos["mantAseoHoraFin"], PDO::PARAM_STR);
+		$stmt->bindParam(":fecha_gestion", $datos["mantAseoFecha"], PDO::PARAM_STR);
+		$stmt->bindParam(":descripcion", $datos["mantAseoDescripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			echo "\nPDO::errorInfo():\n";
+    		print_r(Conexion::conectar()->errorInfo());
+		
 		}
 
 		$stmt = null;
