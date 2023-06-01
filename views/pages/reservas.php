@@ -32,6 +32,15 @@
   </div>
   <!-- /.content-header -->
 
+  <!--===============================================
+  ****** Aquí pondrémos el gráfico de reservas ******
+  ================================================-->
+  <?php 
+
+    include "modules/ventas.php";
+    
+  ?>
+
   <!-- Main content -->
   <div class="content">
 
@@ -43,7 +52,7 @@
 
           <div class="card card-primary card-outline">
 
-            <div class="card-header border-transparent">
+            <!-- <div class="card-header border-transparent">
 
               <h3 class="card-title"><b>Reservaciones</b></h3>
 
@@ -61,7 +70,7 @@
 
                 </button>
 
-              </div>
+              </div> -->
 
             </div>
 
@@ -69,11 +78,33 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+              <table style="width: 100%;" class="table table-bordered table-hover table-striped dt-responsive display nowrap" id="tablaReservas">
+                  
+                  <thead class="estiloTablasGeneral">
 
-                Aquí se gestionará las Reservaciones del Hotel, gestionando las elaboradas desde el sitio.
+                    <tr>
 
-              </p>
+                      <th>#</th> 
+                      <th>Acciones</th>          
+                      <th>Código</th>
+                      <th>Usuario</th>
+                      <th>Pago</th>
+                      <th>Pasarela</th>
+                      <th>Ingreso</th> 
+                      <th>Salida</th>           
+                      <th>Reservación</th>           
+                      <th>Transacción</th> 
+                      <th>Descripción</th>
+
+                    </tr>   
+
+                  </thead>
+
+                  <tbody>
+
+                  </tbody>
+
+              </table>
 
             </div>
 

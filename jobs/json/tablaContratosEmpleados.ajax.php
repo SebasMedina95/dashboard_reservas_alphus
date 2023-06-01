@@ -37,9 +37,9 @@ class TablaContratosEmpleados{
 
             /************************************* EMPLEADOS VAL *************************************/
 			$respuestaAdmins = ModeloEmpleados::mdlMostrarEmpleados("administradores" , "id" , $value["id_admin"]);
-			$docuEmpleado = $respuestaAdmins["documento"];
-			$nomEmpleado = $respuestaAdmins["primer_nombre"] ." ". $respuestaAdmins["segundo_nombre"] ." ". $respuestaAdmins["primer_apellido"] ." ". $respuestaAdmins["segundo_apellido"];
-			$fotografia = $respuestaAdmins["foto"];
+			$docuEmpleado = $respuestaAdmins["documento"] ?? '';
+			$nomEmpleado = ($respuestaAdmins["primer_nombre"] ?? '') ." ". ($respuestaAdmins["segundo_nombre"] ?? '') ." ". ($respuestaAdmins["primer_apellido"] ?? '') ." ". ($respuestaAdmins["segundo_apellido"] ?? '');
+			$fotografia = $respuestaAdmins["foto"] ?? '';
 
             /************************************* CARGO EMPLEADO VAL *************************************/
 			$respuestaCargos = ModeloCargos::mdlMostrarCargos("cargos_empleado" , "id" , $value["id_cargo"]);

@@ -13,6 +13,12 @@
     return;
   }
 
+  if(isset($_SESSION["idEmpleadoLogeado"])){
+
+    $admin = ControladorEmpleados::ctrMostrarEmpleados("id", $_SESSION["idEmpleadoLogeado"]);
+  
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -77,6 +83,9 @@
     <!-- iChek de Bootstrap -->
     <link rel="stylesheet" href="views/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
+    <!-- Morris chart -->
+  	<link rel="stylesheet" href="views/resources/plugins/morris/morris.css">
+
 
     <!-- *************************************************** -->
     <!-- ARCHIVOS DE JS REQUERIDOS PARA LA PLANILLA -->
@@ -132,6 +141,11 @@
     <!-- CKEDITOR -->
     <!-- https://ckeditor.com/ckeditor-5/#classic -->
     <script src="views/resources/plugins/ckeditor/ckeditor.js"></script>
+
+    <!-- Morris.js charts -->
+    <!-- https://morrisjs.github.io/morris.js/ -->
+    <script src="views/resources/plugins/morris/raphael-min.js"></script>
+    <script src="views/resources/plugins/morris/morris.min.js"></script>
 
 </head>
 
@@ -283,6 +297,14 @@
                   
                   include "views/pages/modals/habitaciones/modals_estadoHabitacion.php";
                   echo '<script src="views/resources/js/mantenimiento.js"></script>';
+
+                 break;
+
+                 /**11. Reservas:  */
+                 case "reservas":
+                  
+                  //include "views/pages/modals/habitaciones/modals_estadoHabitacion.php";
+                  echo '<script src="views/resources/js/reservas.js"></script>';
 
                  break;
                  

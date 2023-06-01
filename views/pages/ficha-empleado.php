@@ -260,7 +260,7 @@ $fechaNacimiento = date("d-M-Y" , strtotime($respuestaAdmins["fecha_nacimiento"]
 
               </li>
 
-              <li class="nav-item" title="Perfil">
+              <!-- <li class="nav-item" title="Perfil">
 
                 <a href="#" class="nav-link">
 
@@ -298,9 +298,9 @@ $fechaNacimiento = date("d-M-Y" , strtotime($respuestaAdmins["fecha_nacimiento"]
 
                 </a>
 
-              </li>
+              </li> -->
 
-              <li class="nav-item" title="Estado Civíl">
+              <!-- <li class="nav-item" title="Estado Civíl">
 
                 <a href="#" class="nav-link">
 
@@ -308,7 +308,7 @@ $fechaNacimiento = date("d-M-Y" , strtotime($respuestaAdmins["fecha_nacimiento"]
 
                 </a>
 
-              </li>
+              </li> -->
 
               <li class="nav-item" title="Tipo de Régimen">
 
@@ -330,7 +330,7 @@ $fechaNacimiento = date("d-M-Y" , strtotime($respuestaAdmins["fecha_nacimiento"]
 
               </li>
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
 
                 <a href="#" class="nav-link" title="Usuario Hotel">
 
@@ -338,7 +338,7 @@ $fechaNacimiento = date("d-M-Y" , strtotime($respuestaAdmins["fecha_nacimiento"]
 
                 </a>
 
-              </li>
+              </li> -->
 
               <li class="nav-item">
                 <!-- Enviamos de parámetro al JS la variable de sesión que creamos para la ficha
