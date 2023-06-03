@@ -64,6 +64,9 @@
     <!-- jQuery Pano -->
     <link rel="stylesheet" href="views/resources/plugins/jquery-pano/jquery.pano.css">
 
+    <!-- bootstrap datepicker -->
+	  <link rel="stylesheet" href="views/resources/plugins/datepicker/bootstrap-datepicker.standalone.min.css">
+
     <!-- Select2 -->
     <link rel="stylesheet" href="views/resources/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="views/resources/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -83,6 +86,9 @@
     <!-- iChek de Bootstrap -->
     <link rel="stylesheet" href="views/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 
+    <!-- fullCalendar -->
+	  <link rel="stylesheet" href="views/resources/plugins/calendar/fullcalendar.min.css">
+
     <!-- Morris chart -->
   	<link rel="stylesheet" href="views/resources/plugins/morris/morris.css">
 
@@ -99,6 +105,10 @@
 
     <!-- jQuery Pano -->
     <script src="views/resources/plugins/jquery-pano/jquery.pano.js"></script>
+
+    <!-- bootstrap datepicker -->
+    <!-- https://bootstrap-datepicker.readthedocs.io/en/latest/ -->
+    <script src="views/resources/plugins/datepicker/bootstrap-datepicker.min.js"></script>
     
     <!-- jQuery Validation -->
     <script src="views/resources/plugins/jquery-validation/jquery.validate.min.js"></script>
@@ -142,10 +152,25 @@
     <!-- https://ckeditor.com/ckeditor-5/#classic -->
     <script src="views/resources/plugins/ckeditor/ckeditor.js"></script>
 
+    <!-- fullCalendar -->
+    <!-- https://momentjs.com/ -->
+    <script src="views/resources/plugins/calendar/moment.js"></script>
+    <!-- https://fullcalendar.io/docs/background-events-demo -->	
+    <script src="views/resources/plugins/calendar/fullcalendar.min.js"></script>
+
     <!-- Morris.js charts -->
     <!-- https://morrisjs.github.io/morris.js/ -->
     <script src="views/resources/plugins/morris/raphael-min.js"></script>
     <script src="views/resources/plugins/morris/morris.min.js"></script>
+
+    <!-- Para no marcar la fecha actual en el calendario de reservas -->
+    <style>
+		
+      .fc-today{
+        background:rgba(255,255,255,0) !important;
+      }
+
+    </style>
 
 </head>
 
@@ -303,8 +328,30 @@
                  /**11. Reservas:  */
                  case "reservas":
                   
-                  //include "views/pages/modals/habitaciones/modals_estadoHabitacion.php";
+                  include "views/pages/modals/reservas/modals_reservas.php";
                   echo '<script src="views/resources/js/reservas.js"></script>';
+
+                 break;
+
+                 /**12. Testimonios:  */
+                 case "testimonios":
+                  
+                  echo '<script src="views/resources/js/testimonios.js"></script>';
+
+                 break;
+
+                 /**13. Usuarios:  */
+                 case "usuarios":
+                  
+                  echo '<script src="views/resources/js/usuarios.js"></script>';
+
+                 break;
+
+                 /**14. Atracciones/Recorridos:  */
+                 case "atracciones":
+                  
+                  include "views/pages/modals/atracciones/modals_atracciones.php";
+                  echo '<script src="views/resources/js/atracciones.js"></script>';
 
                  break;
                  

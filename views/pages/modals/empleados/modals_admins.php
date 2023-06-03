@@ -26,7 +26,7 @@
 <!-- ************************************************ -->
 <!-- **** CREACIÓN DE UN ADMINISTRADOR DEL HOTEL **** -->
 <!-- ************************************************ -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminsModalLabel" aria-hidden="true" id="crearAdministrador">
+<div class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="adminsModalLabel" aria-hidden="true" id="crearAdministrador">
 
     <div class="modal-dialog modal-lg" role="document">
 
@@ -575,7 +575,7 @@
 <!-- ************************************************ -->
 <!-- ***** EDICIÓN DE UN ADMINISTRADOR DEL HOTEL **** -->
 <!-- ************************************************ -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="adminsModalLabel" aria-hidden="true" id="editarAdministrador">
+<div class="modal fade" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="adminsModalLabel" aria-hidden="true" id="editarAdministrador">
 
     <div class="modal-dialog modal-lg" role="document">
 

@@ -69,11 +69,30 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+              <table class="table table-bordered table-hover table-striped dt-responsive" id="tablaUsuarios" width="100%">
+          
+                <thead>
 
-                Aquí se gestionará los usuarios registrados en el hotel.
+                  <tr>
 
-              </p>
+                    <th style="width:10px">#</th>
+                    <th>Foto</th> 
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Documento</th>
+                    <th>Celular</th>
+                    <th>Reservas</th> 
+                    <th>Testimonios</th>     
+
+                  </tr>   
+
+                </thead>
+
+                <tbody>
+
+                </tbody>
+
+              </table>
 
             </div>
 

@@ -117,7 +117,7 @@ document.querySelector("#fotoUsuario").addEventListener('change' , (e) => {
     let tamaImg = imagen["size"];
     let tipoImg = imagen["type"];
     let nameImg = imagen["name"];
-    let rutaImgDefault = "../../views/img/admins/default/default.png";
+    let rutaImgDefault = "views/img/admins/default/default.png";
 
     console.log("imagen" , imagen);
     console.log("tamaImg" , tamaImg);
@@ -182,7 +182,7 @@ document.querySelector("#editarFotoUsuario").addEventListener('change' , (e) =>{
     let tamaImg = imagen["size"];
     let tipoImg = imagen["type"];
     let nameImg = imagen["name"];
-    let rutaImgDefault = "../../views/img/admins/default/default.png";
+    let rutaImgDefault = "views/img/admins/default/default.png";
 
     console.log("imagen: " , imagen);
     console.log("tamaImg: " , tamaImg);
@@ -460,7 +460,6 @@ const cancelarImgAdminsEdit = (e) => {
 
 /*************************************************************
 ************* VALIDAR FORMULARIO REGISTRO VÍA JS *************
-******** TODO ESTO SERÁ USANDO JQUERY, SIMILAR EN JS *********
 ******** Validaremos tanto el agregar como el editar *********
 **************************************************************/
 /**https://elcodigoascii.com.ar/ */
@@ -798,7 +797,15 @@ async function habilitar_inhabilitar(idAdmin , estadoAdmin){
                 icon: 'info',
                 title: 'Gestión de Estado',
                 text: 'El Empleado fue Desactivado ...'
-            });
+            }).then(function(result){
+
+            if(result.value || !result.value){
+
+                window.location = "empleados";
+
+            } /**Si el resultado valida ok, logramos cambiar estado y redirecciono */
+
+        }) /**Swal de que se elimino correctamente */;
 
         }else{
 
@@ -812,7 +819,15 @@ async function habilitar_inhabilitar(idAdmin , estadoAdmin){
                 icon: 'info',
                 title: 'Gestión de Estado',
                 text: 'El Empleado fue Activado ...'
-            });
+            }).then(function(result){
+
+            if(result.value || !result.value){
+
+                window.location = "empleados";
+
+            } /**Si el resultado valida ok, logramos cambiar estado y redirecciono */
+
+        }) /**Swal de que se elimino correctamente */;
 
         } /**Estado */
 

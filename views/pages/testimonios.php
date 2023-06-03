@@ -45,7 +45,7 @@
 
             <div class="card-header border-transparent">
 
-              <h3 class="card-title"><b>Testimoniales</b></h3>
+              <!-- <h3 class="card-title"><b>Testimoniales</b></h3>
 
               <div class="card-tools">
 
@@ -61,7 +61,7 @@
 
                 </button>
 
-              </div>
+              </div> -->
 
             </div>
 
@@ -69,11 +69,31 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+            <table class="table table-bordered table-hover table-striped dt-responsive" id="tablaTestimonios" width="100%">
+        
+              <thead>
 
-                Aquí se gestionará las testimoniales realizadas por experiencia
+                <tr>
 
-              </p>
+                  <th style="width:10px">#</th>
+                  <th>Reserva</th>
+                  <th>Usuario</th> 
+                  <th>Información Reserva</th>
+                  <th>Testimonio</th> 
+                  <th>Estado</th>
+                  <th>Fecha</th>     
+
+                </tr>   
+
+              </thead>
+
+              <tbody>
+
+              
+
+              </tbody>
+
+            </table>
 
             </div>
 

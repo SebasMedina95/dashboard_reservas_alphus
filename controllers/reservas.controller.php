@@ -17,5 +17,19 @@ class ControladorReservas{
 
 	}
 
+	/*=============================================
+	REALIZAMOS EL AJUSTE DE LAS FECHAS
+	=============================================*/
+
+	static public function ctrCambiarReserva($datos){
+
+		$tabla = "reservas";
+
+		$respuesta = ModeloReservas::mdlCambiarReserva($tabla, $datos);
+
+		return $respuesta;
+
+	}
+
 }
 

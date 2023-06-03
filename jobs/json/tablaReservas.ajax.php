@@ -41,7 +41,7 @@ class TablaReservas{
 
 			if($value["fecha_ingreso"] != "0000-00-00" && $value["fecha_salida"] != "0000-00-00"){
 
-				$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarReserva' data-toggle='modal' data-target='#editarReserva' idReserva='".$value["id_reserva"]."' idHabitacion='".$value["id_habitacion"]."' fechaIngreso='".$value["fecha_ingreso"]."' fechaSalida='".$value["fecha_salida"]."' descripcion='".$value["descripcion_reserva"]."' diasReserva='".$dias."'><i class='fas fa-pencil-alt text-white'></i></button><button class='btn btn-danger btn-sm eliminarReserva' idReserva='".$value["id_reserva"]."'><i class='fas fa-trash-alt'></i></button></div>";	
+				$acciones = "<div class='btn-group'><button class='btn btn-warning btn-sm editarReserva' onclick='editarReserva(".$value["id_reserva"].")' idReserva='".$value["id_reserva"]."' idHabitacion='".$value["id_habitacion"]."' nombreUsuario='".$value["nombre"]."' fechaIngreso='".$value["fecha_ingreso"]."' fechaSalida='".$value["fecha_salida"]."' descripcion='".$value["descripcion_reserva"]."' diasReserva='".$dias."' id='botonEditReservas".$value["id_reserva"]."'><i class='fas fa-pencil-alt text-white'></i></button><button class='btn btn-danger btn-sm eliminarReserva' onclick='eliminarReserva(".$value["id_reserva"].")' idReserva='".$value["id_reserva"]."'><i class='fa-solid fa-ban'></i></button></div>";	
 
 			}else{
 

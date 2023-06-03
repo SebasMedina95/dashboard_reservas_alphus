@@ -45,23 +45,7 @@
 
             <div class="card-header border-transparent">
 
-              <h3 class="card-title"><b>Analíticas del Sitio</b></h3>
-
-              <div class="card-tools">
-
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-
-                  <i class="fas fa-minus"></i>
-
-                </button>
-
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-
-                  <i class="fas fa-times"></i>
-
-                </button>
-
-              </div>
+              
 
             </div>
 
@@ -69,11 +53,90 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+              <!-- Main content -->
+              <section class="content">
 
-                Informe de analíticas a través de gráficos y detalles estadísticos.
+                <div class="container-fluid">
 
-              </p>
+                  <div class="row">
+
+                      <?php 
+
+                        include "modules/top.php";
+
+                      ?>
+
+                      <div class="col-3">
+
+                      <?php 
+
+                        include "modules/mejorHabitacion.php";
+
+                      ?>
+
+                      </div>
+
+                      <div class="col-3">
+
+                      <?php 
+
+                        include "modules/peorHabitacion.php";
+
+                      ?>
+
+                      </div>
+
+                      <div class="col-6">
+
+                        <?php 
+
+                          include "modules/ventas.php";
+
+                        ?>
+
+                      </div>
+
+                      <div class="col-6">
+
+                        <?php 
+
+                          include "modules/calendario.php";
+
+                        ?>
+                        
+                      </div>
+
+                      <div class="col-6">
+
+                        <div class="col-12">
+
+                          <?php 
+
+                            include "modules/ultimosUsuarios.php";
+
+                          ?>
+
+                        </div>
+
+                        <div class="col-12">
+
+                          <?php 
+
+                            include "modulos/ultimasReservas.php";
+
+                          ?>
+
+                        </div>
+                        
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </section>
 
             </div>
 

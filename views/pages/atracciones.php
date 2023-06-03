@@ -43,25 +43,9 @@
 
           <div class="card card-primary card-outline">
 
-            <div class="card-header border-transparent">
-
-              <h3 class="card-title"><b>Atracciones del Hotel Alphus</b></h3>
-
-              <div class="card-tools">
-
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-
-                  <i class="fas fa-minus"></i>
-
-                </button>
-
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-
-                  <i class="fas fa-times"></i>
-
-                </button>
-
-              </div>
+            <div class="card-header pl-2 pl-sm-3">
+          
+              <button class="btn btn-success" data-toggle="modal" data-target="#crearAtraccion"><i class="fa-solid fa-circle-plus"></i> Agregar Nuevo Recorrido</button>
 
             </div>
 
@@ -69,11 +53,29 @@
 
             <div class="card-body">
 
-              <p class="card-text">
+            <table class="table table-bordered table-hover table-striped dt-responsive" id="tablaAtracciones" width="100%">
+        
+              <thead>
 
-                Aquí se gestionará las atracciones que ofrece el hotel
+                <tr>
 
-              </p>
+                  <th style="width:10px">#</th> 
+                  <th>Título</th>
+                  <th>Descripción</th>
+                  <th>Estado</th>
+                  <th>Foto Grande</th>
+                  <th>Foto Pequeña</th>
+                  <th style="width:100px">Acciones</th>          
+
+                </tr>   
+
+              </thead>
+
+              <tbody>
+
+              </tbody>
+
+            </table>
 
             </div>
 
